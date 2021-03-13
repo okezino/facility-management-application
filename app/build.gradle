@@ -39,6 +39,13 @@ kotlinter {
     experimentalRules = false
     disabledRules = ["no-wildcard-imports"]
 }
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+}
 
 dependencies {
 
