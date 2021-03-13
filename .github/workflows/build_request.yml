@@ -26,7 +26,6 @@ jobs:
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.15.0
 
-
   build:
     runs-on: ubuntu-latest
     steps:
