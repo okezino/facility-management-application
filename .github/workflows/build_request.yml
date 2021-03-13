@@ -21,14 +21,14 @@ jobs:
         run: ./gradlew test
 
   ui_test_job:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.15.0
 
 
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Build project
