@@ -23,8 +23,14 @@ jobs:
   ui_test_job:
     runs-on: macos-latest
     steps:
-      - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.15.0
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
 
   build:
     runs-on: ubuntu-latest
