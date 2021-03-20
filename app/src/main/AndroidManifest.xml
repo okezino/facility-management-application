@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.decagon.facilitymanagementapp_group_one">
+    package="com.decagon.facilitymanagementapp_group_two">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FacilityManagementAppGroupOne">
-        <activity android:name=".MainActivity">
+
+        <!--Intent filter to capture System Browser or Authenticator calling back to our app after sign-in-->
+        <activity
+            android:name="com.microsoft.identity.client.BrowserTabActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="msauth"
+                    android:host="com.decagon.facilitymanagementapp_group_one"
+                    android:path="/ga0RGNYHvNM5d0SLGQfpQWAPGJ8=" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.decagon.facilitymanagementapp_group_two.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

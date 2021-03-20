@@ -1,4 +1,4 @@
-package com.decagon.facilitymanagementapp_group_one
+package com.decagon.facilitymanagementapp_group_two
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
