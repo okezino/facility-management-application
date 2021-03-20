@@ -1,4 +1,4 @@
-package com.decagon.facilitymanagementapp_group_one
+package com.decagon.facilitymanagementapp_group_two
 
 import org.junit.Assert.*
 import org.junit.Test
