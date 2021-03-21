@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="msauth"
-                    android:host="com.decagon.facilitymanagementapp_group_one"
+                    android:host="com.decagon.facilitymanagementapp_group_two"
                     android:path="/ga0RGNYHvNM5d0SLGQfpQWAPGJ8=" />
             </intent-filter>
         </activity>
