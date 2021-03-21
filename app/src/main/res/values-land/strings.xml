@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FacilityManagementApp-Group-One</string>
-    <string name="fragment_onboard_facility">FACILITY \nMANAGEMENT \nAPP</string>
+    <string name="fragment_onboard_facility">FACILITY MANAGEMENT APP</string>
     <string name="fragment_onboard_manageComplaint">Manage all your complaints in one place</string>
     <string name="fragment_onboard_getStarted">Get started</string>
     <string name="fragment_onboard_imageHolder">Onboard Image Holder</string>
@@ -22,5 +23,4 @@
     <string name="fragment_singleComplaint_acNotWorking">AC is Not Working</string>
     <string name="fragment_singleComplaint_back">Back</string>
     <string name="fragment_singleComplaint_back_contentDescription">Click to go back</string>
-
 </resources>
