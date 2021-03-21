@@ -30,6 +30,7 @@
         android:layout_marginStart="16dp"
         android:text="@string/fragment_singleComplaint_commenterName"
         android:textStyle="bold"
+        android:textColor="#231F20"
         app:layout_constraintStart_toEndOf="@+id/cardView2"
         app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
