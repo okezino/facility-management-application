@@ -23,8 +23,11 @@ class OnboardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /**
+         * Click listener for the get started button
+         */
         binding.fragmentOnboardGetStartedBtn.setOnClickListener {
-         //   findNavController().navigate(R.id.singleComplaintFragment)
+
         }
     }
 }
