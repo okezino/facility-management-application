@@ -30,7 +30,5 @@ class OnboardingFragmentTest {
         onView(withId(R.id.fragment_onboard_businessUsers_iv)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_onboard_manageComplaint_tv)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_onboard_getStarted_btn)).check(matches(isDisplayed()))
-
     }
 }
-

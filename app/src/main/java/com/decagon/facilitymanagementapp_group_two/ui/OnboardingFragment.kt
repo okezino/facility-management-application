@@ -27,7 +27,6 @@ class OnboardingFragment : Fragment() {
          * Click listener for the get started button
          */
         binding.fragmentOnboardGetStartedBtn.setOnClickListener {
-
         }
     }
 }
