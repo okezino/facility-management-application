@@ -15,12 +15,6 @@ class OnboardingFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    companion object {
-        lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
-    }
-
-    private val scopes = arrayOf("user.read")
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,15 +27,17 @@ class OnboardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        MsWebAuthentication.initialiseSingleAccount(requireContext(), R.raw.auth_config_single_account)
+        /**
+         * Initialise the Microsoft ISingleAccountPublicClientApplication
+         * interface which will be used in signing-in users
+         */
+        MsWebAuthentication.initialiseSingleAccount(requireContext())
+
         /**
          * Click listener for the get started button
          */
         binding.fragmentOnboardGetStartedBtn.setOnClickListener {
-            mSingleAccountApp.signIn(
-                requireActivity(), null, scopes,
-                MsWebAuthentication.getAuthenticationCallback(this@OnboardingFragment)
-            )
+            MsWebAuthentication.signInUser(requireActivity(), this@OnboardingFragment)
         }
     }
 
