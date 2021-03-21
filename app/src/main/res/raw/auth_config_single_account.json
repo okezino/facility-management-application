@@ -1,15 +1,15 @@
 {
-  "client_id" : "1f767376-da5d-4ce9-8e76-39c05ca07538",
+  "client_id" : "5f259f13-b642-4dcf-b7da-e61f9dcdab0e",
   "authorization_user_agent" : "DEFAULT",
-  "redirect_uri" : "msauth://com.decagon.facilitymanagementapp_group_one/ga0RGNYHvNM5d0SLGQfpQWAPGJ8%3D",
-  "broker_redirect_uri_registered" : true,
+  "redirect_uri" : "msauth://com.decagon.facilitymanagementapp_group_two/ga0RGNYHvNM5d0SLGQfpQWAPGJ8%3D",
+  "broker_redirect_uri_registered" : false,
   "account_mode" : "SINGLE",
   "authorities" : [
     {
       "type": "AAD",
       "audience": {
         "type": "AzureADMyOrg",
-        "tenant_id": "1e95fb9b-0494-4a20-9228-dbac29b8c33d"
+        "tenant_id": "364cc942-1cec-4791-b264-cde4a0a816f6"
       }
     }
   ]
