@@ -20,8 +20,10 @@ class SingleComplaintFragment : Fragment() {
      * PlaceHolder data for comment recyclerView
      */
     private val items = mutableListOf(
-        Comment("Femi"), Comment("Shade"), Comment("Tolu"),
-        Comment("Gbemi"), Comment("Sulaimon")
+        Comment(R.drawable.jack,"Jorge Watson","2 hours ago","Eum dicta fuisset phaedrum ei."),
+        Comment(R.drawable.homeland, "Kathryn Cooper","1 hour ago","An summo saepe maiestatis sit, ei saepe lobortis senserit eos."),
+        Comment(R.drawable.jack, "Tolulope Longe","3 hours ago","An summo saepe maiestatis sit, ei saepe lobortis senserit eos."),
+        Comment(R.drawable.homeland, "Gbemi Sulaimon","1 hour ago","Eum dicta fuisset phaedrum ei."),
     )
     override fun onCreateView(
         inflater: LayoutInflater,

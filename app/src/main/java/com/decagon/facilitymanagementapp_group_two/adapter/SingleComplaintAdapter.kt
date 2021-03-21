@@ -13,7 +13,10 @@ class SingleComplaintAdapter : RecyclerView.Adapter<SingleComplaintAdapter.ViewH
     inner class ViewHolder(private val binding: SingleComplaintItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Comment) {
-            binding.fragmentSingleComplaintCommenterNameTv.text = item.text
+            binding.fragmentSingleComplaintCommenterNameTv.text = item.commentName
+            binding.fragmentSingleComplaintCommentBodyTv.text = item.commentBody
+            binding.fragmentSingleComplaintCommenterImageIv.setImageResource(item.commentImage)
+            binding.fragmentSingleComplaintTimeElapsedTv.text = item.commentTime
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
