@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fragment_onboard_facilityManagementApp_tv_style">
+        <item name="android:textColor">@color/black_400</item>
+        <item name="android:textSize">@dimen/fragment_onboard_facilityManagementApp_textSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="fragment_onboard_manageComplaint_tv_style">
+        <item name="android:textColor">#BF010F07</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="fragment_singleComplaint_tv_style">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

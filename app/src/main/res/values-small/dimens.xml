@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fragment_onboard_facilityManagementApp_marginStartEnd">16dp</dimen>
+    <dimen name="fragment_onboard_facilityManagementApp_marginTop">32dp</dimen>
+    <dimen name="fragment_onboard_facilityManagementApp_textSize">36sp</dimen>
+    <dimen name="fragment_onboard_manageComplaint_marginBottom">32dp</dimen>
+    <dimen name="fragment_onboard_getStarted_btn_cornerRadius">8dp</dimen>
+
+    <dimen name="fragment_singleComplaint_complaintBody_margin">8dp</dimen>
+    <dimen name="fragment_singleComplaint_complaint_marginBottom">16dp</dimen>
+    <dimen name="fragment_singleComplaint_cardView_margin">16dp</dimen>
+    <dimen name="fragment_singleComplaint_cardView_cornerRadius">10dp</dimen>
+    <dimen name="fragment_singleComplaint_complaintImage_marginTop">24dp</dimen>
+</resources>
