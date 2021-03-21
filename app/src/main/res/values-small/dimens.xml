@@ -10,5 +10,5 @@
     <dimen name="fragment_singleComplaint_complaint_marginBottom">16dp</dimen>
     <dimen name="fragment_singleComplaint_cardView_margin">16dp</dimen>
     <dimen name="fragment_singleComplaint_cardView_cornerRadius">10dp</dimen>
-    <dimen name="fragment_singleComplaint_complaintImage_marginTop">24dp</dimen>
+    <dimen name="fragment_singleComplaint_complaintImage_marginTop">16dp</dimen>
 </resources>
