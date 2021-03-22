@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
  * Microsoft auth web view for authentication causes the test to malfunction
  */
 
-@Ignore
+@Ignore("Reasons in above comment")
 @RunWith(AndroidJUnit4::class)
 class AuthorizingUserFragmentTest {
 
