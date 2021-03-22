@@ -11,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class   OnboardingFragmentTest {
+class OnboardingFragmentTest {
 
     @Test
     fun testOnboardFragment_viewsExistsAndVisible_returnsTrue() {

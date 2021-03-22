@@ -43,6 +43,5 @@ class SuccessfulAuthFragmentTest {
 
         onView(withId(R.id.fragment_successful_auth_btn))
             .check(matches(withText(R.string.fragment_successful_auth_button)))
-
     }
 }

@@ -22,8 +22,10 @@ class AuthorizingUserFragmentTest {
     @Test
     fun testVisibilityOfAuthorizingUserFragmentViewsReturnTrue() {
 
-        launchFragmentInContainer<AuthorizingUserFragment>(null,
-            R.style.Theme_FacilityManagementAppGroupTwo)
+        launchFragmentInContainer<AuthorizingUserFragment>(
+            null,
+            R.style.Theme_FacilityManagementAppGroupTwo
+        )
 
         onView(withId(R.id.fragment_authorizing_user_progbar)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_authorizing_user_tv)).check(matches(isDisplayed()))

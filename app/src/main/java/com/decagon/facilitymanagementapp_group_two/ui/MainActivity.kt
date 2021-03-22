@@ -1,11 +1,8 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavHost
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
@@ -19,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as
-                NavHostFragment
+            NavHostFragment
         navController = navHostFragment.navController
 
         /**
@@ -27,6 +24,5 @@ class MainActivity : AppCompatActivity() {
          * interface which will be used in signing-in users
          */
         MsWebAuthentication.initialiseSingleAccount(this, navController)
-
     }
 }

@@ -5,18 +5,13 @@ import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.core.os.HandlerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragmentDirections
-import com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragment
-import com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragmentDirections
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
 import com.microsoft.graph.models.extensions.User
@@ -139,7 +134,9 @@ object MsWebAuthentication {
     }
 
     fun signInUser(activity: FragmentActivity, fragment: Fragment) {
-        mSingleAccountApp.signIn(activity, null, scopes,
-                getAuthenticationCallback(fragment))
+        mSingleAccountApp.signIn(
+            activity, null, scopes,
+            getAuthenticationCallback(fragment)
+        )
     }
 }

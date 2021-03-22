@@ -1,14 +1,12 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.decagon.facilitymanagementapp_group_two.R
+import androidx.fragment.app.Fragment
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentAuthorizingUserBinding
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
-
 
 class AuthorizingUserFragment : Fragment() {
     private var _binding: FragmentAuthorizingUserBinding? = null
@@ -16,7 +14,8 @@ class AuthorizingUserFragment : Fragment() {
         get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -35,5 +34,4 @@ class AuthorizingUserFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
