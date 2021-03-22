@@ -32,4 +32,9 @@
             app:destination="@id/successfulAuthFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/singleComplaintFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.SingleComplaintFragment"
+        android:label="fragment_single_complaint"
+        tools:layout="@layout/fragment_single_complaint" />
 </navigation>
