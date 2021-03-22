@@ -13,4 +13,11 @@
     <color name="dark_blue">#0A84FF</color>
     <color name="black_divider">#A6545458</color>
     <color name="grey_100">#F0F9F9F9</color>
+
+<!--  Colour resources for SuccessfulAuthFragment  -->
+    <color name="fragment_successful_progbar">#22A45D</color>
+    <color name="fragment_successful_auth_ll_bg">#CCF2F2F2</color>
+    <color name="fragment_successful_auth_btn">#007AFF</color>
+    <color name="fragment_successful_auth_text">#010F07</color>
+    <color name="fragment_successful_auth_v_bg">#4A3C3C43</color>
 </resources>

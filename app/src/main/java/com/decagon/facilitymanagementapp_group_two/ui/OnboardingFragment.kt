@@ -31,13 +31,13 @@ class OnboardingFragment : Fragment() {
          * Initialise the Microsoft ISingleAccountPublicClientApplication
          * interface which will be used in signing-in users
          */
-        MsWebAuthentication.initialiseSingleAccount(requireContext())
+        MsWebAuthentication.initialiseSingleAccount(this)
 
         /**
          * Click listener for the get started button
          */
         binding.fragmentOnboardGetStartedBtn.setOnClickListener {
-            MsWebAuthentication.signInUser(requireActivity(), this@OnboardingFragment)
+            MsWebAuthentication.signInUser(requireActivity(), this)
         }
     }
 

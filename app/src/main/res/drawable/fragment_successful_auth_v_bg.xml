@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <gradient
+        android:angle="225"
+        android:startColor="@color/fragment_successful_auth_v_bg"
+        android:endColor="@color/fragment_successful_auth_v_bg"/>
+</shape>

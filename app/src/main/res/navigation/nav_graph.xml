@@ -9,5 +9,17 @@
         android:id="@+id/onboardingFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragment"
         android:label="onboarding_fragment"
-        tools:layout="@layout/onboarding_fragment" />
+        tools:layout="@layout/onboarding_fragment" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_successfulAuthFragment"
+            app:destination="@id/successfulAuthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successfulAuthFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.SuccessfulAuthFragment"
+        android:label="SuccessfulAuthFragment" >
+        <argument
+            android:name="userName"
+            app:argType="string" />
+    </fragment>
 </navigation>
