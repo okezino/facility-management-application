@@ -1,14 +1,20 @@
 package com.decagon.facilitymanagementapp_group_two.ms_auth
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.core.os.HandlerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragment
 import com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragmentDirections
 import com.microsoft.graph.concurrency.ICallback
@@ -19,10 +25,10 @@ import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalException
 
 object MsWebAuthentication {
+    private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "MsWebAuthentication"
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
-    lateinit var user: String
 
     /**
      * Call method used in signing-in users through microsoft identity platform
@@ -35,6 +41,8 @@ object MsWebAuthentication {
 
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
+
+                // TODO(Implement navigate to failure fragment here)
             }
 
             override fun onCancel() {
@@ -61,10 +69,10 @@ object MsWebAuthentication {
             .buildRequest()
             .get(object : ICallback<User> {
                 override fun success(result: User) {
-                    user = result.displayName
-                    logIt(user)
-                    val action = OnboardingFragmentDirections
-                        .actionOnboardingFragmentToSuccessfulAuthFragment(user)
+                    sharedPreferences.edit().putString("UserName", result.displayName).apply()
+                    logIt(result.displayName)
+                    val action = AuthorizingUserFragmentDirections
+                        .actionAuthorizingUserFragmentToSuccessfulAuthFragment(result.displayName)
 
                     // Switch to MainThread and navigate to SuccessAuthFragment
                     Handler(Looper.getMainLooper()).post {
@@ -85,13 +93,14 @@ object MsWebAuthentication {
     /**
      *  Method to initialise mSingleAccountApp
      */
-    fun initialiseSingleAccount(fragment: Fragment) {
+    fun initialiseSingleAccount(activity: FragmentActivity, navController: NavController) {
+        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
         PublicClientApplication.createSingleAccountPublicClientApplication(
-            fragment.requireContext().applicationContext, R.raw.auth_config_single_account,
+            activity.applicationContext, R.raw.auth_config_single_account,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
                 override fun onCreated(application: ISingleAccountPublicClientApplication) {
                     mSingleAccountApp = application
-                    loadAccount(fragment)
+                    loadAccount(navController)
                 }
 
                 override fun onError(exception: MsalException?) {
@@ -104,15 +113,17 @@ object MsWebAuthentication {
     /**
      * When app comes to the foreground, load existing account to determine if user is signed in
      */
-    fun loadAccount(fragment: Fragment) {
+    fun loadAccount(navController: NavController) {
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         mSingleAccountApp.getCurrentAccountAsync(
             object : ISingleAccountPublicClientApplication.CurrentAccountCallback {
                 override fun onAccountLoaded(activeAccount: IAccount?) {
                     if (activeAccount != null) {
-                        val action = OnboardingFragmentDirections
-                            .actionOnboardingFragmentToSuccessfulAuthFragment("Waheed Afolabi")
-                        fragment.findNavController().navigate(action)
+                        navGraph.startDestination = R.id.successfulAuthFragment
+                        navController.graph = navGraph
                     } else {
+                        navGraph.startDestination = R.id.onboardingFragment
+                        navController.graph = navGraph
                     }
                 }
 

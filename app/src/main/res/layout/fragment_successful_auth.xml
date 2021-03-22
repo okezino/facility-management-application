@@ -52,6 +52,7 @@
         app:layout_constraintTop_toBottomOf="@id/fragment_successful_auth_ll" />
 
     <LinearLayout
+        android:id="@+id/fragment_successful_auth_ll2"
         android:layout_width="270dp"
         android:layout_height="44dp"
         android:background="@drawable/fragment_successful_auth_btn_bg"

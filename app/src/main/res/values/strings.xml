@@ -23,11 +23,10 @@
     <string name="fragment_singleComplaint_back">Back</string>
     <string name="fragment_singleComplaint_back_contentDescription">Click to go back</string>
 
-<!--    String resources for SuccessfulAuthFragment  -->
-    <string name="fragment_successful_auth_loading">Please wait, while you are authorized…</string>
+    <!--    String resources for SuccessfulAuthFragment and AuthorizingUserFragment -->
+    <string name="fragment_authorizing_user_loading">Please wait, while you are authorized…</string>
     <string name="fragment_successful_auth_title">Success!</string>
     <string name="fragment_successful_auth_message">You have been successfully authorized, and logged in as %1$s</string>
     <string name="fragment_successful_auth_button">Default Button</string>
-
 
 </resources>
