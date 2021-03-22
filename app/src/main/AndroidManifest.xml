@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FacilityManagementAppGroupOne">
+        android:theme="@style/Theme.FacilityManagementAppGroupTwo">
 
         <!--Intent filter to capture System Browser or Authenticator calling back to our app after sign-in-->
         <activity

@@ -10,6 +10,28 @@
         android:name="com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragment"
         android:label="onboarding_fragment"
         tools:layout="@layout/onboarding_fragment" />
+
+    <fragment
+        android:id="@+id/successfulAuthFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.SuccessfulAuthFragment"
+        android:label="SuccessfulAuthFragment"
+        tools:layout="@layout/fragment_successful_auth">
+        <argument
+            android:name="userName"
+            app:argType="string"
+            android:defaultValue="Godday Okoduwa" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authorizingUserFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragment"
+        android:label="fragment_authorizing_user"
+        tools:layout="@layout/fragment_authorizing_user" >
+        <action
+            android:id="@+id/action_authorizingUserFragment_to_successfulAuthFragment"
+            app:destination="@id/successfulAuthFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/singleComplaintFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.SingleComplaintFragment"

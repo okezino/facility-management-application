@@ -19,7 +19,7 @@ class SingleComplaintFragmentTest {
          * fragment under test to the resumed state for espresso to evaluate information about the
          * UI
          */
-        val scenario = launchFragmentInContainer<SingleComplaintFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupOne)
+        val scenario = launchFragmentInContainer<SingleComplaintFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupTwo)
 
         /**
          *  Espresso view matchers interact with elements in the view of the onboardFragment and

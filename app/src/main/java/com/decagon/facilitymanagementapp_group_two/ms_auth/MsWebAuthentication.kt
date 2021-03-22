@@ -1,9 +1,17 @@
 package com.decagon.facilitymanagementapp_group_two.ms_auth
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragmentDirections
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
 import com.microsoft.graph.models.extensions.User
@@ -12,21 +20,24 @@ import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalException
 
 object MsWebAuthentication {
+    private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "MsWebAuthentication"
-    private var user: String? = null
+    private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
+    private val scopes = arrayOf("user.read")
 
     /**
      * Call method used in signing-in users through microsoft identity platform
      */
-    fun getAuthenticationCallback(fragment: Fragment): AuthenticationCallback {
+    private fun getAuthenticationCallback(fragment: Fragment): AuthenticationCallback {
         return object : AuthenticationCallback {
             override fun onSuccess(authenticationResult: IAuthenticationResult) {
-                callGraphAPI(authenticationResult)
-                // fragment.findNavController()
+                callGraphAPI(authenticationResult, fragment)
             }
 
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
+
+                // TODO(Implement navigate to failure fragment here)
             }
 
             override fun onCancel() {
@@ -38,7 +49,7 @@ object MsWebAuthentication {
     /**
      * Method to call microsoft graph API
      */
-    fun callGraphAPI(authenticationResult: IAuthenticationResult) {
+    fun callGraphAPI(authenticationResult: IAuthenticationResult, fragment: Fragment) {
         val accessToken = authenticationResult.accessToken
         val graphClient = GraphServiceClient
             .builder()
@@ -53,8 +64,15 @@ object MsWebAuthentication {
             .buildRequest()
             .get(object : ICallback<User> {
                 override fun success(result: User) {
-                    user = result.displayName
-                    logIt(user!!)
+                    sharedPreferences.edit().putString("UserName", result.displayName).apply()
+                    logIt(result.displayName)
+                    val action = AuthorizingUserFragmentDirections
+                        .actionAuthorizingUserFragmentToSuccessfulAuthFragment(result.displayName)
+
+                    // Switch to MainThread and navigate to SuccessAuthFragment
+                    Handler(Looper.getMainLooper()).post {
+                        fragment.findNavController().navigate(action)
+                    }
                 }
 
                 override fun failure(ex: ClientException?) {
@@ -70,13 +88,14 @@ object MsWebAuthentication {
     /**
      *  Method to initialise mSingleAccountApp
      */
-    fun initialiseSingleAccount(context: Context, configFile: Int) {
+    fun initialiseSingleAccount(activity: FragmentActivity, navController: NavController) {
+        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
         PublicClientApplication.createSingleAccountPublicClientApplication(
-            context.applicationContext, configFile,
+            activity.applicationContext, R.raw.auth_config_single_account,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
                 override fun onCreated(application: ISingleAccountPublicClientApplication) {
-                    OnboardingFragment.mSingleAccountApp = application
-                    loadAccount()
+                    mSingleAccountApp = application
+                    loadAccount(navController)
                 }
 
                 override fun onError(exception: MsalException?) {
@@ -89,12 +108,17 @@ object MsWebAuthentication {
     /**
      * When app comes to the foreground, load existing account to determine if user is signed in
      */
-    fun loadAccount() {
-        OnboardingFragment.mSingleAccountApp.getCurrentAccountAsync(
+    fun loadAccount(navController: NavController) {
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        mSingleAccountApp.getCurrentAccountAsync(
             object : ISingleAccountPublicClientApplication.CurrentAccountCallback {
                 override fun onAccountLoaded(activeAccount: IAccount?) {
                     if (activeAccount != null) {
+                        navGraph.startDestination = R.id.successfulAuthFragment
+                        navController.graph = navGraph
                     } else {
+                        navGraph.startDestination = R.id.onboardingFragment
+                        navController.graph = navGraph
                     }
                 }
 
@@ -106,6 +130,13 @@ object MsWebAuthentication {
                     logIt(exception.toString())
                 }
             }
+        )
+    }
+
+    fun signInUser(activity: FragmentActivity, fragment: Fragment) {
+        mSingleAccountApp.signIn(
+            activity, null, scopes,
+            getAuthenticationCallback(fragment)
         )
     }
 }
