@@ -36,7 +36,7 @@ class SuccessfulAuthFragmentTest {
     @Test
     fun testThatTheRightContentAreDisplayedInTheViews() {
         onView(withId(R.id.fragment_successful_auth_title_tv))
-            .check(matches(withText(R.string.fragment_successful_auth_title)))
+            .check(matches(withText("Success!")))
 
         onView(withId(R.id.fragment_successful_auth_msg_tv))
             .check(matches(withText("You have been successfully authorized, and logged in as Godday Okoduwa")))

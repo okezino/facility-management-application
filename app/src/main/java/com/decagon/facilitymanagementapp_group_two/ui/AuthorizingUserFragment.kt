@@ -26,7 +26,6 @@ class AuthorizingUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        @Suppress
         MsWebAuthentication.signInUser(requireActivity(), this)
     }
 
