@@ -36,12 +36,15 @@ object MsWebAuthentication {
 
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
-
-                // TODO(Implement navigate to failure fragment here)
+                logIt("Error Occurred!")
+                val action = AuthorizingUserFragmentDirections
+                    .actionAuthorizingUserFragmentToFailedAuthenticationFragment()
+                fragment.findNavController().navigate(action)
             }
 
             override fun onCancel() {
                 logIt("User cancelled login.")
+                fragment.findNavController().navigate(R.id.onboardingFragment)
             }
         }
     }
