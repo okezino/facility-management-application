@@ -40,4 +40,10 @@
     <string name="fragment_successful_auth_message">You have been successfully\nauthorized, and logged in as\n%1$s</string>
     <string name="fragment_successful_auth_button">Default Button</string>
 
+    <!--  String resources for FailedAuthenticationFragment  -->
+    <string name="fragment_failed_authentication_title">Ooops....</string>
+    <string name="fragment_failed_authentication_try_again_btn">Try Again</string>
+    <string name="fragment_failed_authentication_back_btn">Back</string>
+    <string name="fragment_failed_authentication_text_body">Something went wrong. We\'re doing\neverything to fix it and should be up\nand running soon</string>
+
 </resources>

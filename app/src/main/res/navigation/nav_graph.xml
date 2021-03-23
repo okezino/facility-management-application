@@ -33,7 +33,14 @@
         tools:layout="@layout/fragment_authorizing_user" >
         <action
             android:id="@+id/action_authorizingUserFragment_to_successfulAuthFragment"
-            app:destination="@id/successfulAuthFragment" />
+            app:destination="@id/successfulAuthFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_authorizingUserFragment_to_failedAuthenticationFragment"
+            app:destination="@id/failedAuthenticationFragment"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -41,6 +48,8 @@
         android:name="com.decagon.facilitymanagementapp_group_two.ui.SingleComplaintFragment"
         android:label="fragment_single_complaint"
         tools:layout="@layout/fragment_single_complaint" />
+
+
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.DashboardFragment"
@@ -76,4 +85,10 @@
         android:name="com.decagon.facilitymanagementapp_group_two.ui.ApplianceFragment"
         android:label="ApplianceFragment"
         tools:layout="@layout/fragment_appliance" />
+    <fragment
+        android:id="@+id/failedAuthenticationFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.FailedAuthenticationFragment"
+        android:label="fragment_failed_authentication"
+        tools:layout="@layout/fragment_failed_authentication" />
+
 </navigation>
