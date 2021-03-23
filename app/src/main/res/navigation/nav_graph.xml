@@ -15,4 +15,19 @@
         android:name="com.decagon.facilitymanagementapp_group_two.ui.SingleComplaintFragment"
         android:label="fragment_single_complaint"
         tools:layout="@layout/fragment_single_complaint" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/feedsFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.FeedsFragment"
+        android:label="fragment_feeds"
+        tools:layout="@layout/fragment_feeds" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -22,5 +22,16 @@
     <string name="fragment_singleComplaint_acNotWorking">AC is Not Working</string>
     <string name="fragment_singleComplaint_back">Back</string>
     <string name="fragment_singleComplaint_back_contentDescription">Click to go back</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="feeds">Feeds</string>
+    <string name="profile">Profile</string>
+    <string name="ac_is_not_working">AC is not working</string>
+    <string name="complain_body">An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.</string>
+    <string name="_20_12_2019">20/12/2019</string>
+    <string name="search">Search</string>
+    <string name="no_pending_request">You do not have a \nPending request...\n Make a new request</string>
+    <string name="ronald_robertson">Ronald Robertson</string>
 
 </resources>
