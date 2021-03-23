@@ -28,7 +28,7 @@ class DashboardFragmentTest{
     @Test
     fun test_appBar_layout_visibility() {
         val scenario =
-            launchFragmentInContainer<DashboardFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupOne)
+            launchFragmentInContainer<DashboardFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupTwo)
 
         onView(withId(R.id.appBarLayout2)).check(matches(isDisplayed()))
         onView(withId(R.id.add_request)).check(matches(isDisplayed()))
@@ -40,7 +40,7 @@ class DashboardFragmentTest{
     @Test
     fun test_dashboard_recycler_view_visibility(){
         val scenario =
-            launchFragmentInContainer<DashboardFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupOne)
+            launchFragmentInContainer<DashboardFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupTwo)
 
         onView(withId(R.id.dashboard_complaint_recycler_view)).check(matches(isDisplayed()))
 

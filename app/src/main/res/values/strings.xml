@@ -34,4 +34,10 @@
     <string name="no_pending_request">You do not have a \nPending request...\n Make a new request</string>
     <string name="ronald_robertson">Ronald Robertson</string>
 
+    <!--    String resources for SuccessfulAuthFragment and AuthorizingUserFragment -->
+    <string name="fragment_authorizing_user_loading">Please wait, while you are authorized…</string>
+    <string name="fragment_successful_auth_title">Success!</string>
+    <string name="fragment_successful_auth_message">You have been successfully\nauthorized, and logged in as\n%1$s</string>
+    <string name="fragment_successful_auth_button">Default Button</string>
+
 </resources>

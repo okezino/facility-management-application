@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.data.Complain
 import com.decagon.facilitymanagementapp_group_two.databinding.DashboardRecyclerViewLayoutBinding
 
-class DashboardComplaintAdapter : RecyclerView.Adapter<DashboardComplaintAdapter.ViewHolder>() {
+class DashboardComplaintAdapter( private val clickListner : ComplaintClickListener) : RecyclerView.Adapter<DashboardComplaintAdapter.ViewHolder>() {
     var firstComplain = Complain("AC is NOT working","An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.","Today")
     var secComplain = Complain("Beans tastes bad","Reprehenderit mollit excepteur labore deserunt officia laboris eiusmod cillum eu duis","Yesterday")
     var thirdComplain = Complain("Can’t wash my legs","Aliqua mollit nisi incididunt id eu consequat eu cupidatat.","20/12/2019")
@@ -16,12 +16,15 @@ class DashboardComplaintAdapter : RecyclerView.Adapter<DashboardComplaintAdapter
 
     private var listOfComplains : MutableList<Complain> = mutableListOf(firstComplain,secComplain,thirdComplain,forthComplain,fifthComplain)
 
-   class ViewHolder(private val binding: DashboardRecyclerViewLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+   inner class ViewHolder(private val binding: DashboardRecyclerViewLayoutBinding) : RecyclerView.ViewHolder(binding.root){
 
        fun bind(item : Complain){
            binding.complainTitle.text = item.complainTitle
            binding.complainDate.text = item.complainDate
            binding.complainDetails.text = item.complainBody
+           binding.complainLayout.setOnClickListener {
+               clickListner.onCompalinClicked()
+           }
        }
 
     }
