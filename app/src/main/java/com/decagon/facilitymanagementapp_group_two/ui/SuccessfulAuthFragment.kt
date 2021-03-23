@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSuccessfulAuthBinding
@@ -28,9 +29,16 @@ class SuccessfulAuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fragmentSuccessfulAuthMsgTv.text = getString(
-            R.string.fragment_successful_auth_message, userName
-        )
+        binding.apply {
+            fragmentSuccessfulAuthMsgTv.text = getString(
+                    R.string.fragment_successful_auth_message, userName
+            )
+            fragmentSuccessfulAuthBtn.setOnClickListener {
+                var action = SuccessfulAuthFragmentDirections.actionSuccessfulAuthFragmentToDashboardFragment()
+                findNavController().navigate(action)
+            }
+        }
+
     }
 
     override fun onDestroyView() {

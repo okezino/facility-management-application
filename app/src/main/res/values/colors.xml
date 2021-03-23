@@ -7,12 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#EEEDED</color>
     <color name="grey_200">#8F8D8D</color>
     <color name="black_400">#010F07</color>
     <color name="green_400">#22A45D</color>
     <color name="dark_blue">#0A84FF</color>
     <color name="black_divider">#A6545458</color>
     <color name="grey_100">#F0EAE7E7</color>
+    <color name="green">#27AE60</color>
+    <color name="grey_white">#1F767680</color>
+    <color name="dark">#010F07</color>
+    <color name="smokeWhite">#F9F9F9</color>
+
   
 <!--  Colour resources for SuccessfulAuthFragment and AuthorizingUserFragment -->
     <color name="fragment_authorizing_user_progbar">#22A45D</color>
@@ -21,8 +27,10 @@
     <color name="fragment_authorizing_user_tv_text">#010F07</color>
     <color name="fragment_successful_auth_v_bg">#4A3C3C43</color>
 
+
 <!--  Colour resources for FailedAuthenticationFragment  -->
-    <color name="green">#219653</color>
+    <color name="light_green">#219653</color>
     <color name="gray">#4F4F4F</color>
     <color name="light_gray">#D3D3D3</color>
+
 </resources>

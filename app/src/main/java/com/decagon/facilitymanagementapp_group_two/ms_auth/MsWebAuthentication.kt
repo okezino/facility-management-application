@@ -117,7 +117,7 @@ object MsWebAuthentication {
             object : ISingleAccountPublicClientApplication.CurrentAccountCallback {
                 override fun onAccountLoaded(activeAccount: IAccount?) {
                     if (activeAccount != null) {
-                        navGraph.startDestination = R.id.successfulAuthFragment
+                        navGraph.startDestination = R.id.dashboardFragment
                         navController.graph = navGraph
                     } else {
                         navGraph.startDestination = R.id.onboardingFragment
