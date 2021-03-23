@@ -30,7 +30,6 @@ class SuccessfulAuthFragmentTest {
         onView(withId(R.id.fragment_successful_auth_msg_tv)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_successful_auth_btn)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_successful_auth_btn)).check(matches(isClickable()))
-        onView(withId(R.id.fragment_successful_auth_btn)).perform(click())
     }
 
     @Test
@@ -39,7 +38,7 @@ class SuccessfulAuthFragmentTest {
             .check(matches(withText("Success!")))
 
         onView(withId(R.id.fragment_successful_auth_msg_tv))
-            .check(matches(withText("You have been successfully authorized, and logged in as Godday Okoduwa")))
+            .check(matches(withText("You have been successfully\nauthorized, and logged in as\nGodday Okoduwa")))
 
         onView(withId(R.id.fragment_successful_auth_btn))
             .check(matches(withText(R.string.fragment_successful_auth_button)))
