@@ -14,7 +14,7 @@ import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
+@Ignore
 @RunWith(AndroidJUnit4::class)
 class AuthorizingUserFragmentTest {
 
@@ -34,14 +34,12 @@ class AuthorizingUserFragmentTest {
     @Test
     fun testVisibilityOfAuthorizingUserFragmentViewsReturnTrue() {
 
-        launchFragmentInContainer<AuthorizingUserFragment>(
+       launchFragmentInContainer<AuthorizingUserFragment>(
             null,
             R.style.Theme_FacilityManagementAppGroupTwo
         )
-
         onView(withId(R.id.fragment_authorizing_user_progbar)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_authorizing_user_tv)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_authorizing_user_tv)).check(matches(withText(R.string.fragment_authorizing_user_loading)))
-
     }
 }
