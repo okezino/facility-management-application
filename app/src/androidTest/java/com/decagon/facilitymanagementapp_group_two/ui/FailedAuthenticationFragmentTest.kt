@@ -29,6 +29,7 @@ class FailedAuthenticationFragmentTest {
         onView(withId(R.id.fragment_failed_authentication_back_btn)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_failed_authentication_try_again_btn)).check(matches(isClickable()))
         onView(withId(R.id.fragment_failed_authentication_back_btn)).check(matches(isClickable()))
+        onView(withId(R.id.fragment_failed_authentication_back_navigation)).check(matches(isClickable()))
     }
 
     @Test
