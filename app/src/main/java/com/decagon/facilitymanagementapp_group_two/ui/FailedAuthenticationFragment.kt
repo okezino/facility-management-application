@@ -34,6 +34,10 @@ class FailedAuthenticationFragment : Fragment() {
         binding.fragmentFailedAuthenticationBackBtn.setOnClickListener {
             findNavController().navigate(R.id.onboardingFragment)
         }
+
+        binding.fragmentFailedAuthenticationBackNavigation.setOnClickListener {
+            findNavController().navigate(R.id.onboardingFragment)
+        }
     }
 
     override fun onDestroyView() {
