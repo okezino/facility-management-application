@@ -18,6 +18,9 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSubmitBin
 import com.google.android.material.textfield.TextInputLayout
 
 class SubmitFragment : Fragment() {
+    /**
+     * Declaration of FragmentSubmitBinding and initialization of Apartment Adapter
+     */
 
     private var _binding: FragmentSubmitBinding? = null
     private val binding
@@ -34,12 +37,20 @@ class SubmitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
+        /**
+         * binding layout initialization
+         */
         _binding = FragmentSubmitBinding.inflate(inflater, container, false)
+
+
 
         binding.btnSubmit.setOnClickListener {
             addNewRequest()
         }
+
+        /**
+         * Back button function to call the previous Viewed Fragment
+         */
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
@@ -48,24 +59,32 @@ class SubmitFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-
+        /**
+         * fonOnTextChange is use to change the TextInputlayout Error state to null when the Users begins to type
+         */
 
         binding.requestSubject.doOnTextChanged { text, start, before, count ->
-            binding.textInputLayout3.error = null
+            binding.requestSubjectLayout.error = null
         }
 
         binding.requestDescription.doOnTextChanged { text, start, before, count ->
-            binding.textInputLayout4.error = null
+            binding.requestDescriptionLayout.error = null
         }
 
         binding.selectFeedCategory.doOnTextChanged { text, start, before, count ->
-            binding.textInputLayout2.error = null
+            binding.feedCategoryLayout.error = null
         }
+
         return binding.root
     }
 
     private fun addNewRequest() {
-
+        /**
+         * Get all input from the input field
+         * Check  for empty field and trigger input layout error state if empty else
+         * create a new request object and toast it out for now
+         *
+         */
         val requestCategory = binding.selectFeedCategory.text.toString()
         val requestTitle = binding.requestSubject.text.toString()
         val requestDes = binding.requestDescription.text.toString()
@@ -75,11 +94,11 @@ class SubmitFragment : Fragment() {
             Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
 
         } else {
-            if (requestDes.isEmpty()) binding.textInputLayout4.error = "Request description needed"
+            if (requestDes.isEmpty()) binding.requestDescriptionLayout.error = "Request description needed"
 
-            if (requestTitle.isEmpty()) binding.textInputLayout3.error = "Request subject needed"
+            if (requestTitle.isEmpty()) binding.requestSubjectLayout.error = "Request subject needed"
 
-            if (requestCategory == "Select a Category...") binding.textInputLayout2.error =
+            if (requestCategory == "Select a Category...") binding.feedCategoryLayout.error =
                 "Choose a Category"
 
         }
@@ -90,6 +109,10 @@ class SubmitFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        /**
+         * Call the Dropdown array
+         * setup and implement the dropdown array Adapter
+         */
         binding.requestDescription.gravity = Gravity.TOP
         var listOfFeeds = resources.getStringArray(R.array.selection_field)
         var feedArrayAdapter =
