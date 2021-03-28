@@ -12,7 +12,7 @@ data class Request(
     val subject: String,
     val body: String,
     val date: String,
-    var requestImageUri: Uri? = null,
+    var requestImageUri: String? = null,
 ) {
     @PrimaryKey(autoGenerate = true)
     var requestId: Long = 0

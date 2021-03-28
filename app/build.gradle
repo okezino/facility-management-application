@@ -91,8 +91,11 @@ dependencies {
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.12.1"
 
     // Room Database Library
-    implementation "androidx.room:room-runtime:2.2.6"
-    kapt "androidx.room:room-compiler:2.2.6"
+    def room_version = "2.3.0-beta02"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
+//    implementation "androidx.room:room-runtime:2.2.6"
+//    kapt "androidx.room:room-compiler:2.2.6"
 }
 
