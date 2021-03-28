@@ -43,6 +43,10 @@ class DashboardFragment : Fragment(),ComplaintClickListener {
         complainRecyclerView.adapter = complainRecycler
         complainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        binding.addRequest.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
+        }
+
         return binding.root
     }
 
