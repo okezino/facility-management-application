@@ -19,8 +19,8 @@ interface RequestDao {
     @Update
     fun update(request: Request)
 
-    @Query("SELECT * from Requests WHERE requestId = :key")
-    fun get(key: Long): List<Request>?
+    @Query("SELECT * from Requests WHERE feedCategory = :feedCategory")
+    fun get(feedCategory: String): LiveData<List<Request>?>
 
     @Query("SELECT * FROM Requests ORDER BY requestId DESC LIMIT 1")
     fun getLatestRequest(): Request
