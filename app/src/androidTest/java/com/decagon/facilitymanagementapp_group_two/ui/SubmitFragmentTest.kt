@@ -47,7 +47,6 @@ class SubmitFragmentTest{
         onView(withId(R.id.btn_submit)).perform(click())
         onView(withId(R.id.request_subject)).perform(typeText("kitchen"), closeSoftKeyboard())
         onView(withId(R.id.request_description)).perform(typeText("kitchen food is too small"), closeSoftKeyboard())
-        onView(withId(R.id.btn_submit)).perform(click())
         onView(withId(R.id.feed_category_layout)).perform(click())
 
 
