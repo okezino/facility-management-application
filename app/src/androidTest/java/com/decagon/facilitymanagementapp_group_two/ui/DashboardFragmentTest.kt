@@ -7,7 +7,6 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,7 +42,7 @@ class DashboardFragmentTest {
 
     @Test
     fun test_dashboard_recycler_view_visibility() {
-
         onView(withId(R.id.dashboard_complaint_recycler_view)).check(matches(isDisplayed()))
+        onView(withId(R.id.no_complain_text)).check(matches(isDisplayed()))
     }
 }

@@ -45,5 +45,13 @@
     <string name="fragment_failed_authentication_try_again_btn">Try Again</string>
     <string name="fragment_failed_authentication_back_btn">Back</string>
     <string name="fragment_failed_authentication_text_body">Something went wrong. We\'re doing\neverything to fix it and should be up\nand running soon</string>
+    <string name="select_a_category">Select a Category...</string>
+    <!-- dropdown adapter field-->
+    <string-array name="selection_field">
+        <item>Food</item>
+        <item>Apartment</item>
+        <item>Appliances</item>
+        <item>Others</item>
+    </string-array>
 
 </resources>

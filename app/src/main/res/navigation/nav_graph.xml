@@ -54,7 +54,11 @@
         android:id="@+id/dashboardFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_submitFragment"
+            app:destination="@id/submitFragment" />
+    </fragment>
     <fragment
         android:id="@+id/feedsFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.FeedsFragment"
@@ -90,5 +94,10 @@
         android:name="com.decagon.facilitymanagementapp_group_two.ui.FailedAuthenticationFragment"
         android:label="fragment_failed_authentication"
         tools:layout="@layout/fragment_failed_authentication" />
+    <fragment
+        android:id="@+id/submitFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.SubmitFragment"
+        android:label="fragment_submit"
+        tools:layout="@layout/fragment_submit" />
 
 </navigation>
