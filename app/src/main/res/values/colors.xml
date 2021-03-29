@@ -18,6 +18,7 @@
     <color name="grey_white">#1F767680</color>
     <color name="dark">#010F07</color>
     <color name="smokeWhite">#F9F9F9</color>
+    <color name="transparent">#00FFFFFF</color>
 
   
 <!--  Colour resources for SuccessfulAuthFragment and AuthorizingUserFragment -->

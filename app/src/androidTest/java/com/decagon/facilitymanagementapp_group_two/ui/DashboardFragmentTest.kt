@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.decagon.facilitymanagementapp_group_two.R
+import org.hamcrest.CoreMatchers.not
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -42,7 +43,7 @@ class DashboardFragmentTest{
         val scenario =
             launchFragmentInContainer<DashboardFragment>(themeResId = R.style.Theme_FacilityManagementAppGroupTwo)
 
-        onView(withId(R.id.dashboard_complaint_recycler_view)).check(matches(isDisplayed()))
+        onView(withId(R.id.no_complain_text)).check(matches(isDisplayed()))
 
     }
 
