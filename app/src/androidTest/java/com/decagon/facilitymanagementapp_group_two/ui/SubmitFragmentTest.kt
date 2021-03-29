@@ -41,7 +41,7 @@ class SubmitFragmentTest{
         onView(withId(R.id.select_feed_category)).check(matches(isDisplayed()))
         onView(withId(R.id.feed_category_layout)).check(matches(isDisplayed()))
         onView(withId(R.id.back_btn)).check(matches(isDisplayed()))
-        onView(withId(R.id.btn_submit)).check(matches(isDisplayed()))
+
 
 
         onView(withId(R.id.request_subject)).perform(typeText("kitchen"), closeSoftKeyboard())
