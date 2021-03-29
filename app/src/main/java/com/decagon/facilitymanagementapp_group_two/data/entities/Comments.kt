@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.data.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
