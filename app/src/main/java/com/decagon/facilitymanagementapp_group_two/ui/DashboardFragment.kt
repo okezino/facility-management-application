@@ -11,8 +11,9 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DashboardFragment : Fragment(),ComplaintClickListener {
     /**
      * Declaration of FragmentDashboardBinding and initialization of Dashboard Adapter

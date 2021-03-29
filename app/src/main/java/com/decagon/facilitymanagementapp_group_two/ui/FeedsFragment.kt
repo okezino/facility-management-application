@@ -10,8 +10,9 @@ import com.decagon.facilitymanagementapp_group_two.adapter.FeedAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentFeedsBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
  class FeedsFragment : Fragment() {
 
      /**

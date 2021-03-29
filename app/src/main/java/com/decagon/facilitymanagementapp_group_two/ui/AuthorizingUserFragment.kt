@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentAuthorizingUserBinding
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthorizingUserFragment : Fragment() {
     private var _binding: FragmentAuthorizingUserBinding? = null
     private val binding

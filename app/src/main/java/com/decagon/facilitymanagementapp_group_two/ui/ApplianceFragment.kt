@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.facilitymanagementapp_group_two.adapter.ApplianceComplainAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentApplianceBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ApplianceFragment : Fragment() {
 
     /**

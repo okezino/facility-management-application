@@ -9,7 +9,9 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.SingleComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.data.Comment
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSingleComplaintBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SingleComplaintFragment : Fragment() {
     private lateinit var singleComplaintAdapter: SingleComplaintAdapter
     private var _binding: FragmentSingleComplaintBinding? = null
