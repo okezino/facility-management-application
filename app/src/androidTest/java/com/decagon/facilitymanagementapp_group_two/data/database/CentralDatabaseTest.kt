@@ -32,9 +32,8 @@ class CentralDatabaseTest {
     private lateinit var requestDao: RequestDao
     private lateinit var userDao: UserDao
 
-
     @Before
-    fun setup(){
+    fun setup() {
         hiltRule.inject()
         commentDao = database.commentDao
         userDao = database.userDao
@@ -61,8 +60,10 @@ class CentralDatabaseTest {
     @Test
     @Throws(java.lang.Exception::class)
     fun insertAndGetRequest() {
-        val request = Request(1, "Food", "Akpabio", "Oily and Tasteless meal",
-            "The food was oily and tasteless", "27:03:2021", null)
+        val request = Request(
+            1, "Food", "Akpabio", "Oily and Tasteless meal",
+            "The food was oily and tasteless", "27:03:2021", null
+        )
         requestDao.insert(request)
         val request2 = requestDao.getLatestRequest()
         assertEquals(request2.feedCategory, "Food")
@@ -71,9 +72,11 @@ class CentralDatabaseTest {
     @Test
     @Throws(java.lang.Exception::class)
     fun insertAndGetUser() {
-        val user = User("Olayinka", "olayinka@gattegs.jpg", "luvme.luvme@gmail.com",
-            "07017278917", "Students", "Java", "casamento#1..090")
-       userDao.insert(user)
+        val user = User(
+            "Olayinka", "olayinka@gattegs.jpg", "luvme.luvme@gmail.com",
+            "07017278917", "Students", "Java", "casamento#1..090"
+        )
+        userDao.insert(user)
         val user2 = userDao.getLatestUser()
         assertEquals(user2.role, "Students")
     }

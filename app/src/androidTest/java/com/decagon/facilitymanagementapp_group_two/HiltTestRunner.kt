@@ -2,7 +2,6 @@ package com.decagon.facilitymanagementapp_group_two
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
-import com.decagon.facilitymanagementapp_group_two.data.database.CentralDatabase
 import dagger.hilt.android.testing.HiltTestApplication
 
 /**
@@ -17,6 +16,5 @@ class HiltTestRunner : AndroidJUnitRunner() {
         context: Context?
     ): Application {
         return super.newApplication(cl, HiltTestApplication::class.java.name, context)
-
     }
 }

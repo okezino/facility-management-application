@@ -1,8 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.data.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.decagon.facilitymanagementapp_group_two.data.entities.Comments
 import com.decagon.facilitymanagementapp_group_two.data.entities.Request
@@ -19,5 +17,4 @@ abstract class CentralDatabase : RoomDatabase() {
     abstract val commentDao: CommentsDao
     abstract val requestDao: RequestDao
     abstract val userDao: UserDao
-
 }

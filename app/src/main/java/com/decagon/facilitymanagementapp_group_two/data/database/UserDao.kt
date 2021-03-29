@@ -2,7 +2,6 @@ package com.decagon.facilitymanagementapp_group_two.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.decagon.facilitymanagementapp_group_two.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.data.entities.User
 
 /**

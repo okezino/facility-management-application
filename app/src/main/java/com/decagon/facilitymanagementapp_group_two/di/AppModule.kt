@@ -33,25 +33,27 @@ object AppModule {
     @Provides
     fun provideFacilityManagementDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context,
-        CentralDatabase::class.java, DATABASE_NAME).build()
+    ) = Room.databaseBuilder(
+        context,
+        CentralDatabase::class.java, DATABASE_NAME
+    ).build()
 
     @Singleton
     @Provides
-    fun provideFacilityManagementCommentDao(cd : CentralDatabase) = cd.commentDao
+    fun provideFacilityManagementCommentDao(cd: CentralDatabase) = cd.commentDao
 
     @Singleton
     @Provides
-    fun provideFacilityManagementRequestDao(cd : CentralDatabase) = cd.requestDao
+    fun provideFacilityManagementRequestDao(cd: CentralDatabase) = cd.requestDao
 
     @Singleton
     @Provides
-    fun provideFacilityManagementUserDao(cd : CentralDatabase) = cd.userDao
+    fun provideFacilityManagementUserDao(cd: CentralDatabase) = cd.userDao
 
     // Provides dependency for the retrofit
     @Singleton
     @Provides
-    fun provideApiServiceEndPoint() : ApiService{
+    fun provideApiServiceEndPoint(): ApiService {
         val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         // Creates an implementation of the ApiService

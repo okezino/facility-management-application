@@ -12,7 +12,7 @@ interface ApiService {
      * Get all comments from Api
      */
     @GET("comments")
-    suspend fun getAllComment() : List<Comment>
+    suspend fun getAllComment(): List<Comment>
 
     /**
      * @param id
@@ -21,16 +21,13 @@ interface ApiService {
 
     @GET("user/{id}")
     suspend fun getUser(
-        @Path("id") id : Int
-    ) : User
+        @Path("id") id: Int
+    ): User
 
     /**
      * Get all request from Api
      */
 
     @GET("request")
-    suspend fun getAllRequest() : List<Request>
-
-
-
+    suspend fun getAllRequest(): List<Request>
 }
