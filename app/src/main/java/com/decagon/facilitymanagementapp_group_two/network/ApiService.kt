@@ -6,7 +6,7 @@ import com.decagon.facilitymanagementapp_group_two.data.entities.User
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface Apiservice {
+interface ApiService {
 
     /**
      * Get all comments from Api
