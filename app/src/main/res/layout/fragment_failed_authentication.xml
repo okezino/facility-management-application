@@ -9,15 +9,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.FailedAuthenticationFragment"
-    android:id="@+id/fragment_failed_authentication_cl">
+    tools:context=".ui.FailedAuthenticationFragment">
+
+    <ImageView
+        android:id="@+id/fragment_failed_authentication_back_navigation"
+        android:layout_width="45dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/fragment_failed_authentication_iv"
         android:layout_width="199dp"
         android:layout_height="172dp"
         android:layout_gravity="center"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="132dp"
         android:src="@drawable/failurescreenlogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

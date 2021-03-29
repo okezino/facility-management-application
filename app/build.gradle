@@ -97,5 +97,14 @@ dependencies {
     // Activity KTX for viewModels
     implementation "androidx.activity:activity-ktx:1.2.2"
 
+    // Room Database Library
+    def room_version = "2.3.0-rc01"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // -- Retrofit2
+    def retrofit2_version = "2.6.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 }
 
