@@ -34,7 +34,7 @@ class AuthorizingUserFragmentTest {
     @Test
     fun testVisibilityOfAuthorizingUserFragmentViewsReturnTrue() {
 
-       launchFragmentInContainer<AuthorizingUserFragment>(
+        launchFragmentInContainer<AuthorizingUserFragment>(
             null,
             R.style.Theme_FacilityManagementAppGroupTwo
         )

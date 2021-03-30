@@ -1,39 +1,43 @@
 package com.decagon.facilitymanagementapp_group_two.data.database
 
-import androidx.room.Room
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.decagon.facilitymanagementapp_group_two.data.entities.Comments
 import com.decagon.facilitymanagementapp_group_two.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.data.entities.User
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Named
 
-@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class CentralDatabaseTest {
 
+    @get: Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    // Executes each task synchronously
+    @get: Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @Inject
+    @Named("test-db")
+    lateinit var database: CentralDatabase
     private lateinit var commentDao: CommentsDao
     private lateinit var requestDao: RequestDao
     private lateinit var userDao: UserDao
-    private lateinit var database: CentralDatabase
 
     @Before
-    fun createDatabase() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        // Using an in-memory database because the information stored here disappears when the
-        // process is killed.
-
-        database = Room.inMemoryDatabaseBuilder(context, CentralDatabase::class.java)
-            // Allowing main thread queries, just for testing.
-            .allowMainThreadQueries()
-            .build()
+    fun setup() {
+        hiltRule.inject()
         commentDao = database.commentDao
-        requestDao = database.requestDao
         userDao = database.userDao
+        requestDao = database.requestDao
     }
 
     @After
@@ -56,8 +60,10 @@ class CentralDatabaseTest {
     @Test
     @Throws(java.lang.Exception::class)
     fun insertAndGetRequest() {
-        val request = Request(1, "Food", "Akpabio", "Oily and Tasteless meal",
-            "The food was oily and tasteless", "27:03:2021", null)
+        val request = Request(
+            1, "Food", "Akpabio", "Oily and Tasteless meal",
+            "The food was oily and tasteless", "27:03:2021", null
+        )
         requestDao.insert(request)
         val request2 = requestDao.getLatestRequest()
         assertEquals(request2.feedCategory, "Food")
@@ -66,9 +72,11 @@ class CentralDatabaseTest {
     @Test
     @Throws(java.lang.Exception::class)
     fun insertAndGetUser() {
-        val user = User("Olayinka", "olayinka@gattegs.jpg", "luvme.luvme@gmail.com",
-            "07017278917", "Students", "Java", "casamento#1..090")
-       userDao.insert(user)
+        val user = User(
+            "Olayinka", "olayinka@gattegs.jpg", "luvme.luvme@gmail.com",
+            "07017278917", "Students", "Java", "casamento#1..090"
+        )
+        userDao.insert(user)
         val user2 = userDao.getLatestUser()
         assertEquals(user2.role, "Students")
     }

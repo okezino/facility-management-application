@@ -2,20 +2,17 @@ package com.decagon.facilitymanagementapp_group_two.ui
 
 import android.os.Bundle
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSubmitBinding
-import com.google.android.material.textfield.TextInputLayout
 
 class SubmitFragment : Fragment() {
     /**
@@ -26,14 +23,13 @@ class SubmitFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
@@ -41,8 +37,6 @@ class SubmitFragment : Fragment() {
          * binding layout initialization
          */
         _binding = FragmentSubmitBinding.inflate(inflater, container, false)
-
-
 
         binding.btnSubmit.setOnClickListener {
             addNewRequest()
@@ -92,7 +86,6 @@ class SubmitFragment : Fragment() {
         if (requestDes.isNotEmpty() && requestTitle.isNotEmpty() && requestCategory != "Select a Category...") {
             val user = Request(1, requestCategory, "Simon", requestTitle, requestDes, "today", null)
             Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
-
         } else {
             if (requestDes.isEmpty()) binding.requestDescriptionLayout.error = "Request description needed"
 
@@ -100,10 +93,7 @@ class SubmitFragment : Fragment() {
 
             if (requestCategory == "Select a Category...") binding.feedCategoryLayout.error =
                 "Choose a Category"
-
         }
-
-
     }
 
     override fun onResume() {
@@ -124,6 +114,4 @@ class SubmitFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

@@ -6,13 +6,13 @@ import com.decagon.facilitymanagementapp_group_two.data.entities.User
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface Apiservice {
+interface ApiService {
 
     /**
      * Get all comments from Api
      */
     @GET("comments")
-    suspend fun getAllComment() : List<Comment>
+    suspend fun getAllComment(): List<Comment>
 
     /**
      * @param id
@@ -21,16 +21,13 @@ interface Apiservice {
 
     @GET("user/{id}")
     suspend fun getUser(
-        @Path("id") id : Int
-    ) : User
+        @Path("id") id: Int
+    ): User
 
     /**
      * Get all request from Api
      */
 
     @GET("request")
-    suspend fun getAllRequest() : List<Request>
-
-
-
+    suspend fun getAllRequest(): List<Request>
 }

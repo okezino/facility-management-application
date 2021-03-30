@@ -30,5 +30,4 @@ interface CommentsDao {
 
     @Query("Select * from Comments where commentId = :key Order by requestId desc")
     fun getAllComments(key: Long?): LiveData<List<Comments>>
-
 }

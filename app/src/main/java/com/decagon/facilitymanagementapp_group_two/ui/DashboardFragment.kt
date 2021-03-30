@@ -1,40 +1,39 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class DashboardFragment : Fragment(),ComplaintClickListener {
+@AndroidEntryPoint
+class DashboardFragment : Fragment(), ComplaintClickListener {
     /**
      * Declaration of FragmentDashboardBinding and initialization of Dashboard Adapter
      */
-    private var _binding : FragmentDashboardBinding? = null
+    private var _binding: FragmentDashboardBinding? = null
     private val binding
-    get() = _binding!!
+        get() = _binding!!
 
-    var complainRecycler =  DashboardComplaintAdapter(this)
-
-
+    var complainRecycler = DashboardComplaintAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDashboardBinding.inflate(inflater,container,false)
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         /**
          * Creates the layout manager and adapter for the recycler that shows the list of Complains
          */
@@ -61,6 +60,4 @@ class DashboardFragment : Fragment(),ComplaintClickListener {
         super.onDestroy()
         _binding = null
     }
-
-
 }

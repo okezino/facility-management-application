@@ -31,14 +31,13 @@ class SuccessfulAuthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             fragmentSuccessfulAuthMsgTv.text = getString(
-                    R.string.fragment_successful_auth_message, userName
+                R.string.fragment_successful_auth_message, userName
             )
             fragmentSuccessfulAuthBtn.setOnClickListener {
                 var action = SuccessfulAuthFragmentDirections.actionSuccessfulAuthFragmentToDashboardFragment()
                 findNavController().navigate(action)
             }
         }
-
     }
 
     override fun onDestroyView() {

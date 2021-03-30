@@ -15,7 +15,8 @@ class FailedAuthenticationFragment : Fragment() {
         get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
 
     ): View? {
@@ -44,5 +45,4 @@ class FailedAuthenticationFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

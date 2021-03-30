@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-
-
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.ActivityMainBinding
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,39 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 R.id.feedsFragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 else -> binding.bottomNavigation.visibility = View.GONE
-
             }
         }
     }
-
-//=======
-//import androidx.navigation.NavController
-//import androidx.navigation.fragment.NavHostFragment
-//import com.decagon.facilitymanagementapp_group_two.R
-//
-//
-//class MainActivity : AppCompatActivity() {
-//
-//
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as
-//            NavHostFragment
-//
-//
-//
-//>>>>>>> develop
- //   }
-
-
-
-    }
-
-
-
-
-
-
+}
