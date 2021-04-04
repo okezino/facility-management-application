@@ -1,10 +1,8 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
+import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
@@ -13,6 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSubmitBinding
+import com.decagon.facilitymanagementapp_group_two.utils.descriptionValidation
+import com.decagon.facilitymanagementapp_group_two.utils.feedSelectionValidation
+import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
+import com.decagon.facilitymanagementapp_group_two.utils.subjectValidation
 
 class SubmitFragment : Fragment() {
     /**
@@ -32,6 +34,11 @@ class SubmitFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        /**
+         * This sets the status bar to grey for the single complaint fragment if version code greater
+         * than or equal marshmallow else maintains the default status bar color
+         */
+        setStatusBarBaseColor(requireActivity(),requireContext())
 
         /**
          * binding layout initialization
@@ -58,11 +65,14 @@ class SubmitFragment : Fragment() {
          */
 
         binding.requestSubject.doOnTextChanged { text, start, before, count ->
+
             binding.requestSubjectLayout.error = null
+            if(text!!.length > 120) binding.requestSubjectLayout.error = "Text length exceeded"
         }
 
         binding.requestDescription.doOnTextChanged { text, start, before, count ->
             binding.requestDescriptionLayout.error = null
+           if(text!!.length > 300) binding.requestDescriptionLayout.error = "Text length exceeded"
         }
 
         binding.selectFeedCategory.doOnTextChanged { text, start, before, count ->
@@ -80,10 +90,12 @@ class SubmitFragment : Fragment() {
          *
          */
         val requestCategory = binding.selectFeedCategory.text.toString()
-        val requestTitle = binding.requestSubject.text.toString()
-        val requestDes = binding.requestDescription.text.toString()
+        val requestTitle = binding.requestSubject.text.toString().trim()
+        val requestDes = binding.requestDescription.text.toString().trim()
 
-        if (requestDes.isNotEmpty() && requestTitle.isNotEmpty() && requestCategory != "Select a Category...") {
+
+        if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
+
             val user = Request(1, requestCategory, "Simon", requestTitle, requestDes, "today", null)
             Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
         } else {
@@ -91,7 +103,7 @@ class SubmitFragment : Fragment() {
 
             if (requestTitle.isEmpty()) binding.requestSubjectLayout.error = "Request subject needed"
 
-            if (requestCategory == "Select a Category...") binding.feedCategoryLayout.error =
+            if (!feedSelectionValidation(requestCategory)) binding.feedCategoryLayout.error =
                 "Choose a Category"
         }
     }
@@ -104,8 +116,8 @@ class SubmitFragment : Fragment() {
          * setup and implement the dropdown array Adapter
          */
         binding.requestDescription.gravity = Gravity.TOP
-        var listOfFeeds = resources.getStringArray(R.array.selection_field)
-        var feedArrayAdapter =
+        val listOfFeeds = resources.getStringArray(R.array.selection_field)
+        val feedArrayAdapter =
             ArrayAdapter(requireContext(), R.layout.feed_selection_item, listOfFeeds)
         binding.selectFeedCategory.setAdapter(feedArrayAdapter)
     }
