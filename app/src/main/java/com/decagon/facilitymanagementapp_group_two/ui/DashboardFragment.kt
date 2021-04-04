@@ -54,7 +54,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
         }
-
+        
         return binding.root
     }
 
