@@ -1,9 +1,11 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
+import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +36,12 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        /**
+         * This sets the status bar to grey for the single complaint fragment if version code greater
+         * than or equal marshmallow else maintains the default status bar color
+         */
+         setStatusBarBaseColor(requireActivity(),requireContext())
+
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         /**
          * Creates the layout manager and adapter for the recycler that shows the list of Complains
@@ -45,7 +54,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
         }
-
+        
         return binding.root
     }
 

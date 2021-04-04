@@ -71,6 +71,7 @@
                 android:drawableLeft="@drawable/ic_baseline_search_24"
                 android:drawablePadding="6dp"
                 android:focusable="auto"
+                android:inputType="text"
                 android:hint="@string/search"
                 android:padding="6dp"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -9,6 +9,7 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.SingleComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.data.Comment
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSingleComplaintBinding
+import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,11 +37,7 @@ class SingleComplaintFragment : Fragment() {
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
          */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val window = requireActivity().window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = requireContext().getColor(R.color.grey_100)
-        }
+        setStatusBarBaseColor(requireActivity(),requireContext())
 
         _binding = FragmentSingleComplaintBinding.inflate(inflater, container, false)
         return binding.root
