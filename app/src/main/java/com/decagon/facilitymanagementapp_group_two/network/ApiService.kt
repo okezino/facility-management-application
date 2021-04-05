@@ -4,6 +4,7 @@ import com.decagon.facilitymanagementapp_group_two.data.Comment
 import com.decagon.facilitymanagementapp_group_two.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.data.entities.User
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
@@ -31,5 +32,6 @@ interface ApiService {
     @GET("request")
     suspend fun getAllRequest(): List<Request>
 
-
+    @POST("")
+    suspend fun uploadSSOResponse()
 }
