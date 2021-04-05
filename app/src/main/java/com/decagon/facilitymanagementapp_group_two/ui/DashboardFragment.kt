@@ -1,7 +1,9 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +15,20 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
+import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment(), ComplaintClickListener {
     /**
      * Declaration of FragmentDashboardBinding and initialization of Dashboard Adapter
      */
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
     private var _binding: FragmentDashboardBinding? = null
     private val binding
         get() = _binding!!
@@ -53,6 +61,14 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
 
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
+        }
+
+        /**
+         * (Temp)-Gets token from shared preference
+         */
+        val token = sharedPreferences.getString(TOKEN_NAME,null)
+        token?.let {
+            Log.d("Dashboard",it)
         }
         
         return binding.root

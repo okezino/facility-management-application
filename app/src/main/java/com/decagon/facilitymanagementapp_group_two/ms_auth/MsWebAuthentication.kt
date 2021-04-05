@@ -8,9 +8,9 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.model.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragmentDirections
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
@@ -24,6 +24,9 @@ object MsWebAuthentication {
     private val TAG = "MsWebAuthentication"
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
+
+    // Holds the result from Microsoft SSO authentication
+    lateinit var ssoResultBody: SsoResultBody
 
     /**
      * Call method used in signing-in users through microsoft identity platform
@@ -67,6 +70,8 @@ object MsWebAuthentication {
             .buildRequest()
             .get(object : ICallback<User> {
                 override fun success(result: User) {
+                    val (firstName,lastName) = result.displayName.split(" ")
+                    ssoResultBody = SsoResultBody(firstName,lastName,result.mail)
                     sharedPreferences.edit().putString("UserName", result.displayName).apply()
                     logIt(result.displayName)
                     val action = AuthorizingUserFragmentDirections
