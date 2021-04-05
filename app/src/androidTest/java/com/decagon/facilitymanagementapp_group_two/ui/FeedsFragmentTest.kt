@@ -34,7 +34,7 @@ class FeedsFragmentTest {
 
     @Test
     fun test_appBar_layout_visibility() {
-        onView(withId(R.id.appBarLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_appBarLayout)).check(matches(isDisplayed()))
         onView(withId(R.id.feedText)).check(matches(isDisplayed()))
         onView(withId(R.id.TabLay)).check(matches(isDisplayed()))
         onView(withId(R.id.viewPager)).check(matches(isDisplayed()))

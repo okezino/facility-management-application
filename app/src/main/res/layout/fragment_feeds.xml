@@ -10,7 +10,7 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/fragment_profile_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/smokeWhite"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_profile_appBarLayout"
         app:tabBackground="@drawable/unselectedbg"
         app:tabIndicatorColor="@color/green"
         app:tabMode="auto"

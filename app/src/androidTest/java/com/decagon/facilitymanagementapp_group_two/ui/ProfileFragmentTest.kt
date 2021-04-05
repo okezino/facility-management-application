@@ -8,7 +8,6 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,12 +33,12 @@ class ProfileFragmentTest {
 
     @Test
     fun test_profile_fragment_layout_visibility() {
-        onView(withId(R.id.appBarLayout)).check(matches(isDisplayed()))
-        onView(withId(R.id.mainProfile)).check(matches(isDisplayed()))
-        onView(withId(R.id.edit_btn)).check(matches(isDisplayed()))
-        onView(withId(R.id.main_profile_name)).check(matches(isDisplayed()))
-        onView(withId(R.id.main_profile_image)).check(matches(isDisplayed()))
-        onView(withId(R.id.linearLayout)).check(matches(isDisplayed()))
-        onView(withId(R.id.btn_logOut)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_appBarLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_text_profile)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_edit_btn)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_main_name)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_linear_layout)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_btn_logout)).check(matches(isDisplayed()))
     }
 }

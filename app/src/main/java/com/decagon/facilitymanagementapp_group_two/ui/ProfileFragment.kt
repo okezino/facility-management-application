@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
         /**
          * Navigate back to Edit Profile Fragment
          */
-        binding.editBtn.setOnClickListener {
+        binding.fragmentProfileEditBtn.setOnClickListener {
             findNavController().navigate(R.id.editProfileFragment)
         }
 

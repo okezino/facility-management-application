@@ -46,10 +46,10 @@ class EditProfileFragment : Fragment() {
         /**
          * Navigate back to Profile Fragment
          */
-        binding.backBtn.setOnClickListener {
+        binding.editFragmentProfileBackBtn.setOnClickListener {
             findNavController().navigate(R.id.profileFragment)
         }
-        binding.btnSubmit.setOnClickListener {
+        binding.editFragmentProfileBtnSubmit.setOnClickListener {
             updateProfile()
         }
 
@@ -61,12 +61,12 @@ class EditProfileFragment : Fragment() {
         /**
          * Collect Input Data from the UI
          */
-        val updateStack = binding.stackInput.text.toString().toUpperCase().trim()
-        val updateSquad = binding.squadInput.text.toString().trim()
-        val updatePhoneNumber = binding.phoneNumber.text.toString().trim()
-        val username = binding.mainProfileName.text.toString()
+        val updateStack = binding.editFragmentProfileStackInput.text.toString().toUpperCase().trim()
+        val updateSquad = binding.editFragmentProfileSquadInput.text.toString().trim()
+        val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
+        val username = binding.editFragmentProfileName.text.toString()
         val profileImage = "profileImage"
-        val profileEmail = binding.profileMail.text.toString()
+        val profileEmail = binding.editFragmentProfileMail.text.toString()
         val password = "12342"
 
         /**
