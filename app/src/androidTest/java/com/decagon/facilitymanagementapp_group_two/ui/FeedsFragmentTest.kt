@@ -39,4 +39,6 @@ class FeedsFragmentTest {
         onView(withId(R.id.TabLay)).check(matches(isDisplayed()))
         onView(withId(R.id.viewPager)).check(matches(isDisplayed()))
     }
+
+
 }

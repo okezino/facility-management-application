@@ -35,6 +35,11 @@ class ProfileFragmentTest {
     fun test_profile_fragment_layout_visibility() {
         onView(withId(R.id.fragment_profile_appBarLayout)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_profile_linear_layout)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_profile_image)).check(matches(isDisplayed()))
+
+    }
+    @Test
+    fun test_logout_btn_visibility(){
         onView(withId(R.id.fragment_profile_btn_logout)).check(matches(isDisplayed()))
     }
 }
