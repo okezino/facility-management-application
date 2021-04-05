@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.dashboardFragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 R.id.profileFragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 R.id.feedsFragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.editProfileFragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
         }

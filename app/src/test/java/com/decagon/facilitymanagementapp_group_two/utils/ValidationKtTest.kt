@@ -13,6 +13,13 @@ class ValidationKtTest{
             "abcdefghijklimopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkmlnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkmlnopqrstuvwxyz"
     private val textPara5 = "Select a Category..."
     private val textPara6 = "Appliance"
+    private val stack  =  "NODE"
+    private val stack1 = "GOLAND"
+    private val squad = "00"
+    private val squad1 = "003"
+    private val phoneNumber1 = "09021"
+    private val phoneNumber2 = "08022320201234"
+    private val phoneNumber3 = "09022320123"
     @Test
     fun subject_input_validation(){
 
@@ -34,5 +41,26 @@ class ValidationKtTest{
     fun feed_category_validation(){
         assertFalse(feedSelectionValidation(textPara5))
         assertTrue(feedSelectionValidation(textPara6))
+    }
+
+    @Test
+    fun squad_input_validation(){
+
+        assertTrue(squadInputValidation(squad1))
+        assertFalse(squadInputValidation(squad))
+    }
+
+    @Test
+    fun stack_input_validation(){
+
+        assertFalse(stackValidation(stack1))
+        assertTrue(stackValidation(stack))
+    }
+
+    @Test
+    fun phone_input_validation(){
+        assertFalse(phoneNumberValidator(phoneNumber1))
+        assertFalse(phoneNumberValidator(phoneNumber2))
+        assertTrue(phoneNumberValidator(phoneNumber3))
     }
 }

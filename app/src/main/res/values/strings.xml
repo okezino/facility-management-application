@@ -26,7 +26,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="feeds">Feeds</string>
-    <string name="profile">Profile</string>
     <string name="ac_is_not_working">AC is not working</string>
     <string name="complain_body">An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.</string>
     <string name="_20_12_2019">20/12/2019</string>
@@ -46,12 +45,34 @@
     <string name="fragment_failed_authentication_back_btn">Back</string>
     <string name="fragment_failed_authentication_text_body">Something went wrong. We\'re doing\neverything to fix it and should be up\nand running soon</string>
     <string name="select_a_category">Select a Category...</string>
+    <string name="profile">Profile</string>
+    <string name="email">Email</string>
+    <string name="profile_mail">joseph.okezi@decagon.dev</string>
+    <string name="squad">Squad</string>
+    <string name="_006">006</string>
+    <string name="mobile">Mobile</string>
+    <string name="name">Name</string>
+    <string name="mobile_number">+234 803 253 7411</string>
+    <string name="profile_name">Joseph Okezi</string>
+    <string name="log_out">Log Out</string>
+    <string name="submit_profile">Update Profile</string>
+    <string name="sq006">SQ006</string>
+    <string name="android">Android</string>
     <!-- dropdown adapter field-->
     <string-array name="selection_field">
         <item>Food</item>
         <item>Apartment</item>
         <item>Appliances</item>
         <item>Others</item>
+    </string-array>
+    <string-array name="stack_selection">
+        <item>Android</item>
+        <item>.NET</item>
+        <item>Python</item>
+        <item>Node</item>
+        <item>iOS</item>
+        <item>Java</item>
+        <item>Quality Assurance</item>
     </string-array>
 
 </resources>

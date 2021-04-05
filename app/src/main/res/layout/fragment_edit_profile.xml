@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".ui.ProfileFragment">
+    tools:context=".ui.EditProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -16,44 +16,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/mainProfile"
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:text="@string/profile"
                 android:textColor="@color/black"
-                android:textSize="20sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/sfprotext"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.698" />
 
             <TextView
-                android:id="@+id/edit_btn"
+                android:id="@+id/back_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="104dp"
                 android:layout_marginBottom="16dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward"
-                android:text="Edit"
-                android:drawablePadding="10dp"
+                android:text="Back"
                 android:textColor="@color/light_green"
                 android:textSize="20sp"
-                android:fontFamily="@font/sfprotext"
+                android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView8" />
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -109,7 +106,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_margin="15dp"
+            android:layout_margin="15dp"
             >
 
             <TextView
@@ -120,11 +117,10 @@
                 />
 
             <TextView
-                android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="@string/profile_name"
+                android:text="Joseph Okezi"
                 style="@style/profile_details"/>
         </RelativeLayout>
 
@@ -145,7 +141,7 @@
                 style="@style/profile_format"/>
 
             <TextView
-                android:id="@+id/profile_email"
+                android:id="@+id/profile_mail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -172,13 +168,16 @@
                 style="@style/profile_format"
                 />
 
-            <TextView
-                android:id="@+id/squad"
+            <EditText
+                android:id="@+id/squad_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="@string/_006"
-               style="@style/profile_details"/>
+                android:hint="@string/sq006"
+                android:inputType="number"
+                android:drawableEnd="@drawable/ic_baseline_edit_24"
+                android:background="@color/white"
+                />
         </RelativeLayout>
 
         <ImageView
@@ -196,15 +195,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Stack"
-             style="@style/profile_format"/>
+                style="@style/profile_format"/>
 
-            <TextView
-                android:id="@+id/stack_text"
+            <EditText
+                android:id="@+id/stack_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Android"
-                style="@style/profile_details"/>
+                android:hint="@string/android"
+                android:inputType="text"
+                android:drawableEnd="@drawable/ic_baseline_edit_24"
+                android:background="@color/white"/>
+
+
+
         </RelativeLayout>
 
         <ImageView
@@ -222,13 +226,18 @@
                 android:text="@string/mobile"
                 style="@style/profile_format"/>
 
-            <TextView
-                android:id="@+id/profile_number"
+
+            <EditText
+                android:id="@+id/phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="@string/mobile_number"
-                style="@style/profile_details"/>
+                android:hint="@string/mobile_number"
+                android:inputType="phone"
+                android:drawableEnd="@drawable/ic_baseline_edit_24"
+                android:background="@color/white"
+                />
+
         </RelativeLayout>
 
         <ImageView
@@ -239,7 +248,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/btn_logOut"
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -248,10 +257,11 @@
         android:background="@drawable/success_btn"
         android:fontFamily="@font/source_sans_pro"
         android:padding="15dp"
-        android:text="@string/log_out"
+        android:text="@string/submit_profile"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"

@@ -34,6 +34,7 @@ class SubmitFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setStatusBarBaseColor(requireActivity(),requireContext(),R.color.smokeWhite)
         /**
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
