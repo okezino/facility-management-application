@@ -35,9 +35,19 @@ class EditProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        /**
+         * Update Status Bar Colour
+         */
         setStatusBarBaseColor(requireActivity(),requireContext(),R.color.smokeWhite)
-        // Inflate the layout for this fragment
+
+        /**
+         * Inflate the view binding with Edit Fragment Layout
+         */
         _binding = FragmentEditProfileBinding.inflate(inflater,container,false)
+
+        /**
+         * Navigate back to Profile Fragment
+         */
         binding.backBtn.setOnClickListener {
             findNavController().navigate(R.id.profileFragment)
         }
@@ -51,6 +61,9 @@ class EditProfileFragment : Fragment() {
 
     private fun updateProfile(){
 
+        /**
+         * Collect Input Data from the UI
+         */
         val updateStack = binding.stackInput.text.toString().toUpperCase().trim()
         val updateSquad = binding.squadInput.text.toString().trim()
         val updatePhoneNumber = binding.phoneNumber.text.toString().trim()
@@ -59,7 +72,9 @@ class EditProfileFragment : Fragment() {
         val profileEmail = binding.profileMail.text.toString()
         val password = "12342"
 
-
+        /**
+         * Validate Input data and Toast the values
+         */
 
         if(squadInputValidation(updateSquad) && stackValidation(updateStack) && phoneNumberValidator(updatePhoneNumber)){
             var user = UserProfile(username,profileImage,profileEmail,updatePhoneNumber,updateSquad,updateStack,password)

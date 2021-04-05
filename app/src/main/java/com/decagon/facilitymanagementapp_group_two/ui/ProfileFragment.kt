@@ -26,11 +26,21 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+
+        /**
+         * Update Status Bar Colour
+         */
         setStatusBarBaseColor(requireActivity(),requireContext(),R.color.smokeWhite)
 
+        /**
+         * Inflate the view binding with Fragment Layout
+         */
         _binding = FragmentProfileBinding.inflate(inflater,container,false)
 
+        /**
+         * Navigate back to Edit Profile Fragment
+         */
         binding.editBtn.setOnClickListener {
             findNavController().navigate(R.id.editProfileFragment)
         }
