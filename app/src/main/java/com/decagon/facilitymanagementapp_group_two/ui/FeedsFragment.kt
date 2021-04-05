@@ -35,7 +35,7 @@ class FeedsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        setStatusBarBaseColor(requireActivity(),requireContext(), R.color.smokeWhite)
+        setStatusBarBaseColor(requireActivity(), requireContext(), R.color.smokeWhite)
         /**
          * binding layout initialization
          */

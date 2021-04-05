@@ -4,10 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.view.WindowManager
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.decagon.facilitymanagementapp_group_two.R
 
-fun setStatusBarBaseColor(activity : Activity, context : Context,int : Int = R.color.grey_100){
+fun setStatusBarBaseColor(activity: Activity, context: Context, int: Int = R.color.grey_100) {
     /**
      * This sets the status bar to grey for the single complaint fragment if version code greater
      * than or equal marshmallow else maintains the default status bar color

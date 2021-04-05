@@ -13,9 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-   private var _binding : FragmentProfileBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding
-    get() = _binding!!
+        get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +27,15 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         /**
          * Update Status Bar Colour
          */
-        setStatusBarBaseColor(requireActivity(),requireContext(),R.color.smokeWhite)
+        setStatusBarBaseColor(requireActivity(), requireContext(), R.color.smokeWhite)
 
         /**
          * Inflate the view binding with Fragment Layout
          */
-        _binding = FragmentProfileBinding.inflate(inflater,container,false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         /**
          * Navigate back to Edit Profile Fragment
@@ -44,8 +43,6 @@ class ProfileFragment : Fragment() {
         binding.editBtn.setOnClickListener {
             findNavController().navigate(R.id.editProfileFragment)
         }
-
-
 
         return binding.root
     }

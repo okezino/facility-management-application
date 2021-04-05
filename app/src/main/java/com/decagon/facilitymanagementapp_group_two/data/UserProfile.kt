@@ -5,7 +5,7 @@ data class UserProfile(
     val profileImageUrl: String,
     val email: String,
     val phoneNumber: String,
-    val squad : String,
+    val squad: String,
     val stack: String,
     val password: String
 )

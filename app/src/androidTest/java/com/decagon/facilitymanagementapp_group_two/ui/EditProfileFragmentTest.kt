@@ -1,8 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -16,7 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class EditProfileFragmentTest{
+class EditProfileFragmentTest {
     @get: Rule
     var hiltRule = HiltAndroidRule(this)
 
@@ -35,13 +33,12 @@ class EditProfileFragmentTest{
      */
 
     @Test
-    fun validate_edit_profile_layout(){
+    fun validate_edit_profile_layout() {
         onView(ViewMatchers.withId(R.id.appBarLayout)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.main_profile_image)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.main_profile_name)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.stack_squad_text)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.linearLayout)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.btn_submit)).check(matches(isDisplayed()))
-
     }
 }
