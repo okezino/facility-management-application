@@ -99,5 +99,10 @@
         android:name="com.decagon.facilitymanagementapp_group_two.ui.SubmitFragment"
         android:label="fragment_submit"
         tools:layout="@layout/fragment_submit" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 
 </navigation>

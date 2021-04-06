@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -37,7 +36,7 @@ class SingleComplaintFragment : Fragment() {
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
          */
-        setStatusBarBaseColor(requireActivity(),requireContext())
+        setStatusBarBaseColor(requireActivity(), requireContext())
 
         _binding = FragmentSingleComplaintBinding.inflate(inflater, container, false)
         return binding.root

@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.FeedAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentFeedsBinding
+import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +33,9 @@ class FeedsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
+
+        setStatusBarBaseColor(requireActivity(), requireContext(), R.color.smokeWhite)
         /**
          * binding layout initialization
          */

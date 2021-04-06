@@ -2,28 +2,28 @@ package com.decagon.facilitymanagementapp_group_two.ui
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class FeedsFragmentTest {
-
+class EditProfileFragmentTest {
     @get: Rule
     var hiltRule = HiltAndroidRule(this)
 
     /**
-     * Launches the FeedsFragment in the custom HiltTestActivity
+     * Launches the DashboardFragment in the custom HiltTestActivity
      */
     @Before
     fun testLaunchFragmentInHiltContainer() {
-        launchFragmentInHiltContainer<FeedsFragment> {
+        launchFragmentInHiltContainer<EditProfileFragment> {
         }
     }
 
@@ -33,12 +33,10 @@ class FeedsFragmentTest {
      */
 
     @Test
-    fun test_appBar_layout_visibility() {
-        onView(withId(R.id.feed_fragment_profile_appBarLayout)).check(matches(isDisplayed()))
-        onView(withId(R.id.feedText)).check(matches(isDisplayed()))
-        onView(withId(R.id.TabLay)).check(matches(isDisplayed()))
-        onView(withId(R.id.viewPager)).check(matches(isDisplayed()))
+    fun validate_edit_profile_layout() {
+       onView(withId(R.id.edit_fragment_profile_appBarLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.edit_fragment_profile_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.edit_fragment_profile_linear_layout)).check(matches(isDisplayed()))
+
     }
-
-
 }
