@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
-import com.decagon.facilitymanagementapp_group_two.model.SsoResultBody
-import com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragmentDirections
+import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
 import com.microsoft.graph.models.extensions.User
@@ -40,8 +40,7 @@ object MsWebAuthentication {
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
                 logIt("Error Occurred!")
-                val action = AuthorizingUserFragmentDirections
-                    .actionAuthorizingUserFragmentToFailedAuthenticationFragment()
+                val action = AuthorizingUserFragmentDirections.actionAuthorizingUserFragmentToFailedAuthenticationFragment()
                 fragment.findNavController().navigate(action)
             }
 
@@ -70,8 +69,8 @@ object MsWebAuthentication {
             .buildRequest()
             .get(object : ICallback<User> {
                 override fun success(result: User) {
-                    val (firstName,lastName) = result.displayName.split(" ")
-                    ssoResultBody = SsoResultBody(firstName,lastName,result.mail)
+                    val (firstName, lastName) = result.displayName.split(" ")
+                    ssoResultBody = SsoResultBody(firstName, lastName, result.mail)
                     sharedPreferences.edit().putString("UserName", result.displayName).apply()
                     logIt(result.displayName)
                     val action = AuthorizingUserFragmentDirections

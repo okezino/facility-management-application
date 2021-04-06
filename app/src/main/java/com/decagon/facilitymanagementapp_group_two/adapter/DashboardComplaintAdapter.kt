@@ -3,8 +3,8 @@ package com.decagon.facilitymanagementapp_group_two.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.decagon.facilitymanagementapp_group_two.data.Complain
 import com.decagon.facilitymanagementapp_group_two.databinding.DashboardRecyclerViewLayoutBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.Complain
 
 class DashboardComplaintAdapter(private val clickListner: ComplaintClickListener) : RecyclerView.Adapter<DashboardComplaintAdapter.ViewHolder>() {
     var firstComplain = Complain("AC is NOT working", "An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.", "Today")

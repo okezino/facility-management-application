@@ -7,26 +7,23 @@
 
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.OnboardingFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.authentication.OnboardingFragment"
         android:label="onboarding_fragment"
         tools:layout="@layout/onboarding_fragment" />
 
     <fragment
         android:id="@+id/successfulAuthFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.SuccessfulAuthFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.authentication.SuccessfulAuthFragment"
         android:label="SuccessfulAuthFragment"
         tools:layout="@layout/fragment_successful_auth">
         <argument
             android:name="userName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_successfulAuthFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/authorizingUserFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment"
         android:label="fragment_authorizing_user"
         tools:layout="@layout/fragment_authorizing_user" >
         <action
@@ -43,14 +40,14 @@
 
     <fragment
         android:id="@+id/singleComplaintFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.SingleComplaintFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.others.SingleComplaintFragment"
         android:label="fragment_single_complaint"
         tools:layout="@layout/fragment_single_complaint" />
 
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.DashboardFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.others.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -59,51 +56,47 @@
     </fragment>
     <fragment
         android:id="@+id/feedsFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.FeedsFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.FeedsFragment"
         android:label="fragment_feeds"
         tools:layout="@layout/fragment_feeds" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.ProfileFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <argument
-            android:name="userDetails"
-            app:argType="com.decagon.facilitymanagementapp_group_two.model.SsoResultBody" />
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/apartmentFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.ApartmentFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.ApartmentFragment"
         android:label="ApartmentFragment"
         tools:layout="@layout/fragment_apartment"/>
     <fragment
         android:id="@+id/foodFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.FoodFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.FoodFragment"
         android:label="FoodFragment"
         tools:layout="@layout/fragment_food"/>
     <fragment
         android:id="@+id/othersFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.OthersFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.OthersFragment"
         android:label="OthersFragment"
         tools:layout="@layout/fragment_others"/>
     <fragment
         android:id="@+id/applianceFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.ApplianceFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.ApplianceFragment"
         android:label="ApplianceFragment"
         tools:layout="@layout/fragment_appliance" />
     <fragment
         android:id="@+id/failedAuthenticationFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.FailedAuthenticationFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.authentication.FailedAuthenticationFragment"
         android:label="fragment_failed_authentication"
         tools:layout="@layout/fragment_failed_authentication" />
     <fragment
         android:id="@+id/submitFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.SubmitFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.others.SubmitFragment"
         android:label="fragment_submit"
         tools:layout="@layout/fragment_submit" />
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.EditProfileFragment"
+        android:name="com.decagon.facilitymanagementapp_group_two.ui.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
 

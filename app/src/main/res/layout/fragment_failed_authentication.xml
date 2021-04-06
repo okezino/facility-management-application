@@ -9,7 +9,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.FailedAuthenticationFragment">
+    tools:context=".ui.authentication.FailedAuthenticationFragment">
 
     <ImageView
         android:id="@+id/fragment_failed_authentication_back_navigation"

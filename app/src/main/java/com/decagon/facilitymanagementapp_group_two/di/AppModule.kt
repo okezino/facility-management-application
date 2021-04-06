@@ -3,7 +3,7 @@ package com.decagon.facilitymanagementapp_group_two.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.decagon.facilitymanagementapp_group_two.data.database.CentralDatabase
+import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import com.decagon.facilitymanagementapp_group_two.network.ApiService
 import com.decagon.facilitymanagementapp_group_two.utils.BASE_URL
 import com.decagon.facilitymanagementapp_group_two.utils.DATABASE_NAME
@@ -71,11 +71,11 @@ object AppModule {
     @Singleton
     @Provides
     fun provideSharedPreferences(
-            @ApplicationContext context: Context
+        @ApplicationContext context: Context
     ): SharedPreferences {
         return context.getSharedPreferences(
-                SHARED_PREF_NAME,
-                Context.MODE_PRIVATE
+            SHARED_PREF_NAME,
+            Context.MODE_PRIVATE
         )
     }
 }

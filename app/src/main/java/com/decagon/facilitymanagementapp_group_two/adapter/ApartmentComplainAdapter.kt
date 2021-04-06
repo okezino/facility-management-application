@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.R
-import com.decagon.facilitymanagementapp_group_two.data.SingleComplaint
 import com.decagon.facilitymanagementapp_group_two.databinding.FeedsRecyclerViewLayoutBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.SingleComplaint
 
 class ApartmentComplainAdapter : RecyclerView.Adapter<ApartmentComplainAdapter.ViewHolder>() {
 

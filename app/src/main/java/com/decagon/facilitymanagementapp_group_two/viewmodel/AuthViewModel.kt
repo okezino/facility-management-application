@@ -14,7 +14,7 @@ class AuthViewModel @Inject constructor (private val authRepository: AuthReposit
     /**
      * Sends SSO details to endpoint
      */
-    fun getToken(){
+    fun getToken() {
         viewModelScope.launch {
             authRepository.postAuthDetails(MsWebAuthentication.ssoResultBody)
         }

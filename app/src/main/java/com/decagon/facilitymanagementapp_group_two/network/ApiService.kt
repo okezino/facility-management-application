@@ -1,10 +1,10 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
-import com.decagon.facilitymanagementapp_group_two.data.Comment
-import com.decagon.facilitymanagementapp_group_two.data.entities.Request
-import com.decagon.facilitymanagementapp_group_two.data.entities.User
-import com.decagon.facilitymanagementapp_group_two.model.ResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.Comment
+import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -39,5 +39,5 @@ interface ApiService {
      * Post SSO result to the endpoint
      */
     @POST("api/v1/Auth/external-login")
-    suspend fun postAuthDetails(@Body user : SsoResultBody) : ResponseBody
+    suspend fun postAuthDetails(@Body user: SsoResultBody): ResponseBody
 }
