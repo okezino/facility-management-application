@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
+import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
 import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
@@ -19,11 +20,9 @@ import com.microsoft.graph.models.extensions.User
 import com.microsoft.graph.requests.extensions.GraphServiceClient
 import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalException
-import javax.inject.Inject
 
 object MsWebAuthentication {
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "MsWebAuthentication"
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
@@ -103,6 +102,7 @@ object MsWebAuthentication {
      *  Method to initialise mSingleAccountApp
      */
     fun initialiseSingleAccount(activity: FragmentActivity, navController: NavController) {
+        sharedPreferences = activity.applicationContext.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
         PublicClientApplication.createSingleAccountPublicClientApplication(
             activity.applicationContext, R.raw.auth_config_single_account,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
