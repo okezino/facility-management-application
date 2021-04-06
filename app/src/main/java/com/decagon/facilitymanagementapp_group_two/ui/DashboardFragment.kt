@@ -1,11 +1,9 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,7 +38,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
          */
-         setStatusBarBaseColor(requireActivity(),requireContext())
+        setStatusBarBaseColor(requireActivity(), requireContext())
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         /**
@@ -54,7 +52,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
         }
-        
+
         return binding.root
     }
 

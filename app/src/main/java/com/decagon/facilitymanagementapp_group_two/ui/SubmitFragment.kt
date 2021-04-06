@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
@@ -34,11 +33,12 @@ class SubmitFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setStatusBarBaseColor(requireActivity(), requireContext(), R.color.smokeWhite)
         /**
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
          */
-        setStatusBarBaseColor(requireActivity(),requireContext())
+        setStatusBarBaseColor(requireActivity(), requireContext())
 
         /**
          * binding layout initialization
@@ -67,12 +67,12 @@ class SubmitFragment : Fragment() {
         binding.requestSubject.doOnTextChanged { text, start, before, count ->
 
             binding.requestSubjectLayout.error = null
-            if(text!!.length > 120) binding.requestSubjectLayout.error = "Text length exceeded"
+            if (text!!.length > 120) binding.requestSubjectLayout.error = "Text length exceeded"
         }
 
         binding.requestDescription.doOnTextChanged { text, start, before, count ->
             binding.requestDescriptionLayout.error = null
-           if(text!!.length > 300) binding.requestDescriptionLayout.error = "Text length exceeded"
+            if (text!!.length > 300) binding.requestDescriptionLayout.error = "Text length exceeded"
         }
 
         binding.selectFeedCategory.doOnTextChanged { text, start, before, count ->
@@ -92,7 +92,6 @@ class SubmitFragment : Fragment() {
         val requestCategory = binding.selectFeedCategory.text.toString()
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()
-
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
