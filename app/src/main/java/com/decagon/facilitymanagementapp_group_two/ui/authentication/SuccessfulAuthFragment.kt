@@ -44,11 +44,6 @@ class SuccessfulAuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /**
-         * Receives the result from microsoft authentication and saves it to sharedPreference
-         */
-        val ssoResultBody = MsWebAuthentication.ssoResultBody
-        writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email, sharedPreferences)
         binding.apply {
             fragmentSuccessfulAuthMsgTv.text = getString(
                 R.string.fragment_successful_auth_message, userName
