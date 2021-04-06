@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.profile.EditProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,11 +25,11 @@
                 android:id="@+id/edit_fragment_profile_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprotext"
                 android:text="@string/profile"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="@font/sfprotext"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +42,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="104dp"
                 android:layout_marginBottom="16dp"
+                android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
                 android:text="Back"
                 android:textColor="@color/light_green"
                 android:textSize="20sp"
-                android:drawableStart="@drawable/ic_baseline_arrow_back_ios_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_fragment_profile_text"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -54,38 +54,69 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <ImageView
-        android:id="@+id/edit_fragment_profile_image"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+    <FrameLayout
+        android:id="@+id/edit_fragment_profile_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:src="@drawable/profile"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_appBarLayout">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:cardCornerRadius="65dp">
+
+            <ImageView
+                android:id="@+id/edit_fragment_profile_pic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_avatar" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@color/green"
+            android:outlineProvider="none"
+            app:cardCornerRadius="21dp">
+
+            <ImageView
+                android:id="@+id/edit_fragment_camera"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_photo_camera_24" />
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/edit_fragment_profile_main_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/profile_name"
-        android:textStyle="bold"
-        android:textColor="@color/gray"
         android:fontFamily="@font/sfprotext"
+        android:text="@string/profile_name"
+        android:textColor="@color/gray"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_image" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_frame" />
 
     <TextView
         android:id="@+id/edit_fragment_profile_stack_squad_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:text="Android-SQ006"
         android:fontFamily="@font/sfprotext"
+        android:text="Android-SQ006"
         android:textColor="#828282"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,8 +127,8 @@
         android:id="@+id/edit_fragment_profile_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_stack_squad_text"
@@ -106,23 +137,21 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            >
+            android:layout_margin="15dp">
 
             <TextView
+                style="@style/profile_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
-                style="@style/profile_format"
-                />
+                android:text="@string/name" />
 
             <TextView
                 android:id="@+id/edit_fragment_profile_name"
+                style="@style/profile_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Joseph Okezi"
-                style="@style/profile_details"/>
+                android:text="Joseph Okezi" />
         </RelativeLayout>
 
         <ImageView
@@ -136,17 +165,17 @@
             android:layout_margin="15dp">
 
             <TextView
+                style="@style/profile_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/email"
-                style="@style/profile_format"/>
+                android:text="@string/email" />
 
             <TextView
                 android:id="@+id/edit_fragment_profile_mail"
+                style="@style/profile_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                style="@style/profile_details"
                 android:text="@string/profile_mail" />
         </RelativeLayout>
 
@@ -155,77 +184,71 @@
             android:layout_height="1dp"
             android:src="@drawable/divider" />
 
-
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp">
 
             <TextView
+                style="@style/profile_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/squad"
-                style="@style/profile_format"
-                />
+                android:text="@string/squad" />
 
             <EditText
                 android:id="@+id/edit_fragment_profile_squad_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:hint="@string/sq006"
-                android:inputType="number"
-                android:drawableEnd="@drawable/ic_baseline_edit_24"
                 android:background="@color/white"
-                />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/divider" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stack"
-                style="@style/profile_format"/>
-
-            <EditText
-                android:id="@+id/edit_fragment_profile_stack_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:hint="@string/android"
-                android:inputType="text"
                 android:drawableEnd="@drawable/ic_baseline_edit_24"
-                android:background="@color/white"/>
-
-
-
+                android:hint="@string/sq006"
+                android:inputType="number" />
         </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:src="@drawable/divider" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp">
 
             <TextView
+                style="@style/profile_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mobile"
-                style="@style/profile_format"/>
+                android:text="Stack" />
+
+            <EditText
+                android:id="@+id/edit_fragment_profile_stack_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/ic_baseline_edit_24"
+                android:hint="@string/android"
+                android:inputType="text" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/divider" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <TextView
+                style="@style/profile_format"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mobile" />
 
 
             <EditText
@@ -233,11 +256,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:hint="@string/mobile_number"
-                android:inputType="phone"
-                android:drawableEnd="@drawable/ic_baseline_edit_24"
                 android:background="@color/white"
-                />
+                android:drawableEnd="@drawable/ic_baseline_edit_24"
+                android:hint="@string/mobile_number"
+                android:inputType="phone" />
 
         </RelativeLayout>
 
@@ -253,8 +275,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/success_btn"
         android:fontFamily="@font/source_sans_pro"
         android:padding="15dp"
@@ -267,6 +289,5 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_linear_layout" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
