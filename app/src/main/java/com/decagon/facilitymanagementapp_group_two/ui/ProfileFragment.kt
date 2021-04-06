@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBinding
+import com.decagon.facilitymanagementapp_group_two.model.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +18,8 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding
         get() = _binding!!
+    private val args by navArgs<ProfileFragmentArgs>()
+    private lateinit var userDetails : SsoResultBody
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,9 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        userDetails = args.userDetails
+
 
         /**
          * Update Status Bar Colour
@@ -45,5 +52,13 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
+        binding.fragmentProfileMainName.text = userFullName
+        binding.fragmentProfileName.text = userFullName
+        binding.fragmentProfileEmail.text = userDetails.email
     }
 }

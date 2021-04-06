@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSuccessfulAuthBinding
+import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,9 +51,8 @@ class SuccessfulAuthFragment : Fragment() {
                 R.string.fragment_successful_auth_message, userName
             )
             fragmentSuccessfulAuthBtn.setOnClickListener {
-
-                    val action = SuccessfulAuthFragmentDirections.actionSuccessfulAuthFragmentToDashboardFragment()
-                    findNavController().navigate(action)
+                val action = SuccessfulAuthFragmentDirections.actionSuccessfulAuthFragmentToProfileFragment(MsWebAuthentication.ssoResultBody)
+                findNavController().navigate(action)
 
             }
         }
