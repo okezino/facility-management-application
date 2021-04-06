@@ -8,10 +8,12 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
-import com.decagon.facilitymanagementapp_group_two.ui.AuthorizingUserFragmentDirections
+import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
+import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
+import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
 import com.microsoft.graph.models.extensions.User
@@ -25,6 +27,9 @@ object MsWebAuthentication {
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
 
+    // Holds the result from Microsoft SSO authentication
+    lateinit var ssoResultBody: SsoResultBody
+
     /**
      * Call method used in signing-in users through microsoft identity platform
      */
@@ -37,8 +42,7 @@ object MsWebAuthentication {
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
                 logIt("Error Occurred!")
-                val action = AuthorizingUserFragmentDirections
-                    .actionAuthorizingUserFragmentToFailedAuthenticationFragment()
+                val action = AuthorizingUserFragmentDirections.actionAuthorizingUserFragmentToFailedAuthenticationFragment()
                 fragment.findNavController().navigate(action)
             }
 
@@ -67,6 +71,12 @@ object MsWebAuthentication {
             .buildRequest()
             .get(object : ICallback<User> {
                 override fun success(result: User) {
+                    /**
+                     * Receives the result from microsoft authentication and saves it to sharedPreference
+                     */
+                    val (firstName, lastName) = result.displayName.split(" ")
+                    ssoResultBody = SsoResultBody(firstName, lastName, result.mail)
+                    writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email, sharedPreferences)
                     sharedPreferences.edit().putString("UserName", result.displayName).apply()
                     logIt(result.displayName)
                     val action = AuthorizingUserFragmentDirections
@@ -92,7 +102,7 @@ object MsWebAuthentication {
      *  Method to initialise mSingleAccountApp
      */
     fun initialiseSingleAccount(activity: FragmentActivity, navController: NavController) {
-        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)
+        sharedPreferences = activity.applicationContext.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
         PublicClientApplication.createSingleAccountPublicClientApplication(
             activity.applicationContext, R.raw.auth_config_single_account,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {

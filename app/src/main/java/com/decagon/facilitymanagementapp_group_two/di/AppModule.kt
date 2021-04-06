@@ -1,11 +1,13 @@
 package com.decagon.facilitymanagementapp_group_two.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
-import com.decagon.facilitymanagementapp_group_two.data.database.CentralDatabase
+import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import com.decagon.facilitymanagementapp_group_two.network.ApiService
 import com.decagon.facilitymanagementapp_group_two.utils.BASE_URL
 import com.decagon.facilitymanagementapp_group_two.utils.DATABASE_NAME
+import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,5 +65,17 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
+    }
+
+    // Provides sharedPreference where needed in the application
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context
+    ): SharedPreferences {
+        return context.getSharedPreferences(
+            SHARED_PREF_NAME,
+            Context.MODE_PRIVATE
+        )
     }
 }

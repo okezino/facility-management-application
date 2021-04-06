@@ -8,6 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment
 import org.junit.After
 import org.junit.Before
 import org.junit.Ignore

@@ -2,7 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.di
 
 import android.content.Context
 import androidx.room.Room
-import com.decagon.facilitymanagementapp_group_two.data.database.CentralDatabase
+import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

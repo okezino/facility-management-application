@@ -1,23 +1,28 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.launchFragmentInHiltContainer
+import com.decagon.facilitymanagementapp_group_two.ui.authentication.SuccessfulAuthFragment
+import com.decagon.facilitymanagementapp_group_two.ui.authentication.SuccessfulAuthFragmentArgs
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class SuccessfulAuthFragmentTest {
+    @get: Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @Before
     fun setUp() {
         val userName = "Godday Okoduwa"
         val bundle = SuccessfulAuthFragmentArgs(userName).toBundle()
-        launchFragmentInContainer<SuccessfulAuthFragment>(bundle, R.style.Theme_FacilityManagementAppGroupTwo)
+        launchFragmentInHiltContainer<SuccessfulAuthFragment>(bundle)
     }
 
     @Test

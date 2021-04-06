@@ -3,8 +3,8 @@ package com.decagon.facilitymanagementapp_group_two.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.decagon.facilitymanagementapp_group_two.data.Comment
 import com.decagon.facilitymanagementapp_group_two.databinding.SingleComplaintItemBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.Comment
 
 class SingleComplaintAdapter : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
     // List of items for the placeholder data
