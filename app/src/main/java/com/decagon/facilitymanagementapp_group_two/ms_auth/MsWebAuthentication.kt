@@ -152,4 +152,17 @@ object MsWebAuthentication {
             getAuthenticationCallback(fragment)
         )
     }
+
+    fun signOutUser(fragment: Fragment) {
+        mSingleAccountApp.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback{
+            override fun onSignOut() {
+               fragment.findNavController().navigate(R.id.onboardingFragment)
+            }
+
+            override fun onError(exception: MsalException) {
+                logIt(exception.toString())
+            }
+
+        })
+    }
 }

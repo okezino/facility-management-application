@@ -57,17 +57,26 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <ImageView
-        android:id="@+id/fragment_profile_image"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/profile"
+        app:cardCornerRadius="65dp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_profile_main_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_profile_appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_profile_appBarLayout">
+
+        <ImageView
+            android:id="@+id/fragment_profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_avatar" />
+
+    </com.google.android.material.card.MaterialCardView>
+
 
     <TextView
         android:id="@+id/fragment_profile_main_name"
