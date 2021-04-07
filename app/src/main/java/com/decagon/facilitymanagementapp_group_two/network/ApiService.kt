@@ -3,12 +3,12 @@ package com.decagon.facilitymanagementapp_group_two.network
 import com.decagon.facilitymanagementapp_group_two.model.data.Comment
 import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -40,4 +40,13 @@ interface ApiService {
      */
     @POST("api/v1/Auth/external-login")
     suspend fun postAuthDetails(@Body user: SsoResultBody): ResponseBody
+
+    /**
+     * Update profile picture API service
+     */
+    @Multipart
+    @PATCH("api/v1/User/change-picture")
+    suspend fun updateProfileImage(
+            @Header("Authorization") token: String,
+            @Part image: MultipartBody.Part): UpdateProfileImageResponse
 }
