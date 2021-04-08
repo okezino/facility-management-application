@@ -22,7 +22,7 @@ fun feedSelectionValidation(s: String): Boolean {
 
 fun squadInputValidation(s: String): Boolean {
     var value = true
-    if (s.length < 3 || s.isEmpty()) value = false
+    if (s.length < 5 || s[0] != 'S'|| s[1] != 'Q' || s.isEmpty()) value = false
     return value
 }
 
@@ -52,4 +52,8 @@ fun phoneNumberValidator(phone: String): Boolean {
         phone.length == 13
     ) value = true
     return value
+}
+
+fun inputValidation(){
+
 }
