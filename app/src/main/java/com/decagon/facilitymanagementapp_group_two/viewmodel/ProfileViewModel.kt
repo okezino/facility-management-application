@@ -7,10 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
 import com.decagon.facilitymanagementapp_group_two.network.ApiCallStatus
-import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
-import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
+import com.decagon.facilitymanagementapp_group_two.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -42,4 +42,26 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
 
     }
 
+    fun updateProfileDetails(updateProfileDetails: UpdateProfileDetails) {
+        _status.value = ApiCallStatus.LOADING
+        viewModelScope.launch {
+            try {
+                authRepository.updateProfileDetails(updateProfileDetails)
+                _status.value = ApiCallStatus.SUCCESS
+                Log.d("updateProfileDetails", updateProfileDetails.toString())
+                sharedPreferences.edit().apply {
+                    putString(FIRST_NAME, updateProfileDetails.firstName)
+                    putString(LAST_NAME, updateProfileDetails.lastName)
+                    putString(USER_NAME, updateProfileDetails.userName)
+                    putString(SQUAD, updateProfileDetails.squad)
+                    putString(PHONE_NUMBER, updateProfileDetails.phoneNumber)
+                    putString(STACK, updateProfileDetails.gender)
+                }.apply()
+            } catch (e: Exception) {
+                Log.d("updateProfileError", "${e.message}")
+                _status.value = ApiCallStatus.ERROR
+            }
+        }
+
+    }
 }
