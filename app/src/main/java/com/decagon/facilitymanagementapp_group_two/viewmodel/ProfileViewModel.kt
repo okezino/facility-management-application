@@ -1,45 +1,43 @@
 package com.decagon.facilitymanagementapp_group_two.viewmodel
 
-import android.content.SharedPreferences
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
-import com.decagon.facilitymanagementapp_group_two.network.ApiCallStatus
+import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
-import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
+import com.decagon.facilitymanagementapp_group_two.utils.loadImage
+import com.decagon.facilitymanagementapp_group_two.utils.showSnackBar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
-    private val _status = MutableLiveData<ApiCallStatus>()
-    val status = _status as LiveData<ApiCallStatus>
 
-
-    fun uploadProfileImage(image: MultipartBody.Part) {
-        _status.value = ApiCallStatus.LOADING
+    /**
+     * Method to upload profile image to the server and keeps the user aware
+     * of the various states of the transaction or process.
+     */
+    fun uploadProfileImage(image: MultipartBody.Part, view: View?, imageView: ImageView, imageUrl: Uri?) {
+        view?.showSnackBar("Loading... Please wait")
         viewModelScope.launch {
-            try {
-                val serverResponse = authRepository.updateProfileImage(image)
-                Log.d("uploadImageResult", serverResponse.toString())
-                sharedPreferences.edit().putString(PROFILE_IMG_URI, serverResponse.data.url).apply()
-                _status.value = ApiCallStatus.SUCCESS
-            } catch (e: Exception) {
-                Log.d("uploadImageError", "${e.message}")
-                _status.value = ApiCallStatus.ERROR
+            val serverResponse = authRepository.updateProfileImage(image)
+            val action: (result: ResultStatus<UpdateProfileImageResponse>) -> Unit = {
+                if (it is ResultStatus.Success) {
+                      authRepository.saveDataInPref(PROFILE_IMG_URI, it.value.data.url)
+                    view?.showSnackBar("Profile image updated successfully")
+                        imageUrl?.let { imageView.loadImage(it.toString()) }
+                    }
             }
-
+            ApiResponseHandler(serverResponse, action, view)
         }
 
     }
-
 }
+

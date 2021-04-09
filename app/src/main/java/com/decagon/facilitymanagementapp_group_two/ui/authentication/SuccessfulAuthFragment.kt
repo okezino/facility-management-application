@@ -50,16 +50,11 @@ class SuccessfulAuthFragment : Fragment() {
             )
             fragmentSuccessfulAuthBtn.setOnClickListener {
                 /**
-                 * Calls the method from the viewModel that posts SSO details to endpoint and retrieves the
-                 * token from the endpoint
+                 * Calls the method from the viewModel that posts SSO details to endpoint, retrieves the
+                 * token from the endpoint and navigate to the edit profile page on successful
+                 * interaction with the backend
                  */
-                viewModel.getToken()
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        findNavController().navigate(R.id.profileFragment)
-                    },
-                    1000
-                )
+                viewModel.getToken(view, this@SuccessfulAuthFragment.findNavController())
             }
         }
     }

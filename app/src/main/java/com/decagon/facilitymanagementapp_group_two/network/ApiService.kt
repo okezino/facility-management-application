@@ -46,7 +46,5 @@ interface ApiService {
      */
     @Multipart
     @PATCH("api/v1/User/change-picture")
-    suspend fun updateProfileImage(
-            @Header("Authorization") token: String,
-            @Part image: MultipartBody.Part): UpdateProfileImageResponse
+    suspend fun updateProfileImage(@Part image: MultipartBody.Part): UpdateProfileImageResponse
 }

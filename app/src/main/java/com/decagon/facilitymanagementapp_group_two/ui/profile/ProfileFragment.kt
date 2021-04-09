@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,8 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBi
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.utils.*
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,6 +27,7 @@ class ProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
     private lateinit var userDetails: SsoResultBody
+    private lateinit var profileImageContainer: MaterialCardView
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -77,15 +81,16 @@ class ProfileFragment : Fragment() {
         binding.fragmentProfileName.text = userFullName
         binding.fragmentProfileEmail.text = userDetails.email
 
+        // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {
             MsWebAuthentication.signOutUser(this)
         }
 
+        profileImageContainer = binding.fragmentProfileCv
+
+        // Update profile image with the uploaded image from the user
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
-        if (imgUrl != null) {
-            val imgView = binding.fragmentProfileImage
-            Glide.with(requireContext()).load(imgUrl.toUri()).into(imgView)
-        }
+        imgUrl?.let { binding.fragmentProfileImage.loadImage(it) }
 
     }
 }
