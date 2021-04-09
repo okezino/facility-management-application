@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.ui.profile
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +20,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UserProfile
 import com.decagon.facilitymanagementapp_group_two.network.ApiCallStatus
 import com.decagon.facilitymanagementapp_group_two.utils.*
@@ -33,6 +36,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment() {
@@ -43,6 +47,10 @@ class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding
         get() = _binding!!
+    private lateinit var userDetails: SsoResultBody
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreateView(
@@ -50,6 +58,15 @@ class EditProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        /**
+         * Gets SSO details from sharedPreference
+         */
+        val firstName = sharedPreferences.getString(FIRST_NAME, null)
+        val lastName = sharedPreferences.getString(LAST_NAME, null)
+        val email = sharedPreferences.getString(EMAIL, null)
+        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
+
 
         /**
          * Update Status Bar Colour
@@ -108,9 +125,14 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.editFragmentProfileBtnSubmit.setOnClickListener {
-            //updateProfile()
+            updateProfile()
             updateProfileImage()
         }
+
+        val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
+        binding.editFragmentProfileMail.text = userDetails.email
+        binding.editFragmentProfileMainName.text = userFullName
+        binding.editFragmentProfileName.text = userFullName
 
     }
 
@@ -131,16 +153,13 @@ class EditProfileFragment : Fragment() {
          * Validate Input data and Toast the values
          */
 
-        if (squadInputValidation(updateSquad) && stackValidation(updateStack) && phoneNumberValidator(updatePhoneNumber)) {
-            var user = UserProfile(username, profileImage, profileEmail, updatePhoneNumber, updateSquad, updateStack, password)
+        val updateFormData = UpdateProfileBody(updateSquad,updateStack,updatePhoneNumber)
 
+        if (updateFormData.inputValidation() == "Success") {
+            var user = UserProfile(username, profileImage, profileEmail, updatePhoneNumber, updateSquad, updateStack, password)
             Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
         } else {
-            if (!squadInputValidation(updateSquad)) Toast.makeText(requireContext(), "Invalid Squad", Toast.LENGTH_SHORT).show()
-            else if (!stackValidation(updateStack)) Toast.makeText(requireContext(), "Invalid Stack", Toast.LENGTH_SHORT).show()
-            else {
-                Toast.makeText(requireContext(), "Invalid Phone Number", Toast.LENGTH_SHORT).show()
-            }
+                Toast.makeText(requireContext(), updateFormData.inputValidation(), Toast.LENGTH_SHORT).show()
         }
     }
 
