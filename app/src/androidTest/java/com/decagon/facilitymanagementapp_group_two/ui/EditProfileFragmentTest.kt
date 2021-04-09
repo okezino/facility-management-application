@@ -9,9 +9,10 @@ import com.decagon.facilitymanagementapp_group_two.ui.profile.EditProfileFragmen
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
-
+@Ignore
 @HiltAndroidTest
 class EditProfileFragmentTest {
     @get: Rule

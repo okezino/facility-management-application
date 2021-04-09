@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui.others
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,11 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
+import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
+import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment(), ComplaintClickListener {
@@ -25,6 +29,9 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         get() = _binding!!
 
     var complainRecycler = DashboardComplaintAdapter(this)
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +61,18 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Upload profile image from shared preference
+         */
+        val imgUrl  = sharedPreferences.getString(PROFILE_IMG_URI,null)
+        imgUrl?.let {
+            binding.userImage.loadImage(imgUrl)
+        }
     }
 
     /**

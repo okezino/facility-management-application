@@ -93,6 +93,14 @@ class ProfileFragment : Fragment() {
             val imgView = binding.fragmentProfileImage
             Glide.with(requireContext()).load(imgUrl.toUri()).into(imgView)
         }
+        binding.profileFragmentContainer.setOnClickListener {
+            zoomImage(it,imgUrl,view)
+        }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
