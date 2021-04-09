@@ -202,7 +202,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@color/white"
                 android:drawableEnd="@drawable/ic_baseline_edit_24"
-                android:text="@string/sq006"
+                android:hint="@string/_006"
                 style="@style/profile_details"
                 android:inputType="text" />
         </RelativeLayout>
@@ -230,7 +230,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@color/white"
                 android:drawableEnd="@drawable/ic_baseline_edit_24"
-                android:text="@string/android"
+                android:hint="@string/android"
                 style="@style/profile_details"
                 android:inputType="text" />
 
@@ -260,7 +260,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@color/white"
                 style="@style/profile_details"
-                android:text="@string/mobile_number"
+                android:hint="@string/mobile_number"
                 android:drawableEnd="@drawable/ic_baseline_edit_24"
                 android:inputType="phone" />
 

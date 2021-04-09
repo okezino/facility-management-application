@@ -57,7 +57,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/nav_image" />
+                    android:src="@drawable/profile_avatar" />
             </RelativeLayout>
 
             <EditText

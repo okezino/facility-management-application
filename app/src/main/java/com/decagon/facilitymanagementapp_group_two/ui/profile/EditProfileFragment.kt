@@ -15,9 +15,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
@@ -66,6 +68,7 @@ class EditProfileFragment : Fragment() {
         val lastName = sharedPreferences.getString(LAST_NAME, null)
         val email = sharedPreferences.getString(EMAIL, null)
         userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
+
 
 
         /**
@@ -133,6 +136,13 @@ class EditProfileFragment : Fragment() {
         binding.editFragmentProfileMail.text = userDetails.email
         binding.editFragmentProfileMainName.text = userFullName
         binding.editFragmentProfileName.text = userFullName
+        val imgUrl  = sharedPreferences.getString(PROFILE_IMG_URI,null)
+
+        imgUrl?.let {
+            binding.editFragmentProfilePic.loadImage(imgUrl)
+        }
+
+
 
     }
 
@@ -210,5 +220,10 @@ class EditProfileFragment : Fragment() {
         val image = MultipartBody.Part.createFormData("Image", file.name, body)
 
         viewModel.uploadProfileImage(image)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
