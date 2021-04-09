@@ -71,11 +71,18 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val squad = sharedPreferences.getString(STACK, null)
+        val stack = sharedPreferences.getString(SQUAD, null)
+        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
+
         // Populates profile page with SSO details
         val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
         binding.fragmentProfileMainName.text = userFullName
         binding.fragmentProfileName.text = userFullName
         binding.fragmentProfileEmail.text = userDetails.email
+        binding.fragmentProfileSquad.text = squad
+        binding.fragmentProfileStackText.text = stack
+        binding.fragmentProfileNumber.text = phoneNumber
 
         binding.fragmentProfileBtnLogout.setOnClickListener {
             MsWebAuthentication.signOutUser(this)

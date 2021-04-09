@@ -34,7 +34,7 @@ class EditProfileFragmentTest {
     @Test
     fun validate_edit_profile_layout() {
         onView(withId(R.id.edit_fragment_profile_appBarLayout)).check(matches(isDisplayed()))
-        onView(withId(R.id.edit_fragment_profile_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.edit_fragment_profile_pic)).check(matches(isDisplayed()))
         onView(withId(R.id.edit_fragment_profile_linear_layout)).check(matches(isDisplayed()))
     }
 }

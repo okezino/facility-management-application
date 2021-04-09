@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
 import com.decagon.facilitymanagementapp_group_two.model.data.UserProfile
 import com.decagon.facilitymanagementapp_group_two.network.ApiCallStatus
 import com.decagon.facilitymanagementapp_group_two.utils.*
@@ -79,7 +81,8 @@ class EditProfileFragment : Fragment() {
                    Snackbar.make(rootLayout, "Updating, please wait..", Snackbar.LENGTH_LONG).show()
                }
                ApiCallStatus.SUCCESS -> {
-                   Snackbar.make(rootLayout, "Profile image updated successfully", Snackbar.LENGTH_LONG).show()
+                   Snackbar.make(rootLayout, "Profile updated successfully", Snackbar.LENGTH_LONG).show()
+                   findNavController().navigate(R.id.profileFragment)
                }
                ApiCallStatus.ERROR -> {
                    Snackbar.make(rootLayout, "Error occurred! Please try again", Snackbar.LENGTH_LONG).show()
@@ -108,13 +111,12 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.editFragmentProfileBtnSubmit.setOnClickListener {
-            //updateProfile()
-            updateProfileImage()
+            updateProfileDetails()
         }
 
     }
 
-    private fun updateProfile() {
+    private fun updateProfileDetails() {
 
         /**
          * Collect Input Data from the UI
@@ -123,6 +125,8 @@ class EditProfileFragment : Fragment() {
         val updateSquad = binding.editFragmentProfileSquadInput.text.toString().trim()
         val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
         val username = binding.editFragmentProfileName.text.toString()
+        val firstName = username.split(" ")[0]
+        val lastName = username.split(" ")[1]
         val profileImage = "profileImage"
         val profileEmail = binding.editFragmentProfileMail.text.toString()
         val password = "12342"
@@ -132,9 +136,6 @@ class EditProfileFragment : Fragment() {
          */
 
         if (squadInputValidation(updateSquad) && stackValidation(updateStack) && phoneNumberValidator(updatePhoneNumber)) {
-            var user = UserProfile(username, profileImage, profileEmail, updatePhoneNumber, updateSquad, updateStack, password)
-
-            Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
         } else {
             if (!squadInputValidation(updateSquad)) Toast.makeText(requireContext(), "Invalid Squad", Toast.LENGTH_SHORT).show()
             else if (!stackValidation(updateStack)) Toast.makeText(requireContext(), "Invalid Stack", Toast.LENGTH_SHORT).show()
@@ -142,6 +143,8 @@ class EditProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Invalid Phone Number", Toast.LENGTH_SHORT).show()
             }
         }
+        val updateProfileDetails = UpdateProfileDetails(firstName, lastName, profileEmail, updateSquad, updateStack, updatePhoneNumber)
+        viewModel.updateProfileDetails(updateProfileDetails)
     }
 
     private fun takePhoto() {
