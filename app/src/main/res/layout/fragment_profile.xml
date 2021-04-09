@@ -53,7 +53,7 @@
                 android:id="@+id/fragment_profile_edit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="16dp"
                 android:drawableEnd="@drawable/ic_baseline_arrow_forward"
                 android:drawablePadding="10dp"
