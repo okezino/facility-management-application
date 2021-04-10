@@ -16,11 +16,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
@@ -73,8 +71,10 @@ object AppModule {
 
         // Creates an implementation of the ApiService
         return Retrofit.Builder()
-            .client(OkHttpClient.Builder().addInterceptor(logging)
-                .addInterceptor(headerAuthorization).build())
+            .client(
+                OkHttpClient.Builder().addInterceptor(logging)
+                    .addInterceptor(headerAuthorization).build()
+            )
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -6,18 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.utils.*
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,7 +22,6 @@ class ProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
     private lateinit var userDetails: SsoResultBody
-    private lateinit var profileImageContainer: MaterialCardView
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -75,22 +69,35 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val squad = sharedPreferences.getString(STACK, null)
+        val stack = sharedPreferences.getString(SQUAD, null)
+        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
+
         // Populates profile page with SSO details
         val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
         binding.fragmentProfileMainName.text = userFullName
         binding.fragmentProfileName.text = userFullName
         binding.fragmentProfileEmail.text = userDetails.email
+        binding.fragmentProfileSquad.text = squad
+        binding.fragmentProfileStackText.text = stack
+        binding.fragmentProfileNumber.text = phoneNumber
 
         // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {
             MsWebAuthentication.signOutUser(this)
         }
 
-        profileImageContainer = binding.fragmentProfileCv
-
         // Update profile image with the uploaded image from the user
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
         imgUrl?.let { binding.fragmentProfileImage.loadImage(it) }
 
+        binding.profileFragmentContainer.setOnClickListener {
+            zoomImage(it, imgUrl, view)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

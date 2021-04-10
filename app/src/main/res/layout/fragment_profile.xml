@@ -8,6 +8,16 @@
     android:background="@color/white"
     tools:context=".ui.profile.ProfileFragment">
 
+    <ImageView
+        android:id="@+id/fragment_profile_big_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/profile_avatar"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/fragment_profile_appBarLayout"
         android:layout_width="match_parent"
@@ -39,7 +49,7 @@
                 android:id="@+id/fragment_profile_edit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="16dp"
                 android:drawableEnd="@drawable/ic_baseline_arrow_forward"
                 android:drawablePadding="10dp"
@@ -58,10 +68,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/fragment_profile_cv"
+        android:id="@+id/profile_fragment_container"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="1dp"
         app:cardCornerRadius="65dp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_profile_main_name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,9 +121,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_profile_btn_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_profile_stack_squad_text">
@@ -252,7 +260,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="84dp"
         android:background="@drawable/success_btn"
         android:fontFamily="@font/source_sans_pro"
         android:padding="15dp"
@@ -260,26 +267,23 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_profile_linear_layout" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.39671683" />
+        app:layout_constraintGuide_percent="0.43949044" />
 
-    <ImageView
-        android:id="@+id/fragment_profile_big_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:visibility="invisible"
-        android:src="@drawable/profile_avatar"
-        tools:visibility="visible"/>
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="84dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

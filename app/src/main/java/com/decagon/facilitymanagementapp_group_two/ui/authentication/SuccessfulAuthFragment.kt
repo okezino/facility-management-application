@@ -2,8 +2,6 @@ package com.decagon.facilitymanagementapp_group_two.ui.authentication
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSuccessfulAuthBinding
-import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
-import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
 import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

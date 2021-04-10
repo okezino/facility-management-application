@@ -1,13 +1,10 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
-import com.decagon.facilitymanagementapp_group_two.model.data.Comment
-import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
-import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -47,4 +44,10 @@ interface ApiService {
     @Multipart
     @PATCH("api/v1/User/change-picture")
     suspend fun updateProfileImage(@Part image: MultipartBody.Part): UpdateProfileImageResponse
+
+    /**
+     * Update profile details API service
+     */
+    @PATCH("api/v1/User/update-profile")
+    suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
 }

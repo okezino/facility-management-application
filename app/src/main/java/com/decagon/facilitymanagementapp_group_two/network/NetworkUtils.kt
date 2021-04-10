@@ -8,7 +8,6 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-
 /**
  * An abstraction of try and catch block in a coroutine scope providing a clean
  * and safe API for making network calls
@@ -32,7 +31,6 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResultStatus<T> {
     }
 }
 
-
 /**
  * Function for convert/deserialize HttpException to Kotlin class using Moshi library
  */
@@ -40,7 +38,7 @@ private fun convertErrorBody(throwable: HttpException): ErrorResponse? {
     return try {
         throwable.response()?.errorBody()?.source()?.let {
             val moshiAdapter = Moshi.Builder().addLast(KotlinJsonAdapterFactory())
-                    .build().adapter(ErrorResponse::class.java)
+                .build().adapter(ErrorResponse::class.java)
             moshiAdapter.fromJson(it)
         }
     } catch (e: Exception) { null }

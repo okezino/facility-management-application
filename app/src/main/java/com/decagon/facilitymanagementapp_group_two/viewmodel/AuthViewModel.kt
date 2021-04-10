@@ -1,11 +1,9 @@
 package com.decagon.facilitymanagementapp_group_two.viewmodel
 
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
