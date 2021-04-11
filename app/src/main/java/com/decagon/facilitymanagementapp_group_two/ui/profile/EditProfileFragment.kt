@@ -22,6 +22,9 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfi
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
+import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -152,7 +156,20 @@ class EditProfileFragment : Fragment() {
                 updateStack,
                 updatePhoneNumber
             )
-            viewModel.updateProfileDetails(updateProfileDetails, view, this.findNavController())
+            val result = viewModel.updateProfileDetails(updateProfileDetails)
+
+            ApiResponseHandler(result, this, view) {
+                viewModel.apply {
+                    saveData(FIRST_NAME, updateProfileDetails.firstName)
+                    saveData(LAST_NAME, updateProfileDetails.lastName)
+                    saveData(USER_NAME, updateProfileDetails.userName)
+                    saveData(SQUAD, updateProfileDetails.squad)
+                    saveData(PHONE_NUMBER, updateProfileDetails.phoneNumber)
+                    saveData(STACK, updateProfileDetails.gender)
+                }
+                view?.showSnackBar("Profile details updated successfully")
+                findNavController().navigate(R.id.profileFragment)
+            }
         } else {
             Snackbar.make(rootLayout, updateFormData.inputValidation(), Snackbar.LENGTH_SHORT)
                 .show()
@@ -216,7 +233,13 @@ class EditProfileFragment : Fragment() {
         val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         val image = MultipartBody.Part.createFormData("Image", file.name, body)
 
-        viewModel.uploadProfileImage(image, view, profileImage, imageUrl)
+        val serverResponse = viewModel.uploadProfileImage(image)
+
+        ApiResponseHandler(serverResponse, this, view) {
+            viewModel.saveData(PROFILE_IMG_URI, it.value.data.url)
+            view?.showSnackBar("Profile image updated successfully")
+            imageUrl?.let { profileImage.loadImage(it.toString()) }
+        }
     }
 
     override fun onDestroyView() {

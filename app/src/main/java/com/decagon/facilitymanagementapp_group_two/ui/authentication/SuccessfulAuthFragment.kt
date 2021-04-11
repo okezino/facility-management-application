@@ -11,6 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSuccessfulAuthBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
+import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
+import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
 import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,7 +54,12 @@ class SuccessfulAuthFragment : Fragment() {
                  * token from the endpoint and navigate to the edit profile page on successful
                  * interaction with the backend
                  */
-                viewModel.getToken(view, this@SuccessfulAuthFragment.findNavController())
+                val result = viewModel.getToken()
+
+                ApiResponseHandler(result, this@SuccessfulAuthFragment, view) {
+                    viewModel.saveData(TOKEN_NAME, it.value.data.token)
+                    findNavController().navigate(R.id.profileFragment)
+                }
             }
         }
     }
