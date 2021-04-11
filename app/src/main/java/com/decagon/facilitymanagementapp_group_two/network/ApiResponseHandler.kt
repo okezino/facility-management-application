@@ -37,7 +37,6 @@ data class ApiResponseHandler<T>(
                     }
                     is ResultStatus.GenericError -> {
                         Log.d("ApiCall Error", "${it.code}")
-                        if ("${it.code}" == "timeout") view?.showSnackBar("Request timeout, try again")
                         message = when (it.code) {
                             400 -> "Bad request! Please verify your inputs"
                             401 -> "Your session has expired. Please logout and login again to continue"

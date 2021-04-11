@@ -12,6 +12,7 @@ import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
+import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -68,6 +69,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        NetworkManager(this)
 
         val squad = sharedPreferences.getString(STACK, null)
         val stack = sharedPreferences.getString(SQUAD, null)

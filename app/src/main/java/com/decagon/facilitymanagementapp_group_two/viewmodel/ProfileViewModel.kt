@@ -23,28 +23,28 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
      * of the various states of the transaction or process.
      */
     fun uploadProfileImage(image: MultipartBody.Part):
-            LiveData<ResultStatus<UpdateProfileImageResponse>> {
-        val result = MutableLiveData<ResultStatus<UpdateProfileImageResponse>>()
-        result.value = ResultStatus.Loading("Updating profile image... Please wait")
-        viewModelScope.launch {
-            result.value = authRepository.updateProfileImage(image)
+        LiveData<ResultStatus<UpdateProfileImageResponse>> {
+            val result = MutableLiveData<ResultStatus<UpdateProfileImageResponse>>()
+            result.value = ResultStatus.Loading("Updating profile image... Please wait")
+            viewModelScope.launch {
+                result.value = authRepository.updateProfileImage(image)
+            }
+            return result
         }
-        return result
-    }
 
     /**
      * Method to update and upload profile details to the server and keeps the user aware
      * of the various states of the transaction or process.
      */
     fun updateProfileDetails(updateProfileDetails: UpdateProfileDetails):
-            LiveData<ResultStatus<Response<Unit>>> {
-        val response = MutableLiveData<ResultStatus<Response<Unit>>>()
-        response.value = ResultStatus.Loading("Updating profile details... Please wait")
-        viewModelScope.launch {
-            response.value = authRepository.updateProfileDetails(updateProfileDetails)
+        LiveData<ResultStatus<Response<Unit>>> {
+            val response = MutableLiveData<ResultStatus<Response<Unit>>>()
+            response.value = ResultStatus.Loading("Updating profile details... Please wait")
+            viewModelScope.launch {
+                response.value = authRepository.updateProfileDetails(updateProfileDetails)
+            }
+            return response
         }
-        return response
-    }
 
     fun saveData(key: String, value: String) {
         authRepository.saveDataInPref(key, value)

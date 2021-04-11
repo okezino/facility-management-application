@@ -12,7 +12,7 @@ sealed class ResultStatus<out T> {
         val error: ErrorResponse? = null
     ) : ResultStatus<Nothing>()
 
-    data class Loading<out T>(val message: String): ResultStatus<T>()
+    data class Loading<out T>(val message: String) : ResultStatus<T>()
 
     object NetworkError : ResultStatus<Nothing>()
 }

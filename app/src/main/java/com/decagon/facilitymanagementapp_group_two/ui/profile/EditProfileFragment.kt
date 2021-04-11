@@ -22,9 +22,8 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfi
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
-import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
-import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
+import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -32,7 +31,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -87,6 +85,8 @@ class EditProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        NetworkManager(this)
 
         rootLayout = binding.editFragmentProfileRootLayout
         profileImage = binding.editFragmentProfilePic
