@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -146,7 +147,6 @@ class EditProfileFragment : Fragment() {
          */
 
         val updateFormData = UpdateProfileBody(updateSquad, updateStack, updatePhoneNumber)
-
         if (updateFormData.inputValidation() == "Success") {
             val updateProfileDetails = UpdateProfileDetails(
                 firstName,
@@ -159,16 +159,25 @@ class EditProfileFragment : Fragment() {
             val result = viewModel.updateProfileDetails(updateProfileDetails)
 
             ApiResponseHandler(result, this, view) {
-                viewModel.apply {
-                    saveData(FIRST_NAME, updateProfileDetails.firstName)
-                    saveData(LAST_NAME, updateProfileDetails.lastName)
-                    saveData(USER_NAME, updateProfileDetails.userName)
-                    saveData(SQUAD, updateProfileDetails.squad)
-                    saveData(PHONE_NUMBER, updateProfileDetails.phoneNumber)
-                    saveData(STACK, updateProfileDetails.gender)
+                when (it.value.code()) {
+                    204 -> {
+                        viewModel.apply {
+                            saveData(FIRST_NAME, updateProfileDetails.firstName)
+                            saveData(LAST_NAME, updateProfileDetails.lastName)
+                            saveData(USER_NAME, updateProfileDetails.userName)
+                            saveData(SQUAD, updateProfileDetails.squad)
+                            saveData(PHONE_NUMBER, updateProfileDetails.phoneNumber)
+                            saveData(STACK, updateProfileDetails.gender)
+                        }
+                        view?.showSnackBar("Profile details updated successfully")
+                        findNavController().navigate(R.id.profileFragment)
+                    }
+                    401 -> {
+                        view?.showSnackBar("Unauthorized: Your session has expired. Please logout and login again to continue")
+                    }
+                    else -> view?.showSnackBar("Error: Unable to established connection with server")
                 }
-                view?.showSnackBar("Profile details updated successfully")
-                findNavController().navigate(R.id.profileFragment)
+                Log.d("ApiCall", "${it.value}")
             }
         } else {
             Snackbar.make(rootLayout, updateFormData.inputValidation(), Snackbar.LENGTH_SHORT)
