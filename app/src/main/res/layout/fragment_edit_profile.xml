@@ -252,7 +252,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mobile" />
 
-
             <EditText
                 android:id="@+id/edit_fragment_profile_phone_number"
                 android:layout_width="wrap_content"
@@ -270,7 +269,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:src="@drawable/divider" />
-
     </LinearLayout>
 
     <TextView

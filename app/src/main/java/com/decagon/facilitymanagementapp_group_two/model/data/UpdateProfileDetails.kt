@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.model.data
 
-
 data class UpdateProfileDetails(
     val firstName: String,
     val lastName: String,

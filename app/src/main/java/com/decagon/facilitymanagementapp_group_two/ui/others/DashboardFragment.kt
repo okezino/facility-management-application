@@ -69,7 +69,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         /**
          * Upload profile image from shared preference
          */
-        val imgUrl  = sharedPreferences.getString(PROFILE_IMG_URI,null)
+        val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
         imgUrl?.let {
             binding.userImage.loadImage(imgUrl)
         }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentFailedAuthenticationBinding
+import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 
 class FailedAuthenticationFragment : Fragment() {
     private var _binding: FragmentFailedAuthenticationBinding? = null
@@ -27,6 +28,8 @@ class FailedAuthenticationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        NetworkManager(this)
 
         binding.fragmentFailedAuthenticationTryAgainBtn.setOnClickListener {
             findNavController().navigate(R.id.authorizingUserFragment)

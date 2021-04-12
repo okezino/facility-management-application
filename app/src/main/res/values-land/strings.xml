@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FacilityManagementApp-Group-One</string>
+    <string name="app_name">FacilityManagementApp-Group-Two</string>
     <string name="fragment_onboard_facility">FACILITY MANAGEMENT APP</string>
     <string name="fragment_onboard_manageComplaint">Manage all your complaints in one place</string>
     <string name="fragment_onboard_getStarted">Get started</string>

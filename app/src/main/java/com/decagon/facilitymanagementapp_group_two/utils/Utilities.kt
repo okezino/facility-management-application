@@ -4,14 +4,26 @@ import android.content.ContentResolver
 import android.content.SharedPreferences
 import android.net.Uri
 import android.provider.OpenableColumns
+import android.view.View
+import android.widget.ImageView
+import androidx.core.net.toUri
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.decagon.facilitymanagementapp_group_two.R
+import com.google.android.material.snackbar.Snackbar
 
-fun writeSsoDetailsToSharedPref(firstName: String, lastName: String, email: String, sharedPreferences: SharedPreferences) {
+fun writeSsoDetailsToSharedPref(
+    firstName: String,
+    lastName: String,
+    email: String,
+    sharedPreferences: SharedPreferences
+) {
     sharedPreferences.edit().putString("firstName", firstName).apply()
     sharedPreferences.edit().putString("lastName", lastName).apply()
     sharedPreferences.edit().putString("email", email).apply()
 }
 
-// Extension function
+// Extension function on ContentResolver
 fun ContentResolver.getFileName(uri: Uri): String {
     var name = ""
     val cursor = query(uri, null, null, null, null)
@@ -20,4 +32,23 @@ fun ContentResolver.getFileName(uri: Uri): String {
         name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
     }
     return name
+}
+
+/**
+ * An extension function for loading images from server using glide
+ * with provisions for loading and error state
+ */
+fun ImageView.loadImage(imageUrl: String?) {
+    val imgUri = imageUrl?.toUri()
+    Glide.with(this)
+        .load(imgUri).apply(
+            RequestOptions()
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image)
+        ).into(this)
+}
+
+// Extension function for showing snack bar
+fun View.showSnackBar(message: String) {
+    Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
 }

@@ -12,30 +12,21 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.net.toUri
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.decagon.facilitymanagementapp_group_two.R
 
-var currentAnimator : Animator? = null
-var shortAnimationDuration : Int = 0
+var currentAnimator: Animator? = null
+var shortAnimationDuration: Int = 0
 
-fun ImageView.loadImage(imageUrl: String?) {
-    val imgUri = imageUrl?.toUri()
-    Glide.with(this)
-        .load(imgUri).apply(
-            RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-        ).into(this)
-}
-
+/**
+ * Animation template for display the full version of the profile image when it is clicked.
+ */
 fun zoomImage(view: View, imageResId: String?, root: View) {
     currentAnimator?.cancel()
     root.findViewById<TextView>(R.id.fragment_profile_btn_logout).visibility = View.GONE
     root.findViewById<TextView>(R.id.fragment_profile_main_name).visibility = View.GONE
     root.findViewById<TextView>(R.id.fragment_profile_stack_squad_text).visibility = View.GONE
     root.findViewById<LinearLayout>(R.id.fragment_profile_linear_layout).visibility = View.GONE
+
     val bigImage: ImageView = root.findViewById(R.id.fragment_profile_big_iv)
     imageResId?.let { bigImage.loadImage(it) }
     val startBoundsInt = Rect()
@@ -96,6 +87,7 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
             root.findViewById<LinearLayout>(R.id.fragment_profile_linear_layout).visibility = View.VISIBLE
             root.findViewById<TextView>(R.id.fragment_profile_main_name).visibility = View.VISIBLE
             root.findViewById<TextView>(R.id.fragment_profile_stack_squad_text).visibility = View.VISIBLE
+
             currentAnimator = AnimatorSet().apply {
                 play(ObjectAnimator.ofFloat(bigImage, View.X, startBounds.left)).apply {
                     with(ObjectAnimator.ofFloat(bigImage, View.Y, startBounds.top))

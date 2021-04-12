@@ -6,14 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
+import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -71,6 +70,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        NetworkManager(this)
+
         val squad = sharedPreferences.getString(STACK, null)
         val stack = sharedPreferences.getString(SQUAD, null)
         val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
@@ -84,23 +85,22 @@ class ProfileFragment : Fragment() {
         binding.fragmentProfileStackText.text = stack
         binding.fragmentProfileNumber.text = phoneNumber
 
+        // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {
             MsWebAuthentication.signOutUser(this)
         }
 
+        // Update profile image with the uploaded image from the user
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
-        if (imgUrl != null) {
-            val imgView = binding.fragmentProfileImage
-            Glide.with(requireContext()).load(imgUrl.toUri()).into(imgView)
-        }
-        binding.profileFragmentContainer.setOnClickListener {
-            zoomImage(it,imgUrl,view)
-        }
+        imgUrl?.let { binding.fragmentProfileImage.loadImage(it) }
 
+        binding.profileFragmentContainer.setOnClickListener {
+            zoomImage(it, imgUrl, view)
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

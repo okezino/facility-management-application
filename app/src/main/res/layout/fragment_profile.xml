@@ -16,10 +16,6 @@
         android:paddingEnd="10dp"
         android:src="@drawable/profile_avatar"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fragment_profile_appBarLayout"
         tools:visibility="visible" />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -289,6 +285,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="84dp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

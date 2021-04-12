@@ -25,7 +25,7 @@ fun feedSelectionValidation(s: String): Boolean {
 fun squadInputValidation(s: String): Boolean {
     var value = true
     var digits = s.takeLast(3)
-    if (s.length < 5 || s[0] != 'S'|| s[1] != 'Q' || s.isEmpty()) value = false
+    if (s.length < 5 || s[0] != 'S' || s[1] != 'Q' || s.isEmpty()) value = false
     for (i in digits) if (!i.isDigit()) value = false
     return value
 }
@@ -58,14 +58,14 @@ fun phoneNumberValidator(phone: String): Boolean {
     return value
 }
 
-fun  UpdateProfileBody.inputValidation() : String{
+fun UpdateProfileBody.inputValidation(): String {
     var message = "Success"
 
     if (!phoneNumberValidator(this.mobile)) message = "Invalid Phone Format"
 
-    if(!stackValidation(this.stack)) message = "Invalid Stack Format"
+    if (!stackValidation(this.stack)) message = "Invalid Stack Format"
 
-    if(!squadInputValidation(this.squad))  message = "Invalid Squad Format"
+    if (!squadInputValidation(this.squad)) message = "Invalid Squad Format"
 
     return message
 }

@@ -7,7 +7,6 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
-
 interface ApiService {
 
     /**
@@ -44,13 +43,11 @@ interface ApiService {
      */
     @Multipart
     @PATCH("api/v1/User/change-picture")
-    suspend fun updateProfileImage(@Header("Authorization") token: String, @Part image: MultipartBody.Part): UpdateProfileImageResponse
+    suspend fun updateProfileImage(@Part image: MultipartBody.Part): UpdateProfileImageResponse
 
     /**
      * Update profile details API service
      */
     @PATCH("api/v1/User/update-profile")
-    suspend fun updateProfileDetails(@Header("Authorization") token: String, @Body updateProfileDetails: UpdateProfileDetails):
-            Response<Unit>
+    suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
 }
-

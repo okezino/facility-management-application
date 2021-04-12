@@ -6,26 +6,25 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
-import com.decagon.facilitymanagementapp_group_two.model.data.UserProfile
-import com.decagon.facilitymanagementapp_group_two.network.ApiCallStatus
+import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -52,7 +51,6 @@ class EditProfileFragment : Fragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,7 +64,6 @@ class EditProfileFragment : Fragment() {
         val lastName = sharedPreferences.getString(LAST_NAME, null)
         val email = sharedPreferences.getString(EMAIL, null)
         userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
-
 
         /**
          * Update Status Bar Colour
@@ -90,32 +87,15 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        NetworkManager(this)
 
-        viewModel.status.observe(viewLifecycleOwner) {
-            when (it) {
-                ApiCallStatus.LOADING -> {
-                    Snackbar.make(rootLayout, "Updating, please wait..", Snackbar.LENGTH_LONG)
-                        .show()
-                }
-                ApiCallStatus.SUCCESS -> {
-                    Snackbar.make(rootLayout, "Profile updated successfully", Snackbar.LENGTH_LONG)
-                        .show()
-                    findNavController().navigate(R.id.profileFragment)
-                }
-                ApiCallStatus.ERROR -> {
-                    Snackbar.make(
-                        rootLayout,
-                        "Error occurred! Please try again",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
-            }
-        }
-
-        // Update profile image codes
         rootLayout = binding.editFragmentProfileRootLayout
         profileImage = binding.editFragmentProfilePic
 
+        /**
+         * Displays an alert dialog with options for users to
+         * select image for their profile
+         */
         binding.editFragmentCamera.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("Change Photo")
@@ -133,12 +113,7 @@ class EditProfileFragment : Fragment() {
                 .show()
         }
 
-        binding.editFragmentProfileBtnSubmit.setOnClickListener {
-
-            //      updateProfile()
-            updateProfileImage()
-            updateProfileDetails()
-        }
+        binding.editFragmentProfileBtnSubmit.setOnClickListener { updateProfileDetails() }
 
         val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
         binding.editFragmentProfileMail.text = userDetails.email
@@ -146,15 +121,12 @@ class EditProfileFragment : Fragment() {
         binding.editFragmentProfileName.text = userFullName
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
 
-
         /**
          * Upload profile image from shared preference
          */
         imgUrl?.let {
             binding.editFragmentProfilePic.loadImage(imgUrl)
         }
-
-
     }
 
     private fun updateProfileDetails() {
@@ -168,16 +140,13 @@ class EditProfileFragment : Fragment() {
         val username = binding.editFragmentProfileName.text.toString()
         val firstName = username.split(" ")[0]
         val lastName = username.split(" ")[1]
-        val profileImage = "profileImage"
         val profileEmail = binding.editFragmentProfileMail.text.toString()
-        val password = "12342"
 
         /**
          * Validate Input data, update input profile and show error respectively
          */
 
         val updateFormData = UpdateProfileBody(updateSquad, updateStack, updatePhoneNumber)
-
         if (updateFormData.inputValidation() == "Success") {
             val updateProfileDetails = UpdateProfileDetails(
                 firstName,
@@ -187,15 +156,38 @@ class EditProfileFragment : Fragment() {
                 updateStack,
                 updatePhoneNumber
             )
-            viewModel.updateProfileDetails(updateProfileDetails)
+            val result = viewModel.updateProfileDetails(updateProfileDetails)
+
+            ApiResponseHandler(result, this, view) {
+                when (it.value.code()) {
+                    204 -> {
+                        viewModel.apply {
+                            saveData(FIRST_NAME, updateProfileDetails.firstName)
+                            saveData(LAST_NAME, updateProfileDetails.lastName)
+                            saveData(USER_NAME, updateProfileDetails.userName)
+                            saveData(SQUAD, updateProfileDetails.squad)
+                            saveData(PHONE_NUMBER, updateProfileDetails.phoneNumber)
+                            saveData(STACK, updateProfileDetails.gender)
+                        }
+                        view?.showSnackBar("Profile details updated successfully")
+                        findNavController().navigate(R.id.profileFragment)
+                    }
+                    401 -> {
+                        view?.showSnackBar("Unauthorized: Your session has expired. Please logout and login again to continue")
+                    }
+                    else -> view?.showSnackBar("Error: Unable to established connection with server")
+                }
+                Log.d("ApiCall", "${it.value}")
+            }
         } else {
             Snackbar.make(rootLayout, updateFormData.inputValidation(), Snackbar.LENGTH_SHORT)
                 .show()
         }
-
-
     }
 
+    /**
+     * Start an intent for capturing photos using the device's camera
+     */
     private fun takePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val file = File(requireActivity().externalCacheDir!!.absoluteFile, "MyPhoto.jpg")
@@ -211,30 +203,33 @@ class EditProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Start an intent for selecting images/photos from the device's gallery
+     */
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
         requireActivity().startActivityFromFragment(this, intent, 1)
     }
 
+    /**
+     * Handles the result of the intents and update the user's profile
+     * image accordingly
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1 && resultCode == AppCompatActivity.RESULT_OK && data != null) {
-            profileImage.setImageURI(data.data)
             imageUrl = data.data!!
+            updateProfileImage()
         } else if (requestCode == 2 && resultCode == AppCompatActivity.RESULT_OK) {
-            profileImage.setImageURI(imageUrl)
+            updateProfileImage()
         }
     }
 
+    /**
+     * Handle the logic of reading/writing files from the device's shared storage
+     * and upload the image to the server using the helper method from the ProfileViewModel
+     */
     private fun updateProfileImage() {
-        if (imageUrl == null) {
-            Snackbar.make(
-                rootLayout, "Please select an image as a profile pic",
-                Snackbar.LENGTH_LONG
-            ).show()
-            return
-        }
-
         val parcelFileDescriptor = requireActivity().contentResolver
             .openFileDescriptor(imageUrl!!, "r", null) ?: return
         val file = File(
@@ -244,15 +239,20 @@ class EditProfileFragment : Fragment() {
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream)
-
         val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         val image = MultipartBody.Part.createFormData("Image", file.name, body)
 
-        viewModel.uploadProfileImage(image)
+        val serverResponse = viewModel.uploadProfileImage(image)
+
+        ApiResponseHandler(serverResponse, this, view) {
+            viewModel.saveData(PROFILE_IMG_URI, it.value.data.url)
+            view?.showSnackBar("Profile image updated successfully")
+            imageUrl?.let { profileImage.loadImage(it.toString()) }
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

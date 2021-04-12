@@ -102,7 +102,7 @@ object MsWebAuthentication {
      *  Method to initialise mSingleAccountApp
      */
     fun initialiseSingleAccount(activity: FragmentActivity, navController: NavController) {
-        sharedPreferences = activity.applicationContext.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
+        sharedPreferences = activity.applicationContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         PublicClientApplication.createSingleAccountPublicClientApplication(
             activity.applicationContext, R.raw.auth_config_single_account,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
@@ -154,15 +154,14 @@ object MsWebAuthentication {
     }
 
     fun signOutUser(fragment: Fragment) {
-        mSingleAccountApp.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback{
+        mSingleAccountApp.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback {
             override fun onSignOut() {
-               fragment.findNavController().navigate(R.id.onboardingFragment)
+                fragment.findNavController().navigate(R.id.onboardingFragment)
             }
 
             override fun onError(exception: MsalException) {
                 logIt(exception.toString())
             }
-
         })
     }
 }
