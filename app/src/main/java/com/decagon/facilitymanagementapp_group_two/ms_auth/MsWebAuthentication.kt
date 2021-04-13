@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
 import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
@@ -29,6 +30,7 @@ object MsWebAuthentication {
 
     // Holds the result from Microsoft SSO authentication
     lateinit var ssoResultBody: SsoResultBody
+   private lateinit var updateProfileBody: UpdateProfileBody
 
     /**
      * Call method used in signing-in users through microsoft identity platform
@@ -76,7 +78,11 @@ object MsWebAuthentication {
                      */
                     val (firstName, lastName) = result.displayName.split(" ")
                     ssoResultBody = SsoResultBody(firstName, lastName, result.mail)
-                    writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email, sharedPreferences)
+                    updateProfileBody = UpdateProfileBody("SQ--","NIL","NIL")
+                    writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email,
+                        updateProfileBody.squad,
+                        updateProfileBody.stack,
+                        updateProfileBody.mobile, sharedPreferences)
                     sharedPreferences.edit().putString("UserName", result.displayName).apply()
                     logIt(result.displayName)
                     val action = AuthorizingUserFragmentDirections

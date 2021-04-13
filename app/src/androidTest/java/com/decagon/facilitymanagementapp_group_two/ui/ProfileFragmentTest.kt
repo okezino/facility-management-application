@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.launchFragmentInHiltContainer
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.ui.profile.ProfileFragment
 import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -31,7 +32,14 @@ class ProfileFragmentTest {
     fun testLaunchFragmentInHiltContainer() {
         hiltRule.inject()
         val ssoResultBody = SsoResultBody("Godday", "Okoduwa", "godday.okoduwa@decagon.dev")
-        writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email, sharedPreferences)
+        val updateProfileBody = UpdateProfileBody("SQ--","NIL","NIL")
+        writeSsoDetailsToSharedPref(
+            ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email,
+            updateProfileBody.squad,
+            updateProfileBody.stack,
+            updateProfileBody.mobile,
+            sharedPreferences
+        )
         launchFragmentInHiltContainer<ProfileFragment> {
         }
     }
