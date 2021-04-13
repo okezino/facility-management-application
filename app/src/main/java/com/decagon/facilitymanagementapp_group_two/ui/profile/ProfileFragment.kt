@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
+import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
@@ -23,6 +25,7 @@ class ProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
     private lateinit var userDetails: SsoResultBody
+    private lateinit var userData : UpdateProfileBody
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -67,23 +70,26 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         NetworkManager(this)
 
-        val squad = sharedPreferences.getString(STACK, null)
-        val stack = sharedPreferences.getString(SQUAD, null)
+        val squad = sharedPreferences.getString(SQUAD, null)
+        val stack = sharedPreferences.getString(STACK, null)
         val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
+        userData = UpdateProfileBody(squad!!,stack!!,phoneNumber!!)
+        binding.fragmentProfileStackSquadText.setText("${userData.stack} - ${userData.squad}")
 
         // Populates profile page with SSO details
         val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
         binding.fragmentProfileMainName.text = userFullName
         binding.fragmentProfileName.text = userFullName
         binding.fragmentProfileEmail.text = userDetails.email
-        binding.fragmentProfileSquad.text = squad
-        binding.fragmentProfileStackText.text = stack
-        binding.fragmentProfileNumber.text = phoneNumber
+        binding.fragmentProfileSquad.text = userData.squad
+        binding.fragmentProfileStackText.text = userData.stack
+        binding.fragmentProfileNumber.text = userData.mobile
 
         // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {
@@ -92,7 +98,7 @@ class ProfileFragment : Fragment() {
 
         // Update profile image with the uploaded image from the user
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
-        imgUrl?.let { binding.fragmentProfileImage.loadImage(it) }
+        imgUrl?.let { binding.profileFragmentContainer.loadImage(it) }
 
         binding.profileFragmentContainer.setOnClickListener {
             zoomImage(it, imgUrl, view)
