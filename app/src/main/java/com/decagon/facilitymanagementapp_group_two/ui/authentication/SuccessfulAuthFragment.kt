@@ -56,6 +56,7 @@ class SuccessfulAuthFragment : Fragment() {
 
                 ApiResponseHandler(result, this@SuccessfulAuthFragment, view) {
                     viewModel.saveData(TOKEN_NAME, it.value.data.token)
+                    findNavController().popBackStack()
                     findNavController().navigate(R.id.profileFragment)
                 }
             }
