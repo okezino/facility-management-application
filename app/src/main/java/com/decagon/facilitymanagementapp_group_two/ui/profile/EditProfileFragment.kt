@@ -81,6 +81,7 @@ class EditProfileFragment : Fragment() {
          * Navigate back to Profile Fragment
          */
         binding.editFragmentProfileBackBtn.setOnClickListener {
+            findNavController().popBackStack()
             findNavController().navigate(R.id.profileFragment)
         }
         return binding.root
@@ -193,6 +194,7 @@ class EditProfileFragment : Fragment() {
                             saveData(STACK, updateProfileDetails.gender)
                         }
                         view?.showSnackBar("Profile details updated successfully")
+                        findNavController().popBackStack()
                         findNavController().navigate(R.id.profileFragment)
                     }
                     401 -> {
