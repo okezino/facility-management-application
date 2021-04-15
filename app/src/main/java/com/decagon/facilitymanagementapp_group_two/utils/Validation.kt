@@ -61,11 +61,11 @@ fun phoneNumberValidator(phone: String): Boolean {
 fun UpdateProfileBody.inputValidation(): String {
     var message = "Success"
 
-    if (!phoneNumberValidator(this.mobile)) message = "Invalid Phone Format"
+    if (!phoneNumberValidator(mobile)) message = "Invalid Phone Format"
 
-    if (!stackValidation(this.stack)) message = "Invalid Stack Format"
+    if (!stackValidation(stack)) message = "Invalid Stack Format"
 
-    if (!squadInputValidation(this.squad)) message = "Invalid Squad Format"
+    if (!squadInputValidation(squad)) message = "Invalid Squad Format"
 
     return message
 }
