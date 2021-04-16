@@ -39,6 +39,7 @@ object MsWebAuthentication {
         return object : AuthenticationCallback {
             override fun onSuccess(authenticationResult: IAuthenticationResult) {
                 callGraphAPI(authenticationResult, fragment)
+
             }
 
             override fun onError(exception: MsalException?) {
@@ -60,6 +61,7 @@ object MsWebAuthentication {
      */
     fun callGraphAPI(authenticationResult: IAuthenticationResult, fragment: Fragment) {
         val accessToken = authenticationResult.accessToken
+        logIt("Authenticating request, ${accessToken}")
         val graphClient = GraphServiceClient
             .builder()
             .authenticationProvider {

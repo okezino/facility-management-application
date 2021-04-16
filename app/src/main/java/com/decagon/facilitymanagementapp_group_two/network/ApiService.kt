@@ -10,6 +10,10 @@ import retrofit2.http.*
 interface ApiService {
 
     /**
+     * Get
+     */
+
+    /**
      * Get all comments from Api
      */
     @GET("comments")
