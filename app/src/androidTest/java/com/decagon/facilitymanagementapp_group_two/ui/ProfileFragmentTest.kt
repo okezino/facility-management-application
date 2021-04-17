@@ -1,7 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui
 
 import android.content.SharedPreferences
-import androidx.room.Ignore
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -14,9 +13,11 @@ import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToShared
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
+
 
 @HiltAndroidTest
 class ProfileFragmentTest {
