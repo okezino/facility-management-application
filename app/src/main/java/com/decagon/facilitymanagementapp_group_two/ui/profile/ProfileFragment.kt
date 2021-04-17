@@ -31,7 +31,6 @@ class ProfileFragment : Fragment() {
         get() = _binding!!
     private lateinit var userDetails: SsoResultBody
     private lateinit var userData : UpdateProfileBody
-  //   lateinit var user : UserData
     private val viewModel: ProfileViewModel by viewModels()
 
     @Inject
@@ -55,20 +54,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         /**
-         * Gets SSO details from sharedPreference
+         * Gets Profile details from DataBase and update the View
          */
-//        val firstName = sharedPreferences.getString(FIRST_NAME, null)
-//        val lastName = sharedPreferences.getString(LAST_NAME, null)
-//        val email = sharedPreferences.getString(EMAIL, null)
-//        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
-
-        /**
-         * (Temp)-Gets token from shared preference
-         */
-//        val token = sharedPreferences.getString(TOKEN_NAME, null)
-//        token?.let {
-//            Log.d("FragmentProfile", it)
-//        }
 
         viewModel.userData.observe(viewLifecycleOwner, Observer {user ->
 
@@ -111,12 +98,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         NetworkManager(this)
-
-//        val squad = sharedPreferences.getString(SQUAD, null)
-//        val stack = sharedPreferences.getString(STACK, null)
-//        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
-//        userData = UpdateProfileBody(squad!!,stack!!,phoneNumber!!)
-
 
         // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {
