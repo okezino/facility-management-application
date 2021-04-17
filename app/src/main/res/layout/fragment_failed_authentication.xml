@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/fragment_failed_authentication_back_navigation"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_baseline_arrow_back_ios_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,26 +24,26 @@
 
     <ImageView
         android:id="@+id/fragment_failed_authentication_iv"
-        android:layout_width="136dp"
-        android:layout_height="147dp"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="130dp"
         android:src="@drawable/failurescreenlogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fragment_failed_authentication_title_tv"
-        android:layout_width="141dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/fragment_failed_authentication_title"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="35sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

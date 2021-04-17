@@ -16,11 +16,17 @@ fun writeSsoDetailsToSharedPref(
     firstName: String,
     lastName: String,
     email: String,
+    squad: String,
+    stack: String,
+    mobile: String,
     sharedPreferences: SharedPreferences
 ) {
     sharedPreferences.edit().putString("firstName", firstName).apply()
     sharedPreferences.edit().putString("lastName", lastName).apply()
     sharedPreferences.edit().putString("email", email).apply()
+    sharedPreferences.edit().putString("squad", squad).apply()
+    sharedPreferences.edit().putString("stack", stack).apply()
+    sharedPreferences.edit().putString("mobile", mobile).apply()
 }
 
 // Extension function on ContentResolver

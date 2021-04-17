@@ -57,27 +57,7 @@ class CentralDatabaseTest {
         assertEquals(comment2.userName, "Otega")
     }
 
-    @Test
-    @Throws(java.lang.Exception::class)
-    fun insertAndGetRequest() {
-        val request = Request(
-            1, "Food", "Akpabio", "Oily and Tasteless meal",
-            "The food was oily and tasteless", "27:03:2021", null
-        )
-        requestDao.insert(request)
-        val request2 = requestDao.getLatestRequest()
-        assertEquals(request2.feedCategory, "Food")
-    }
 
-    @Test
-    @Throws(java.lang.Exception::class)
-    fun insertAndGetUser() {
-        val user = User(
-            "Olayinka", "olayinka@gattegs.jpg", "luvme.luvme@gmail.com",
-            "07017278917", "Students", "Java", "casamento#1..090"
-        )
-        userDao.insert(user)
-        val user2 = userDao.getLatestUser()
-        assertEquals(user2.role, "Students")
-    }
+
+
 }

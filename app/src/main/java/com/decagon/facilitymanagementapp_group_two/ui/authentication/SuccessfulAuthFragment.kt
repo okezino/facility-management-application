@@ -26,8 +26,8 @@ class SuccessfulAuthFragment : Fragment() {
     private lateinit var userName: String
     private val viewModel: AuthViewModel by viewModels()
 
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
+//    @Inject
+//    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,21 +46,28 @@ class SuccessfulAuthFragment : Fragment() {
             fragmentSuccessfulAuthMsgTv.text = getString(
                 R.string.fragment_successful_auth_message, userName
             )
+
             fragmentSuccessfulAuthBtn.setOnClickListener {
                 /**
                  * Calls the method from the viewModel that posts SSO details to endpoint, retrieves the
                  * token from the endpoint and navigate to the edit profile page on successful
                  * interaction with the backend
                  */
-                val result = viewModel.getToken()
+//                val result = viewModel.getToken()
+//
+//                ApiResponseHandler(result, this@SuccessfulAuthFragment, view) {
+//                    viewModel.saveData(TOKEN_NAME, it.value.data.token)
+//                    findNavController().popBackStack()
+//                    findNavController().navigate(R.id.profileFragment)
+//                }
 
-                ApiResponseHandler(result, this@SuccessfulAuthFragment, view) {
-                    viewModel.saveData(TOKEN_NAME, it.value.data.token)
-                    findNavController().navigate(R.id.profileFragment)
-                }
+                findNavController().popBackStack()
+                findNavController().navigate(R.id.profileFragment)
             }
         }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

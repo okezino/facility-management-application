@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
@@ -38,7 +39,8 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EditProfileFragment : Fragment() {
+class
+EditProfileFragment : Fragment() {
     private lateinit var profileImage: ImageView
     private var imageUrl: Uri? = null
     private lateinit var rootLayout: ConstraintLayout
@@ -47,6 +49,7 @@ class EditProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
     private lateinit var userDetails: SsoResultBody
+    private lateinit var userData : UpdateProfileBody
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -79,11 +82,13 @@ class EditProfileFragment : Fragment() {
          * Navigate back to Profile Fragment
          */
         binding.editFragmentProfileBackBtn.setOnClickListener {
+            findNavController().popBackStack()
             findNavController().navigate(R.id.profileFragment)
         }
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -118,12 +123,32 @@ class EditProfileFragment : Fragment() {
         binding.editFragmentProfileMainName.text = userFullName
         binding.editFragmentProfileName.text = userFullName
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
+        val squad = sharedPreferences.getString(SQUAD,null)
+        val stack = sharedPreferences.getString(STACK,null)
+        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER,null)
+        userData = UpdateProfileBody(squad!!,stack!!,phoneNumber!!)
+        binding.editFragmentProfileStackSquadText.text = "${userData.stack}-${userData.squad}"
 
         /**
          * Upload profile image from shared preference
          */
         imgUrl?.let {
             binding.editFragmentProfilePic.loadImage(imgUrl)
+        }
+
+        /**
+         * Update the editable text with previous data from shared Preference
+         */
+        squad?.let {
+            binding.editFragmentProfileSquadInput.setText(it)
+        }
+        stack?.let {
+            binding.editFragmentProfileStackInput.setText(it)
+
+        }
+
+        phoneNumber?.let {
+            binding.editFragmentProfilePhoneNumber.setText(it)
         }
     }
 
@@ -133,7 +158,7 @@ class EditProfileFragment : Fragment() {
          * Collect Input Data from the UI
          */
         val updateStack = binding.editFragmentProfileStackInput.text.toString().toUpperCase().trim()
-        val updateSquad = binding.editFragmentProfileSquadInput.text.toString().trim()
+        val updateSquad = binding.editFragmentProfileSquadInput.text.toString().toUpperCase().trim()
         val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
         val username = binding.editFragmentProfileName.text.toString()
         val (firstName, lastName) = username.split(" ")
@@ -149,8 +174,8 @@ class EditProfileFragment : Fragment() {
                 firstName,
                 lastName,
                 profileEmail,
-                updateSquad,
                 updateStack,
+                updateSquad,
                 updatePhoneNumber
             )
             val result = viewModel.updateProfileDetails(updateProfileDetails)
@@ -167,6 +192,7 @@ class EditProfileFragment : Fragment() {
                             saveData(STACK, updateProfileDetails.gender)
                         }
                         view?.showSnackBar("Profile details updated successfully")
+                        findNavController().popBackStack()
                         findNavController().navigate(R.id.profileFragment)
                     }
                     401 -> {

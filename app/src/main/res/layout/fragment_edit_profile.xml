@@ -55,255 +55,277 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/edit_fragment_profile_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/edit_fragment_profile_main_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_appBarLayout">
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            app:cardCornerRadius="65dp">
-
-            <ImageView
-                android:id="@+id/edit_fragment_profile_pic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_avatar" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_gravity="bottom|end"
-            android:backgroundTint="@color/green"
-            android:outlineProvider="none"
-            app:cardCornerRadius="21dp">
-
-            <ImageView
-                android:id="@+id/edit_fragment_camera"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="7dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_photo_camera_24" />
-        </com.google.android.material.card.MaterialCardView>
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/edit_fragment_profile_main_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sfprotext"
-        android:text="@string/profile_name"
-        android:textColor="@color/gray"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/edit_fragment_profile_stack_squad_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/edit_fragment_profile_stack_squad_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/sfprotext"
-        android:text="Android-SQ006"
-        android:textColor="#828282"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_fragment_profile_linear_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/edit_fragment_profile_linear_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-
-            <TextView
-                style="@style/profile_format"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name" />
-
-            <TextView
-                android:id="@+id/edit_fragment_profile_name"
-                style="@style/profile_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="Joseph Okezi" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/divider" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-
-            <TextView
-                style="@style/profile_format"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email" />
-
-            <TextView
-                android:id="@+id/edit_fragment_profile_mail"
-                style="@style/profile_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="@string/profile_mail" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/divider" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-
-            <TextView
-                style="@style/profile_format"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/squad" />
-
-            <EditText
-                android:id="@+id/edit_fragment_profile_squad_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/ic_baseline_edit_24"
-                android:hint="@string/_006"
-                style="@style/profile_details"
-                android:inputType="text" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/divider" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-
-            <TextView
-                style="@style/profile_format"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stack" />
-
-            <EditText
-                android:id="@+id/edit_fragment_profile_stack_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/ic_baseline_edit_24"
-                android:hint="@string/android"
-                style="@style/profile_details"
-                android:inputType="text" />
-
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/divider" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-
-            <TextView
-                style="@style/profile_format"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mobile" />
-
-            <EditText
-                android:id="@+id/edit_fragment_profile_phone_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@color/white"
-                style="@style/profile_details"
-                android:hint="@string/mobile_number"
-                android:drawableEnd="@drawable/ic_baseline_edit_24"
-                android:inputType="phone" />
-
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:src="@drawable/divider" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/edit_fragment_profile_btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/success_btn"
-        android:fontFamily="@font/source_sans_pro"
-        android:padding="15dp"
-        android:text="@string/submit_profile"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_linear_layout"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline9">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <FrameLayout
+                android:id="@+id/edit_fragment_profile_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    app:cardCornerRadius="65dp">
+
+                    <ImageView
+                        android:id="@+id/edit_fragment_profile_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile_avatar" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="bottom|end"
+                    android:backgroundTint="@color/green"
+                    android:outlineProvider="none"
+                    app:cardCornerRadius="21dp">
+
+                    <ImageView
+                        android:id="@+id/edit_fragment_camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="7dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_photo_camera_24" />
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/edit_fragment_profile_main_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprotext"
+                android:text="@string/profile_name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_frame" />
+
+            <TextView
+                android:id="@+id/edit_fragment_profile_stack_squad_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sfprotext"
+                android:text="Android-SQ006"
+                android:textColor="#828282"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_main_name" />
+
+            <LinearLayout
+                android:id="@+id/edit_fragment_profile_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_stack_squad_text">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <TextView
+                        style="@style/profile_format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name" />
+
+                    <TextView
+                        android:id="@+id/edit_fragment_profile_name"
+                        style="@style/profile_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="Joseph Okezi" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="@drawable/divider" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <TextView
+                        style="@style/profile_format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email" />
+
+                    <TextView
+                        android:id="@+id/edit_fragment_profile_mail"
+                        style="@style/profile_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/profile_mail" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="@drawable/divider" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <TextView
+                        style="@style/profile_format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/squad" />
+
+                    <EditText
+                        android:id="@+id/edit_fragment_profile_squad_input"
+                        style="@style/profile_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/black"
+                        android:background="@color/white"
+                        android:drawableEnd="@drawable/ic_baseline_edit_24"
+                        android:hint="@string/_006"
+                        android:inputType="text" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="@drawable/divider" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <TextView
+                        style="@style/profile_format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stack" />
+
+                    <EditText
+                        android:id="@+id/edit_fragment_profile_stack_input"
+                        style="@style/profile_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@color/white"
+                        android:textColor="@color/black"
+                        android:drawableEnd="@drawable/ic_baseline_edit_24"
+                        android:hint="@string/android"
+                        android:inputType="text" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="@drawable/divider" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <TextView
+                        style="@style/profile_format"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mobile" />
+
+                    <EditText
+                        android:id="@+id/edit_fragment_profile_phone_number"
+                        style="@style/profile_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/black"
+                        android:background="@color/white"
+                        android:drawableEnd="@drawable/ic_baseline_edit_24"
+                        android:hint="@string/mobile_number"
+                        android:inputType="phone" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="@drawable/divider" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/edit_fragment_profile_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/success_btn"
+                android:fontFamily="@font/source_sans_pro"
+                android:padding="15dp"
+                android:text="@string/submit_profile"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_fragment_profile_linear_layout"
+                app:layout_constraintVertical_bias="0.538" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="84dp" />
+        app:layout_constraintGuide_end="83dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.43" />
+        app:layout_constraintGuide_begin="80dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
