@@ -18,7 +18,7 @@ import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
 
-
+@Ignore
 @HiltAndroidTest
 class ProfileFragmentTest {
     @get: Rule
@@ -67,7 +67,6 @@ class ProfileFragmentTest {
         onView(withId(R.id.fragment_profile_main_name)).check(matches(withText("Godday Okoduwa")))
     }
 
-    @Ignore
     @Test
     fun test_profile_fragment_name_matches_incoming_sso_user_name() {
         onView(withId(R.id.fragment_profile_name)).check(matches(withText("Godday Okoduwa")))
