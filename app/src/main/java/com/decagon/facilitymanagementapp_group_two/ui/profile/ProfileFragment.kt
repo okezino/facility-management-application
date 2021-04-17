@@ -9,14 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
+import com.decagon.facilitymanagementapp_group_two.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +31,8 @@ class ProfileFragment : Fragment() {
         get() = _binding!!
     private lateinit var userDetails: SsoResultBody
     private lateinit var userData : UpdateProfileBody
+  //   lateinit var user : UserData
+    private val viewModel: ProfileViewModel by viewModels()
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -42,6 +48,7 @@ class ProfileFragment : Fragment() {
         })
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,17 +57,34 @@ class ProfileFragment : Fragment() {
         /**
          * Gets SSO details from sharedPreference
          */
-        val firstName = sharedPreferences.getString(FIRST_NAME, null)
-        val lastName = sharedPreferences.getString(LAST_NAME, null)
-        val email = sharedPreferences.getString(EMAIL, null)
-        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
+//        val firstName = sharedPreferences.getString(FIRST_NAME, null)
+//        val lastName = sharedPreferences.getString(LAST_NAME, null)
+//        val email = sharedPreferences.getString(EMAIL, null)
+//        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
+
         /**
          * (Temp)-Gets token from shared preference
          */
-        val token = sharedPreferences.getString(TOKEN_NAME, null)
-        token?.let {
-            Log.d("FragmentProfile", it)
-        }
+//        val token = sharedPreferences.getString(TOKEN_NAME, null)
+//        token?.let {
+//            Log.d("FragmentProfile", it)
+//        }
+
+        viewModel.userData.observe(viewLifecycleOwner, Observer {user ->
+
+
+            binding.fragmentProfileStackSquadText.setText("${user.stack} - ${user.squad}")
+            val userFullName = "${user.firstName} ${user.lastName}"
+            binding.fragmentProfileMainName.text = userFullName
+            binding.fragmentProfileName.text = userFullName
+            binding.fragmentProfileEmail.text = user.email
+            binding.fragmentProfileSquad.text = user.squad
+            binding.fragmentProfileStackText.text = user.stack
+            binding.fragmentProfileNumber.text = user.phoneNumber
+
+        })
+
+
 
         /**
          * Update Status Bar Colour
@@ -88,20 +112,11 @@ class ProfileFragment : Fragment() {
 
         NetworkManager(this)
 
-        val squad = sharedPreferences.getString(SQUAD, null)
-        val stack = sharedPreferences.getString(STACK, null)
-        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
-        userData = UpdateProfileBody(squad!!,stack!!,phoneNumber!!)
-        binding.fragmentProfileStackSquadText.setText("${userData.stack} - ${userData.squad}")
+//        val squad = sharedPreferences.getString(SQUAD, null)
+//        val stack = sharedPreferences.getString(STACK, null)
+//        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)
+//        userData = UpdateProfileBody(squad!!,stack!!,phoneNumber!!)
 
-        // Populates profile page with SSO details
-        val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
-        binding.fragmentProfileMainName.text = userFullName
-        binding.fragmentProfileName.text = userFullName
-        binding.fragmentProfileEmail.text = userDetails.email
-        binding.fragmentProfileSquad.text = userData.squad
-        binding.fragmentProfileStackText.text = userData.stack
-        binding.fragmentProfileNumber.text = userData.mobile
 
         // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {

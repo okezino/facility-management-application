@@ -18,7 +18,7 @@ interface UserDao {
 //    fun update(user: User)
 
     @Query("SELECT * FROM Users")
-    fun get(): UserData
+    fun get(): LiveData<UserData>
 
 //    @Query("SELECT * FROM Users ORDER BY userId DESC LIMIT 1")
 //    fun getLatestUser(): User

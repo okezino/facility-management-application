@@ -49,7 +49,7 @@ object MsWebAuthentication {
                 //  callGraphAPI(authenticationResult, fragment)
                 val accessToken = authenticationResult.accessToken
                 logIt(accessToken)
-                val serverResponse = fragment.viewModel.getToken("bearer accessToken")
+                val serverResponse = fragment.viewModel.getToken(accessToken)
 
                 ApiResponseHandler(serverResponse, fragment, failedAction = true) {
                     sharedPreferences.edit().putString(TOKEN_NAME, it.value.data.token).apply()

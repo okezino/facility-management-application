@@ -46,13 +46,13 @@ class SuccessfulAuthFragment : Fragment() {
             fragmentSuccessfulAuthMsgTv.text = getString(
                 R.string.fragment_successful_auth_message, userName
             )
-        }
-//            fragmentSuccessfulAuthBtn.setOnClickListener {
-//                /**
-//                 * Calls the method from the viewModel that posts SSO details to endpoint, retrieves the
-//                 * token from the endpoint and navigate to the edit profile page on successful
-//                 * interaction with the backend
-//                 */
+
+            fragmentSuccessfulAuthBtn.setOnClickListener {
+                /**
+                 * Calls the method from the viewModel that posts SSO details to endpoint, retrieves the
+                 * token from the endpoint and navigate to the edit profile page on successful
+                 * interaction with the backend
+                 */
 //                val result = viewModel.getToken()
 //
 //                ApiResponseHandler(result, this@SuccessfulAuthFragment, view) {
@@ -60,9 +60,14 @@ class SuccessfulAuthFragment : Fragment() {
 //                    findNavController().popBackStack()
 //                    findNavController().navigate(R.id.profileFragment)
 //                }
-//            }
-//        }
+
+                findNavController().popBackStack()
+                findNavController().navigate(R.id.profileFragment)
+            }
+        }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

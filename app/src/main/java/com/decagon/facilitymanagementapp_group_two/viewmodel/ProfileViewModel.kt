@@ -19,6 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
 
+      val userData = authRepository.getUserFromDb()
+
     /**
      * Method to upload profile image to the server and keeps the user aware
      * of the various states of the transaction or process.
@@ -50,6 +52,8 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
     fun saveData(key: String, value: String) {
         authRepository.saveDataInPref(key, value)
     }
+
+
 
 
 }

@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.model.repository.auth
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
@@ -27,6 +28,7 @@ class AuthRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val centralDatabase: CentralDatabase
 ) : AuthRepository {
+
 
     override suspend fun postAuthDetails(token: String): ResultStatus<ResponseBody> {
         return safeApiCall { apiService.postAuthDetails(token) }
@@ -60,6 +62,10 @@ class AuthRepositoryImpl(
 
     override suspend fun saveUser(userData: UserData){
        centralDatabase.userDao.insert(userData)
+    }
+
+    override fun getUserFromDb(): LiveData<UserData> {
+        return centralDatabase.userDao.get()
     }
 
 }

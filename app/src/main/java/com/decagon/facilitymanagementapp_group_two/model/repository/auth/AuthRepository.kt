@@ -1,5 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository.auth
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
@@ -31,5 +33,8 @@ interface AuthRepository {
     suspend fun getUsers(userId: String):ResultStatus<User>
 
     suspend fun saveUser(userData: UserData)
+
+     fun getUserFromDb():LiveData<UserData>
+
 
 }
