@@ -10,10 +10,15 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthResponse
+import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
+import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
 import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
@@ -21,8 +26,10 @@ import com.microsoft.graph.models.extensions.User
 import com.microsoft.graph.requests.extensions.GraphServiceClient
 import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalException
+import javax.inject.Inject
 
 object MsWebAuthentication {
+
     private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "MsWebAuthentication"
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
@@ -30,21 +37,44 @@ object MsWebAuthentication {
 
     // Holds the result from Microsoft SSO authentication
     lateinit var ssoResultBody: SsoResultBody
-   private lateinit var updateProfileBody: UpdateProfileBody
+    private lateinit var updateProfileBody: UpdateProfileBody
+
 
     /**
      * Call method used in signing-in users through microsoft identity platform
      */
-    private fun getAuthenticationCallback(fragment: Fragment): AuthenticationCallback {
+    private fun getAuthenticationCallback(fragment: AuthorizingUserFragment): AuthenticationCallback {
         return object : AuthenticationCallback {
             override fun onSuccess(authenticationResult: IAuthenticationResult) {
-                callGraphAPI(authenticationResult, fragment)
+                //  callGraphAPI(authenticationResult, fragment)
+                val accessToken = authenticationResult.accessToken
+                logIt(accessToken)
+                val serverResponse = fragment.viewModel.getToken(accessToken)
+
+                ApiResponseHandler(serverResponse, fragment, failedAction = true) {
+                    sharedPreferences.edit().putString(TOKEN_NAME, it.value.data.token).apply()
+                    // fragment.viewModel.saveAccessToken(authResponse)
+                    logIt(it.toString())
+                    val response = fragment.viewModel.getUserData(it.value.data.id)
+
+                    ApiResponseHandler(response, fragment, failedAction = true) {
+                        logIt(it.value.data.toString())
+                        fragment.viewModel.saveUserToDatabase(it.value.data)
+                        val action = AuthorizingUserFragmentDirections
+                            .actionAuthorizingUserFragmentToSuccessfulAuthFragment("${it.value.data.firstName}  ${it.value.data.lastName}")
+                        fragment.findNavController().navigate(action)
+                    }
+                }
+
+
             }
+
 
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
                 logIt("Error Occurred!")
-                val action = AuthorizingUserFragmentDirections.actionAuthorizingUserFragmentToFailedAuthenticationFragment()
+                val action =
+                    AuthorizingUserFragmentDirections.actionAuthorizingUserFragmentToFailedAuthenticationFragment()
                 fragment.findNavController().navigate(action)
             }
 
@@ -60,6 +90,7 @@ object MsWebAuthentication {
      */
     fun callGraphAPI(authenticationResult: IAuthenticationResult, fragment: Fragment) {
         val accessToken = authenticationResult.accessToken
+        logIt("Authenticating request, $accessToken")
         val graphClient = GraphServiceClient
             .builder()
             .authenticationProvider {
@@ -78,12 +109,11 @@ object MsWebAuthentication {
                      */
                     val (firstName, lastName) = result.displayName.split(" ")
                     ssoResultBody = SsoResultBody(firstName, lastName, result.mail)
-                    updateProfileBody = UpdateProfileBody("SQ--","NIL","NIL")
-                    writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email,
-                        updateProfileBody.squad,
-                        updateProfileBody.stack,
-                        updateProfileBody.mobile, sharedPreferences)
-                    sharedPreferences.edit().putString("UserName", result.displayName).apply()
+                    updateProfileBody = UpdateProfileBody("SQ--", "NIL", "NIL")
+//                    writeSsoDetailsToSharedPref(ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email,
+//                        updateProfileBody.squad,
+//                        updateProfileBody.stack,
+//                        updateProfileBody.mobile, sharedPreferences)
                     logIt(result.displayName)
                     val action = AuthorizingUserFragmentDirections
                         .actionAuthorizingUserFragmentToSuccessfulAuthFragment(result.displayName)
@@ -108,7 +138,8 @@ object MsWebAuthentication {
      *  Method to initialise mSingleAccountApp
      */
     fun initialiseSingleAccount(activity: FragmentActivity, navController: NavController) {
-        sharedPreferences = activity.applicationContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        sharedPreferences =
+            activity.applicationContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         PublicClientApplication.createSingleAccountPublicClientApplication(
             activity.applicationContext, R.raw.auth_config_single_account,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
@@ -152,7 +183,7 @@ object MsWebAuthentication {
         )
     }
 
-    fun signInUser(activity: FragmentActivity, fragment: Fragment) {
+    fun signInUser(activity: FragmentActivity, fragment: AuthorizingUserFragment) {
         mSingleAccountApp.signIn(
             activity, null, scopes,
             getAuthenticationCallback(fragment)
