@@ -62,6 +62,7 @@ object MsWebAuthentication {
             .builder()
             .authenticationProvider {
                 logIt("Authenticating request, ${it.requestUrl}")
+                logIt("SSO TOKEN: $accessToken")
                 it.addHeader("Authorization", "Bearer $accessToken")
             }
             .buildClient()

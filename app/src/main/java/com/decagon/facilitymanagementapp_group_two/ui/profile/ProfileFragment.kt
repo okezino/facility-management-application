@@ -70,8 +70,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        NetworkManager(this)
-
         val squad = sharedPreferences.getString(STACK, null)
         val stack = sharedPreferences.getString(SQUAD, null)
         val phoneNumber = sharedPreferences.getString(PHONE_NUMBER, null)

@@ -87,8 +87,6 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        NetworkManager(this)
-
         rootLayout = binding.editFragmentProfileRootLayout
         profileImage = binding.editFragmentProfilePic
 
@@ -97,7 +95,7 @@ class EditProfileFragment : Fragment() {
          * select image for their profile
          */
         binding.editFragmentCamera.setOnClickListener {
-            AlertDialog.Builder(requireContext())
+            AlertDialog.Builder(requireContext(), R.style.MyDialogTheme)
                 .setTitle("Change Photo")
                 .setItems(
                     arrayOf("Take Photo", "Choose Photo")
@@ -138,8 +136,7 @@ class EditProfileFragment : Fragment() {
         val updateSquad = binding.editFragmentProfileSquadInput.text.toString().trim()
         val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
         val username = binding.editFragmentProfileName.text.toString()
-        val firstName = username.split(" ")[0]
-        val lastName = username.split(" ")[1]
+        val (firstName, lastName) = username.split(" ")
         val profileEmail = binding.editFragmentProfileMail.text.toString()
 
         /**

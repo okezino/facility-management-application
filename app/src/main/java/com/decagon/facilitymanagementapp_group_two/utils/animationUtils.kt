@@ -15,7 +15,7 @@ import android.widget.TextView
 import com.decagon.facilitymanagementapp_group_two.R
 
 var currentAnimator: Animator? = null
-var shortAnimationDuration: Int = 0
+var shortAnimationDuration: Int = 400
 
 /**
  * Animation template for display the full version of the profile image when it is clicked.
@@ -53,6 +53,7 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
         startBounds.top -= deltaHeight.toInt()
         startBounds.bottom += deltaHeight.toInt()
         view.alpha = 0f
+        view.visibility = View.GONE
         bigImage.visibility = View.VISIBLE
         bigImage.pivotX = 0f
         bigImage.pivotY = 0f
@@ -99,6 +100,7 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
                 addListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
                         view.alpha = 1f
+                        view.visibility = View.VISIBLE
                         bigImage.visibility = View.GONE
                         currentAnimator = null
                     }

@@ -29,8 +29,6 @@ class FailedAuthenticationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        NetworkManager(this)
-
         binding.fragmentFailedAuthenticationTryAgainBtn.setOnClickListener {
             findNavController().navigate(R.id.authorizingUserFragment)
         }
