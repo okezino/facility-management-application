@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSubmitBinding
@@ -14,6 +15,7 @@ import com.decagon.facilitymanagementapp_group_two.utils.descriptionValidation
 import com.decagon.facilitymanagementapp_group_two.utils.feedSelectionValidation
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import com.decagon.facilitymanagementapp_group_two.utils.subjectValidation
+import com.decagon.facilitymanagementapp_group_two.viewmodel.SubmitRequestViewModel
 
 class SubmitFragment : Fragment() {
     /**
@@ -23,6 +25,8 @@ class SubmitFragment : Fragment() {
     private var _binding: FragmentSubmitBinding? = null
     private val binding
         get() = _binding!!
+
+    private val submitViewModel : SubmitRequestViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,12 +94,18 @@ class SubmitFragment : Fragment() {
          *
          */
         val requestCategory = binding.selectFeedCategory.text.toString()
+        submitViewModel.getFeedId(requestCategory)
+
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
             val user = Request(1, requestCategory, "Simon", requestTitle, requestDes, "today", null)
+            submitViewModel.feedId.observe(viewLifecycleOwner,{
+                submitViewModel.postNewFeed(it,user)
+            })
+
             Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
         } else {
             if (requestDes.isEmpty()) binding.requestDescriptionLayout.error = "Request description needed"

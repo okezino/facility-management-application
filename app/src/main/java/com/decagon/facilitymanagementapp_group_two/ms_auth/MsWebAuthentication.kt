@@ -38,6 +38,7 @@ object MsWebAuthentication {
     private fun getAuthenticationCallback(fragment: Fragment): AuthenticationCallback {
         return object : AuthenticationCallback {
             override fun onSuccess(authenticationResult: IAuthenticationResult) {
+                logIt("Header: ${authenticationResult.accessToken}")
                 callGraphAPI(authenticationResult, fragment)
             }
 
