@@ -3,11 +3,13 @@ package com.decagon.facilitymanagementapp_group_two.network
 import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
+
 
     /**
      * Get all comments from Api
@@ -20,9 +22,9 @@ interface ApiService {
      * get User data using the userId
      */
 
-    @GET("user/{id}")
+    @GET("api/v1/User/get-user/{userId}")
     suspend fun getUser(
-        @Path("id") id: Int
+        @Path("userId") id: String
     ): User
 
     /**
@@ -36,7 +38,7 @@ interface ApiService {
      * Post SSO result to the endpoint
      */
     @POST("api/v1/Auth/external-login")
-    suspend fun postAuthDetails(@Body user: SsoResultBody): ResponseBody
+    suspend fun postAuthDetails(@Header("bearer") token : String): ResponseBody
 
     /**
      * Update profile picture API service

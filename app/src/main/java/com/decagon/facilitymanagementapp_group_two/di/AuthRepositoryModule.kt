@@ -1,7 +1,11 @@
 package com.decagon.facilitymanagementapp_group_two.di
 
 import android.content.SharedPreferences
+<<<<<<< HEAD
 import com.decagon.facilitymanagementapp_group_two.model.data.database.RequestDao
+=======
+import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
+>>>>>>> develop
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepositoryImpl
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
@@ -21,8 +25,8 @@ import javax.inject.Singleton
 object AuthRepositoryModule {
     @Singleton
     @Provides
-    fun provideAuthRepository(apiService: ApiService, sharedPreferences: SharedPreferences): AuthRepository {
-        return AuthRepositoryImpl(apiService, sharedPreferences)
+    fun provideAuthRepository(apiService: ApiService, sharedPreferences: SharedPreferences,centralDatabase: CentralDatabase): AuthRepository {
+        return AuthRepositoryImpl(apiService, sharedPreferences,centralDatabase)
     }
 
     @Singleton

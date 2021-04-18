@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.utils.*
@@ -17,6 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
+
+      val userData = authRepository.getUserFromDb()
 
     /**
      * Method to upload profile image to the server and keeps the user aware
@@ -49,4 +52,8 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
     fun saveData(key: String, value: String) {
         authRepository.saveDataInPref(key, value)
     }
+
+
+
+
 }

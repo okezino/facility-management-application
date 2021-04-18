@@ -5,6 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.utils.showSnackBar
 
 /**
@@ -18,6 +20,7 @@ data class ApiResponseHandler<T>(
     val resultStatus: LiveData<ResultStatus<T>>,
     val fragment: Fragment,
     var view: View? = null,
+    var failedAction: Boolean = false,
     var action: ((result: ResultStatus.Success<T>) -> Unit)? = null
 ) {
 
@@ -33,10 +36,12 @@ data class ApiResponseHandler<T>(
                 when (it) {
                     is ResultStatus.Loading -> view?.showSnackBar(it.message)
                     is ResultStatus.NetworkError -> {
+                        if (failedAction) fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
                         view?.showSnackBar("No internet connection, please check your network settings and try again")
                     }
                     is ResultStatus.GenericError -> {
                         Log.d("ApiCall Error", "${it.code}")
+                        if (failedAction) fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
                         message = when (it.code) {
                             400 -> "Bad request! Please verify your inputs"
                             401 -> "Your session has expired. Please logout and login again to continue"
