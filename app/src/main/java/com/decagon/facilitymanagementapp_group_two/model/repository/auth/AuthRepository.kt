@@ -2,11 +2,9 @@ package com.decagon.facilitymanagementapp_group_two.model.repository.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
-import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
-import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
@@ -35,6 +33,10 @@ interface AuthRepository {
     suspend fun saveUser(userData: UserData)
 
      fun getUserFromDb():LiveData<UserData>
+
+     suspend fun getAllFeeds() : ResultStatus<FeedResponseBody>
+
+    suspend fun saveFeedsToDb(feeds : List<Feeds>)
 
 
 }

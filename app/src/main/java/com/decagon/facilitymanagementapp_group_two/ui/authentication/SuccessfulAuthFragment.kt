@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.ui.authentication
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,9 +61,14 @@ class SuccessfulAuthFragment : Fragment() {
 //                    findNavController().popBackStack()
 //                    findNavController().navigate(R.id.profileFragment)
 //                }
+                val response = viewModel.getAllFeeds()
+                ApiResponseHandler(response,this@SuccessfulAuthFragment,failedAction = true){
+                    viewModel.saveFeedToDb(it.value.data.items)
+                    Log.d("SuccessfulAuthenticat", "onViewCreated: ${it.value.data.items[0].name} ")
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.profileFragment)
+                }
 
-                findNavController().popBackStack()
-                findNavController().navigate(R.id.profileFragment)
             }
         }
     }

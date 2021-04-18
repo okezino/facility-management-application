@@ -54,8 +54,8 @@ interface ApiService {
     suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
 
     @POST("/api/v1/Feed/{feedId}/add-complaint")
-    suspend fun postNewRequest(@Path("feedId") feedId : String, @Body request: Request)
+    suspend fun postNewRequest(@Path("feedId") feedId : String, @Body request: Request) : RequestResponseBody
 
-    @GET("api/v1/Feed/get-feed/{feedValue}")
-    suspend fun getFeedId(@Path("feedValue") requestCategory: String) : String
+    @GET("api/v1/Feed/get-feeds/1")
+    suspend fun getAllFeeds()  : FeedResponseBody
 }
