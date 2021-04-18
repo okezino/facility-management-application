@@ -26,4 +26,8 @@ class FacilityRepositoryImpl(
     override suspend fun getFeedId(requestCategory : String) : String{
         return centralDatabase.feedDao.getFeedId(requestCategory)
     }
+
+    override suspend fun postNewComment(complaintId: String, comment: String) {
+        TODO("Not yet implemented")
+    }
 }

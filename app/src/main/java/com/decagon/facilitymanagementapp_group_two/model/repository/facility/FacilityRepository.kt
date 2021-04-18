@@ -11,4 +11,6 @@ interface FacilityRepository {
     suspend fun addNewRequestToDb(request: Request)
 
     suspend fun getFeedId(requestCategory: String) : String
+
+    suspend fun postNewComment(complaintId : String, comment : String)
 }

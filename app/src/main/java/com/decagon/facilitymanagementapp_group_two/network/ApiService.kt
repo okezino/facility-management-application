@@ -58,4 +58,8 @@ interface ApiService {
 
     @GET("api/v1/Feed/get-feeds/1")
     suspend fun getAllFeeds()  : FeedResponseBody
+
+    @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
+    suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String)
+
 }
