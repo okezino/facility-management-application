@@ -9,11 +9,12 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
  * which are used for storing Comments, Requests and Users separately.
  */
 
-@Database(entities = [Comments::class, Request::class, UserData::class, AuthResponse::class], version = 1, exportSchema = false)
+@Database(entities = [Comments::class, Request::class, UserData::class, AuthResponse::class, Feeds::class], version = 1, exportSchema = false)
 abstract class CentralDatabase : RoomDatabase() {
 
     abstract val commentDao: CommentsDao
     abstract val requestDao: RequestDao
     abstract val userDao: UserDao
     abstract val authResponseDao: AuthResponseDao
+    abstract val feedDao : FeedDao
 }

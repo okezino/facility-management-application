@@ -52,4 +52,23 @@ interface ApiService {
      */
     @PATCH("api/v1/User/update-profile")
     suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
+
+    /**
+     * Posts new request to endpoint and retrieves the response body containing the request
+     */
+    @POST("/api/v1/Feed/{feedId}/add-complaint")
+    suspend fun postNewRequest(@Path("feedId") feedId : String, @Body request: Request) : RequestResponseBody
+
+    /**
+     * Gets all the feeds category from the endpoint
+     */
+    @GET("api/v1/Feed/get-feeds/1")
+    suspend fun getAllFeeds()  : FeedResponseBody
+
+    /**
+     * Post a comment to an existing complaint and associates it to a User
+     */
+    @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
+    suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String)
+
 }

@@ -39,8 +39,7 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class
-EditProfileFragment : Fragment() {
+class EditProfileFragment : Fragment() {
     private lateinit var profileImage: ImageView
     private var imageUrl: Uri? = null
     private lateinit var rootLayout: ConstraintLayout

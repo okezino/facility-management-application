@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.decagon.facilitymanagementapp_group_two.model.data.FeedResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.Item
 import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
@@ -70,6 +73,20 @@ class AuthViewModel @Inject constructor (private val authRepository: AuthReposit
     fun saveUserToDatabase(user: UserData){
         viewModelScope.launch(Dispatchers.IO) {
             authRepository.saveUser(user)
+        }
+    }
+
+    fun getAllFeeds() : LiveData<ResultStatus<FeedResponseBody>>{
+        val response = MutableLiveData<ResultStatus<FeedResponseBody>>()
+        viewModelScope.launch {
+            response.value = authRepository.getAllFeeds()
+        }
+        return response
+    }
+
+    fun saveFeedToDb(feeds : List<Feeds>){
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.saveFeedsToDb(feeds)
         }
     }
 }

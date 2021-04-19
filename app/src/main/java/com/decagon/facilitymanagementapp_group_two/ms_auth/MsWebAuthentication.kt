@@ -19,6 +19,7 @@ import com.decagon.facilitymanagementapp_group_two.ui.authentication.Authorizing
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
 import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
+import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
 import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
@@ -53,6 +54,7 @@ object MsWebAuthentication {
 
                 ApiResponseHandler(serverResponse, fragment, failedAction = true) {
                     sharedPreferences.edit().putString(TOKEN_NAME, it.value.data.token).apply()
+                    sharedPreferences.edit().putString(USER_ID, it.value.data.id).apply()
                     // fragment.viewModel.saveAccessToken(authResponse)
                     logIt(it.toString())
                     val response = fragment.viewModel.getUserData(it.value.data.id)
@@ -65,7 +67,6 @@ object MsWebAuthentication {
                         fragment.findNavController().navigate(action)
                     }
                 }
-
 
             }
 

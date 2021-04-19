@@ -2,16 +2,12 @@ package com.decagon.facilitymanagementapp_group_two.model.repository.auth
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
-import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
-import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileImageResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthResponse
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
-import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.network.ApiService
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.network.safeApiCall
@@ -28,7 +24,6 @@ class AuthRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val centralDatabase: CentralDatabase
 ) : AuthRepository {
-
 
     override suspend fun postAuthDetails(token: String): ResultStatus<ResponseBody> {
         return safeApiCall { apiService.postAuthDetails(token) }
@@ -67,5 +62,15 @@ class AuthRepositoryImpl(
     override fun getUserFromDb(): LiveData<UserData> {
         return centralDatabase.userDao.get()
     }
+
+    override suspend fun getAllFeeds(): ResultStatus<FeedResponseBody> {
+        return safeApiCall { apiService.getAllFeeds() }
+    }
+
+    override suspend fun saveFeedsToDb(feeds : List<Feeds>){
+        centralDatabase.feedDao.insertAllFeeds(feeds)
+    }
+
+
 
 }
