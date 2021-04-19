@@ -101,8 +101,8 @@ class SubmitFragment : Fragment() {
          *
          */
         val requestCategory = binding.selectFeedCategory.text.toString()
-        Log.d("FeedID", "addNewRequest: $requestCategory")
 
+        // Gets feedId
         submitViewModel.getFeedId(requestCategory.toLowerCase(Locale.ROOT))
 
         val requestTitle = binding.requestSubject.text.toString().trim()
@@ -113,6 +113,7 @@ class SubmitFragment : Fragment() {
 
             val user = Request(title = requestTitle, question = requestDes, userId = userId)
 
+            //Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(viewLifecycleOwner, {
                 Log.d("FeedID", "addNewRequest: $it")
                 val response = submitViewModel.postNewFeed(it, user)

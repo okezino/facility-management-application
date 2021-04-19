@@ -27,7 +27,6 @@ class AuthRepositoryImpl(
     private val centralDatabase: CentralDatabase
 ) : AuthRepository {
 
-
     override suspend fun postAuthDetails(token: String): ResultStatus<ResponseBody> {
         return safeApiCall { apiService.postAuthDetails(token) }
     }

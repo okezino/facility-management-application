@@ -26,6 +26,9 @@ object AuthRepositoryModule {
         return AuthRepositoryImpl(apiService, sharedPreferences,centralDatabase)
     }
 
+    /**
+     * Also provides the facility repository :TODO rename to RepositoryModule
+     */
     @Singleton
     @Provides
     fun provideFacilityRepository(apiService: ApiService, centralDatabase: CentralDatabase): FacilityRepository {

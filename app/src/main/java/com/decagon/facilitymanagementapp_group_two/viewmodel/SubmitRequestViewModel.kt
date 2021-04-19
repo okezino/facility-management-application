@@ -14,6 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * This submitRequestViewModel handles getting feedId and posting new feed
+ */
 @HiltViewModel
 class SubmitRequestViewModel @Inject constructor(
     private val facilityRepository: FacilityRepository

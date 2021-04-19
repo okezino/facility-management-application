@@ -1,7 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository.auth
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
