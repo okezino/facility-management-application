@@ -28,7 +28,7 @@ class SubmitRequestViewModel @Inject constructor(
 
 
 
-    fun postNewFeed(feedId : String, request : Request) : LiveData<ResultStatus<RequestResponseBody>>{
+    fun postNewRequest(feedId : String, request : Request) : LiveData<ResultStatus<RequestResponseBody>>{
         val response = MutableLiveData<ResultStatus<RequestResponseBody>>()
         viewModelScope.launch {
             response.value = facilityRepository.postRequest(feedId, request)
@@ -48,6 +48,7 @@ class SubmitRequestViewModel @Inject constructor(
             facilityRepository.addNewRequestToDb(request)
         }
     }
+
 
 
 }

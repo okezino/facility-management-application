@@ -116,18 +116,14 @@ class SubmitFragment : Fragment() {
             //Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(viewLifecycleOwner, {
                 Log.d("FeedID", "addNewRequest: $it")
-                val response = submitViewModel.postNewFeed(it, user)
+                val response = submitViewModel.postNewRequest(it, user)
                 ApiResponseHandler(response, this, failedAction = true) { request ->
                     submitViewModel.saveRequestToDb(request.value.data)
                     Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
                     findNavController().popBackStack()
                     findNavController().navigate(R.id.dashboardFragment)
                 }
-
-
             })
-
-            Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_SHORT).show()
         } else {
             if (requestDes.isEmpty()) binding.requestDescriptionLayout.error = "Request description needed"
 
