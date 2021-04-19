@@ -61,11 +61,11 @@ class EditProfileFragment : Fragment() {
 
         /**
          * Gets SSO details from sharedPreference
-         */
-        val firstName = sharedPreferences.getString(FIRST_NAME, null)
-        val lastName = sharedPreferences.getString(LAST_NAME, null)
-        val email = sharedPreferences.getString(EMAIL, null)
-        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
+//         */
+//        val firstName = sharedPreferences.getString(FIRST_NAME, null)
+//        val lastName = sharedPreferences.getString(LAST_NAME, null)
+//        val email = sharedPreferences.getString(EMAIL, null)
+//        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
 
         /**
          * Update Status Bar Colour
@@ -118,6 +118,12 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.editFragmentProfileBtnSubmit.setOnClickListener { updateProfileDetails() }
+
+        /**
+         * Gets Profile details from DataBase and update the View
+         */
+
+
 
         val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
         binding.editFragmentProfileMail.text = userDetails.email
