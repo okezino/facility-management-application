@@ -10,7 +10,7 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
 interface FeedDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(feedItems: List<Feeds>)
+    suspend fun insertAllFeeds(feedItems: List<Feeds>)
 
     @Query("SELECT id FROM `All feeds` WHERE name = :name")
     suspend fun getFeedId(name : String): String

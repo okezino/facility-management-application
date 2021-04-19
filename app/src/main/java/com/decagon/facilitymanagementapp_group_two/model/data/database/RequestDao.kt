@@ -15,6 +15,6 @@ interface RequestDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(requests: List<Request>)
 
-    @Update
-    fun update(request: Request)
+    @Query("SELECT * FROM Requests")
+    suspend fun getAllRequest() : List<Request>
 }
