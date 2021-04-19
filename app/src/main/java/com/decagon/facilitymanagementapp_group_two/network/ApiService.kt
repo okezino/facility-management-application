@@ -1,9 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
 import com.decagon.facilitymanagementapp_group_two.model.data.*
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -52,4 +50,13 @@ interface ApiService {
      */
     @PATCH("api/v1/User/update-profile")
     suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
+
+    @GET("api/v1/Feed/get-feeds/1")
+    suspend fun getFeedsCategories(): FeedItems
+
+    @GET("/api/v1/Feed/{feedId}/get-complaints/{pageNumber}")
+    suspend fun getComplaints(
+        @Path("feedId") feedId: String,
+        @Path("pageNumber") page: Int
+    ): ComplaintItems
 }
