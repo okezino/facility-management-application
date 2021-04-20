@@ -29,8 +29,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding
         get() = _binding!!
-    private lateinit var userDetails: SsoResultBody
-    private lateinit var userData : UpdateProfileBody
     private val viewModel: ProfileViewModel by viewModels()
 
     @Inject

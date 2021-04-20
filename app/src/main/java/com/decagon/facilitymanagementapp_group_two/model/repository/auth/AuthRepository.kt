@@ -31,6 +31,8 @@ interface AuthRepository {
 
     suspend fun saveUser(userData: UserData)
 
+    suspend fun updateUser(userData: UserData)
+
      fun getUserFromDb():LiveData<UserData>
 
      suspend fun getAllFeeds() : ResultStatus<FeedResponseBody>

@@ -59,6 +59,11 @@ class AuthRepositoryImpl(
        centralDatabase.userDao.insert(userData)
     }
 
+    override suspend fun updateUser(userData: UserData){
+        centralDatabase.userDao.insert(userData)
+
+    }
+
     override fun getUserFromDb(): LiveData<UserData> {
         return centralDatabase.userDao.get()
     }

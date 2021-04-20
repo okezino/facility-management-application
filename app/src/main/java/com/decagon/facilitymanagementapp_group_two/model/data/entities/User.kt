@@ -21,6 +21,6 @@ data class UserData(
     val phoneNumber: String?,
     val squad: String?
 ) {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     var userId: Long = 0
 }
