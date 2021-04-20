@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.OnboardingFragmentBinding
-import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 
 class OnboardingFragment : Fragment() {
     private var _binding: OnboardingFragmentBinding? = null
@@ -26,8 +25,6 @@ class OnboardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        NetworkManager(this)
 
         /**
          * Click listener for the get started button

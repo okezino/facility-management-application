@@ -80,7 +80,7 @@
         android:id="@+id/foodFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.FoodFragment"
         android:label="FoodFragment"
-        tools:layout="@layout/fragment_food"/>
+        tools:layout="@layout/fragment_general"/>
     <fragment
         android:id="@+id/othersFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.OthersFragment"

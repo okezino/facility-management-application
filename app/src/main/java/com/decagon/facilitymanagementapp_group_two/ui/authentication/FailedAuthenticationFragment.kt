@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentFailedAuthenticationBinding
-import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
+import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 
 class FailedAuthenticationFragment : Fragment() {
     private var _binding: FragmentFailedAuthenticationBinding? = null
@@ -21,6 +21,7 @@ class FailedAuthenticationFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
+        MsWebAuthentication.signOutUser()
         // Inflate the layout for this fragment
         _binding = FragmentFailedAuthenticationBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,8 +29,6 @@ class FailedAuthenticationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        NetworkManager(this)
 
         binding.fragmentFailedAuthenticationTryAgainBtn.setOnClickListener {
             findNavController().navigate(R.id.authorizingUserFragment)
