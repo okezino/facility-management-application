@@ -45,7 +45,16 @@
         tools:layout="@layout/fragment_single_complaint" >
         <argument
             android:name="complaintId"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="complaintTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="complaintBody"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
 
