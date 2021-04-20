@@ -42,7 +42,11 @@
         android:id="@+id/singleComplaintFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.others.SingleComplaintFragment"
         android:label="fragment_single_complaint"
-        tools:layout="@layout/fragment_single_complaint" />
+        tools:layout="@layout/fragment_single_complaint" >
+        <argument
+            android:name="complaintId"
+            app:argType="string" />
+    </fragment>
 
 
     <fragment
@@ -53,6 +57,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_submitFragment"
             app:destination="@id/submitFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_singleComplaintFragment"
+            app:destination="@id/singleComplaintFragment" />
     </fragment>
     <fragment
         android:id="@+id/feedsFragment"
