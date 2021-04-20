@@ -11,23 +11,11 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 interface RequestDao {
 
     @Insert
-    fun insert(request: Request)
+    suspend fun insert(request: Request)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(requests: List<Request>)
+    suspend fun insertAll(requests: List<Request>)
 
-    @Update
-    fun update(request: Request)
-
-    @Query("SELECT * from Requests WHERE feedCategory = :feedCategory")
-    fun get(feedCategory: String): LiveData<List<Request>?>
-
-    @Query("SELECT * FROM Requests ORDER BY requestId DESC LIMIT 1")
-    fun getLatestRequest(): Request
-
-    @Query("DELETE FROM Requests")
-    fun clear()
-
-    @Query("Select * from Requests Order by requestId desc")
-    fun getAllRequests(): LiveData<List<Request>>
+    @Query("SELECT * FROM Requests ORDER BY uuid DESC")
+    fun getAllRequest() : LiveData<List<Request>?>
 }

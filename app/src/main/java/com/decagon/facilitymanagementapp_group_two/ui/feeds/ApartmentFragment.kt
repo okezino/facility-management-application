@@ -36,17 +36,6 @@ class ApartmentFragment : Fragment() {
     private val adapter = GeneralCompliantAdapter()
     private val feedsViewModel by activityViewModels<FeedsViewModel>()
 
-    @Inject
-    lateinit var sharedPref: SharedPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val response = feedsViewModel.getComplaints(sharedPref.getString(APARTMENT, "")!!, 1)
-        ApiResponseHandler(response, this, view) {
-            feedsViewModel.saveComplaints(it.value.data.items)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,17 +52,12 @@ class ApartmentFragment : Fragment() {
          * Creates the layout manager and adapter for the recycler that shows the list of Complains
          */
 
-
-
-
-//        feedsViewModel.feedCategory.observe(viewLifecycleOwner, Observer { feeds ->
-//            val (apartFeed) = feeds.filter { it.name == "apartment" }
-//            Log.d("FeedsCateApa", apartFeed.toString())
-//            val response = feedsViewModel.getComplaints(apartFeed.id, 1)
-//            ApiResponseHandler(response, this, view) {
-//                feedsViewModel.saveComplaints(it.value.data.items)
-//            }
-//        })
+        feedsViewModel.apartFeedId.observe(viewLifecycleOwner, Observer {
+            val response = feedsViewModel.getComplaints( it,1)
+            ApiResponseHandler(response, this, view) {
+                feedsViewModel.saveComplaints(it.value.data.items)
+            }
+        })
 
         return binding.root
     }
@@ -86,10 +70,8 @@ class ApartmentFragment : Fragment() {
         apartmentRecyclerView.adapter = adapter
 
         feedsViewModel.apartmentComplaints.observe(viewLifecycleOwner, Observer {
-            Log.d("FeedsCateApa", it.toString())
             if (it!!.isNotEmpty()) {
                 adapter.loadData(it)
-                Log.d("FeedsCateApa", it.size.toString())
                 binding.noItemsTv.visibility = View.GONE
             }
         })

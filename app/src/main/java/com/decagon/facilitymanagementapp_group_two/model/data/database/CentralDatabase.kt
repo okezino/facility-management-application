@@ -21,12 +21,14 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
     version = 1,
     exportSchema = false
 )
+
 abstract class CentralDatabase : RoomDatabase() {
 
     abstract val commentDao: CommentsDao
     abstract val requestDao: RequestDao
     abstract val userDao: UserDao
     abstract val authResponseDao: AuthResponseDao
-    abstract val feedsDao: FeedsDao
     abstract val complaintsDao: ComplaintsDao
+    abstract val feedDao : FeedDao
+
 }

@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.model.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
 import com.google.gson.annotations.SerializedName
 
 data class ComplaintItems(val data: ComplaintsData)

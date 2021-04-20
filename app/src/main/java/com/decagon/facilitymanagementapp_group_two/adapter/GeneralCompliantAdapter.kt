@@ -15,7 +15,6 @@ class GeneralCompliantAdapter : RecyclerView.Adapter<GeneralCompliantAdapter.Vie
         RecyclerView.ViewHolder(binding.root) {
             fun bind(item: Complaints) {
                 val user = "${item.userFirstName} ${item.userLastName}"
-                Log.d("RecyclerView", user)
                 binding.complaintName.text = user
                 binding.complainDetails.text = item.description
                 binding.complainDate.text = "Today"

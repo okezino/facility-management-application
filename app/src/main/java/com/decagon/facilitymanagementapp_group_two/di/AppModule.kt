@@ -60,7 +60,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideFacilityManagementFeedsDao(cd: CentralDatabase) = cd.feedsDao
+    fun provideFacilityManagementFeedDao(cd :CentralDatabase) = cd.feedDao
 
     // Provides dependency for the retrofit
     @Singleton

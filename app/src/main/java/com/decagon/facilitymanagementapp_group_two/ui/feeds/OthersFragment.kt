@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.ui.feeds
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,15 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
-import com.decagon.facilitymanagementapp_group_two.adapter.OtherComplainAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
-import com.decagon.facilitymanagementapp_group_two.databinding.FragmentOthersBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
-import com.decagon.facilitymanagementapp_group_two.utils.OTHERS
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class OthersFragment : Fragment() {
@@ -35,17 +29,6 @@ class OthersFragment : Fragment() {
     private val feedsViewModel by activityViewModels<FeedsViewModel>()
     private val adapter = GeneralCompliantAdapter()
 
-    @Inject
-    lateinit var sharedPref: SharedPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val response = feedsViewModel.getComplaints(sharedPref.getString(OTHERS, "")!!, 1)
-        ApiResponseHandler(response, this, view) {
-            feedsViewModel.saveComplaints(it.value.data.items)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,15 +41,12 @@ class OthersFragment : Fragment() {
 
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-
-//        feedsViewModel.feedCategory.observe(viewLifecycleOwner, Observer { feeds ->
-//            val (otherFeed) = feeds.filter { it.name == "others" }
-//            Log.d("FeedsCateApa", otherFeed.toString())
-//            val response = feedsViewModel.getComplaints(otherFeed.id, 1)
-//            ApiResponseHandler(response, this, view) {
-//                feedsViewModel.saveComplaints(it.value.data.items)
-//            }
-//        })
+        feedsViewModel.otherFeedId.observe(viewLifecycleOwner, Observer {
+            val response = feedsViewModel.getComplaints(it, 1)
+            ApiResponseHandler(response, this, view) {
+                feedsViewModel.saveComplaints(it.value.data.items)
+            }
+        })
 
         return binding.root
     }

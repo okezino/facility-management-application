@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.ui.authentication
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSuccessfulAuthBinding
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
-import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
 import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SuccessfulAuthFragment : Fragment() {
@@ -25,9 +22,6 @@ class SuccessfulAuthFragment : Fragment() {
     private val args by navArgs<SuccessfulAuthFragmentArgs>()
     private lateinit var userName: String
     private val viewModel: AuthViewModel by viewModels()
-
-//    @Inject
-//    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,22 +41,15 @@ class SuccessfulAuthFragment : Fragment() {
                 R.string.fragment_successful_auth_message, userName
             )
 
+            // Gets all feed and adds it to the database
             fragmentSuccessfulAuthBtn.setOnClickListener {
-                /**
-                 * Calls the method from the viewModel that posts SSO details to endpoint, retrieves the
-                 * token from the endpoint and navigate to the edit profile page on successful
-                 * interaction with the backend
-                 */
-//                val result = viewModel.getToken()
-//
-//                ApiResponseHandler(result, this@SuccessfulAuthFragment, view) {
-//                    viewModel.saveData(TOKEN_NAME, it.value.data.token)
-//                    findNavController().popBackStack()
-//                    findNavController().navigate(R.id.profileFragment)
-//                }
+                val response = viewModel.getAllFeeds()
+                ApiResponseHandler(response,this@SuccessfulAuthFragment,failedAction = true){
+                    viewModel.saveFeedToDb(it.value.data.items)
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.profileFragment)
+                }
 
-                findNavController().popBackStack()
-                findNavController().navigate(R.id.profileFragment)
             }
         }
     }

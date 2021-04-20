@@ -16,7 +16,4 @@ interface ComplaintsDao {
     @Query("SELECT * FROM `Complaints/Requests` WHERE category = :cat")
     fun getComplaintsByCat(cat: String): LiveData<List<Complaints>?>
 
-    @Query("SELECT * FROM `Complaints/Requests` WHERE userFirstName = :firstName AND userLastName =:lastName")
-    fun getMyComplaints(firstName: String, lastName: String): LiveData<List<Complaints>?>
-
 }

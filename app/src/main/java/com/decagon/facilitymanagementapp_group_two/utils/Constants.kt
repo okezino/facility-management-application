@@ -16,3 +16,5 @@ const val FOOD = "food"
 const val APARTMENT = "apartment"
 const val APPLIANCE = "appliances"
 const val OTHERS = "others"
+const val USER_ID = "userId"
+

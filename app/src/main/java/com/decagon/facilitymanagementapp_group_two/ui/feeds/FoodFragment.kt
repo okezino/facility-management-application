@@ -1,8 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui.feeds
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,17 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.decagon.facilitymanagementapp_group_two.R
-import com.decagon.facilitymanagementapp_group_two.adapter.FoodComplainAdapter
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.SingleComplaint
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
-import com.decagon.facilitymanagementapp_group_two.utils.FOOD
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FoodFragment : Fragment() {
@@ -36,20 +28,6 @@ class FoodFragment : Fragment() {
     private val adapter = GeneralCompliantAdapter()
     private val feedsViewModel by activityViewModels<FeedsViewModel>()
 
-    @Inject
-    lateinit var sharedPref: SharedPreferences
-
-   // var foodAdapter = FoodComplainAdapter()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val response = feedsViewModel.getComplaints(sharedPref.getString(FOOD, "")!!, 1)
-        ApiResponseHandler(response, this, view) {
-            feedsViewModel.saveComplaints(it.value.data.items)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,34 +38,12 @@ class FoodFragment : Fragment() {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-//        feedsViewModel.feedCategory.observe(viewLifecycleOwner, Observer { feeds ->
-//            val (foodFeed) = feeds.filter { it.name == "food" }
-//            val response = feedsViewModel.getComplaints(foodFeed.id, 1)
-//            ApiResponseHandler(response, this, view) {
-//                feedsViewModel.saveComplaints(it.value.data.items)
-//            }
-//        })
-//
-//
-//        feedsViewModel.foodComplaints.observe(viewLifecycleOwner, Observer {
-//            Log.d("FeedsCateFood", it.toString())
-//            if (it!!.isNotEmpty()) {
-//                foodRecyclerView.adapter = adapter
-//                adapter.loadData(it)
-//                Log.d("FeedsCateFood", it.size.toString())
-//                binding.noItemsTv.visibility = View.GONE
-//            }
-//        })
-
-//        var firstComplain = Complaints(
-//            "Alhaji Okezi", "67","An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum.",
-//            "food", null, "Godday", "Okoduwa", null,
-//            "006"
-//        )
-//
-//        var listOfComplains = listOf(firstComplain)
-
-
+        feedsViewModel.foodFeedId.observe(viewLifecycleOwner, Observer {
+            val response = feedsViewModel.getComplaints(it, 1)
+            ApiResponseHandler(response, this, view) {
+                feedsViewModel.saveComplaints(it.value.data.items)
+            }
+        })
 
         return binding.root
     }
