@@ -1,6 +1,9 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository
 
+import androidx.lifecycle.LiveData
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
@@ -34,5 +37,33 @@ class FakeFacilityRepository : FacilityRepository {
 
     override suspend fun postNewComment(complaintId: String, comment: String) {
 
+    }
+
+    override suspend fun getComplaints(feedId: String, page: Int): ResultStatus<ComplaintItems> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMyComplains(page: Int): ResultStatus<ComplaintItems> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveComplaints(complaints: List<Complaints>) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveComplainsAsRequest(complains: List<Complaints>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getComplaintsFromDb(cat: String): LiveData<List<Complaints>?> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getMyRequestFromDb(): LiveData<List<Request>?> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getFeedIdByName(name: String): LiveData<String> {
+        TODO("Not yet implemented")
     }
 }
