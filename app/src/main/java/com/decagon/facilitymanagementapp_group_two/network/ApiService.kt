@@ -1,9 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
 import com.decagon.facilitymanagementapp_group_two.model.data.*
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -53,6 +51,22 @@ interface ApiService {
     @PATCH("api/v1/User/update-profile")
     suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
 
+//<<<<<<< HEAD
+//    @GET("api/v1/Feed/get-feeds/1")
+//    suspend fun getFeedsCategories(): FeedItems
+
+    @GET("/api/v1/Feed/{feedId}/get-complaints/{pageNumber}")
+    suspend fun getComplaints(
+        @Path("feedId") feedId: String,
+        @Path("pageNumber") page: Int
+    ): ComplaintItems
+
+    @GET("/api/v1/Feed/get-user-complaints/{userId}/{pageNumber}")
+    suspend fun getMyComplains(
+        @Path("userId") userId: String,
+        @Path("pageNumber") page: Int
+    ): ComplaintItems
+//=======
     /**
      * Posts new request to endpoint and retrieves the response body containing the request
      */
@@ -71,4 +85,5 @@ interface ApiService {
     @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
     suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String)
 
+//>>>>>>> develop
 }

@@ -48,7 +48,4 @@ class SubmitRequestViewModel @Inject constructor(
             facilityRepository.addNewRequestToDb(request)
         }
     }
-
-
-
 }
