@@ -36,6 +36,7 @@ object MsWebAuthentication {
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
 
+
     // Holds the result from Microsoft SSO authentication
     lateinit var ssoResultBody: SsoResultBody
     private lateinit var updateProfileBody: UpdateProfileBody
@@ -55,6 +56,7 @@ object MsWebAuthentication {
                 ApiResponseHandler(serverResponse, fragment, failedAction = true) {
                     sharedPreferences.edit().putString(TOKEN_NAME, it.value.data.token).apply()
                     sharedPreferences.edit().putString(USER_ID, it.value.data.id).apply()
+                    Log.d("MsWebAuth", "UserId: ${it.value.data.id}")
                     // fragment.viewModel.saveAccessToken(authResponse)
                     logIt(it.toString())
                     val response = fragment.viewModel.getUserData(it.value.data.id)
@@ -96,6 +98,7 @@ object MsWebAuthentication {
             .builder()
             .authenticationProvider {
                 logIt("Authenticating request, ${it.requestUrl}")
+                logIt("SSO TOKEN: $accessToken")
                 it.addHeader("Authorization", "Bearer $accessToken")
             }
             .buildClient()
@@ -191,10 +194,10 @@ object MsWebAuthentication {
         )
     }
 
-    fun signOutUser(fragment: Fragment) {
+    fun signOutUser(fragment: Fragment?= null) {
         mSingleAccountApp.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback {
             override fun onSignOut() {
-                fragment.findNavController().navigate(R.id.onboardingFragment)
+                fragment?.findNavController()?.navigate(R.id.onboardingFragment)
             }
 
             override fun onError(exception: MsalException) {

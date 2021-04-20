@@ -31,8 +31,8 @@ object AuthRepositoryModule {
      */
     @Singleton
     @Provides
-    fun provideFacilityRepository(apiService: ApiService, centralDatabase: CentralDatabase): FacilityRepository {
-        return FacilityRepositoryImpl(apiService,centralDatabase)
+    fun provideFacilityRepository(apiService: ApiService, centralDatabase: CentralDatabase, sharedPref: SharedPreferences): FacilityRepository {
+        return FacilityRepositoryImpl(apiService,centralDatabase, sharedPref)
     }
 
 

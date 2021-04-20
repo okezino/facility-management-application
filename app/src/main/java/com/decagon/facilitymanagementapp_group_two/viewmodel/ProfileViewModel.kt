@@ -52,8 +52,4 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
     fun saveData(key: String, value: String) {
         authRepository.saveDataInPref(key, value)
     }
-
-
-
-
 }

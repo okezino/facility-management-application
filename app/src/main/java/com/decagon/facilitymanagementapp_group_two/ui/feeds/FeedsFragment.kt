@@ -25,9 +25,6 @@ class FeedsFragment : Fragment() {
         get() = _binding!!
     lateinit var feedAdapter: FeedAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

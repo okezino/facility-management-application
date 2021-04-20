@@ -8,7 +8,7 @@ data class Request(
     val categoryId: String? = null,
     val comments: String? = null,
     @PrimaryKey(autoGenerate = true)
-    val uuid : Int? = null,
+    var uuid : Int? = null,
     val id: String? = null,
     val image: String? = null,
     val isTask: Boolean? = null,
