@@ -78,7 +78,7 @@ class SubmitFragment : Fragment() {
         binding.requestSubject.doOnTextChanged { text, start, before, count ->
 
             binding.requestSubjectLayout.error = null
-            if (text!!.length > 120) binding.requestSubjectLayout.error = "Text length exceeded"
+            if (text!!.length > 30) binding.requestSubjectLayout.error = "Text length exceeded"
         }
 
         binding.requestDescription.doOnTextChanged { text, start, before, count ->
