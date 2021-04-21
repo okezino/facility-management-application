@@ -1,7 +1,9 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository.facility
 
 import androidx.lifecycle.LiveData
+import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
@@ -19,8 +21,7 @@ interface FacilityRepository {
 
     suspend fun getFeedId(requestCategory: String) : String
 
-    suspend fun postNewComment(complaintId : String, comment : String)
-
+    suspend fun postNewComment(complaintId : String, comment : String) : ResultStatus<CommentResponseBody>
 
     suspend fun getComplaints(feedId: String, page: Int): ResultStatus<ComplaintItems>
 
@@ -35,4 +36,8 @@ interface FacilityRepository {
     fun getMyRequestFromDb(): LiveData<List<Request>?>
 
     fun getFeedIdByName(name: String): LiveData<String>
+
+    suspend fun getRequestById(id : String) : ResultStatus<RequestResponseBody>
+
+    fun getCommentsFromDb(id : String) : LiveData<Request>
 }

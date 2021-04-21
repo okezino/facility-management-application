@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
 
 /**
@@ -21,7 +22,7 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
     version = 1,
     exportSchema = false
 )
-
+@TypeConverters(Converters::class, RatingConverter::class)
 abstract class CentralDatabase : RoomDatabase() {
 
     abstract val commentDao: CommentsDao

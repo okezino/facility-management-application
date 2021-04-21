@@ -2,17 +2,16 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
+import com.decagon.facilitymanagementapp_group_two.getOrAwaitValue
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
-//import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
-
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
@@ -42,12 +41,12 @@ class RequestDaoTest {
         database.close()
     }
 
-//    @Test
-//    fun insertNewRequest() = runBlockingTest {
-//        val request = Request(title = "Water Issues",question = "Water is not running in room 205",userId = "12345",uuid = 1)
-//        requestDao.insert(request)
-//        val requests = requestDao.getAllRequest()
-//        assertThat(requests).contains(request)
-//    }
+    @Test
+    fun insertNewRequest() = runBlockingTest {
+        val request = Request(title = "Water Issues",question = "Water is not running in room 205",userId = "12345",uuid = 1)
+        requestDao.insert(request)
+        val requests = requestDao.getAllRequest().getOrAwaitValue()
+        assertThat(requests).contains(request)
+    }
 
 }

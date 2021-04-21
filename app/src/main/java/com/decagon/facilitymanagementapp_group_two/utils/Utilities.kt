@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestOptions
 import com.decagon.facilitymanagementapp_group_two.R
 import com.google.android.material.snackbar.Snackbar
@@ -58,3 +60,5 @@ fun ImageView.loadImage(imageUrl: String?) {
 fun View.showSnackBar(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
 }
+
+

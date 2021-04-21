@@ -19,7 +19,7 @@ class DashboardComplaintAdapter(private val clickListner: ComplaintClickListener
             binding.complainDate.text = "Today"
             binding.complainDetails.text = item.question
             binding.complainLayout.setOnClickListener {
-                clickListner.onCompalinClicked()
+                clickListner.onCompalinClicked(item.title, item.question,item.id)
             }
         }
     }
