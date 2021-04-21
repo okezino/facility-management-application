@@ -9,17 +9,30 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
+import com.decagon.facilitymanagementapp_group_two.adapter.MyRequestAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
-import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
-import com.decagon.facilitymanagementapp_group_two.utils.loadImage
-import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
+import com.decagon.facilitymanagementapp_group_two.model.repository.MyRequestRepository
+import com.decagon.facilitymanagementapp_group_two.network.ApiService
+import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
+import com.decagon.facilitymanagementapp_group_two.viewmodel.MyRequestViewModel
+import com.decagon.facilitymanagementapp_group_two.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,9 +45,12 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     private val binding
         get() = _binding!!
 
-    private val feedsViewModel by activityViewModels<FeedsViewModel>()
+   // private val feedsViewModel by activityViewModels<FeedsViewModel>()
+    private lateinit var viewModel: MyRequestViewModel
 
-    var complainRecyclerAdapter = DashboardComplaintAdapter(this)
+   // var complainRecyclerAdapter = DashboardComplaintAdapter(this)
+    private val adapter = MyRequestAdapter()
+    private var getRequest: Job? = null
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -55,6 +71,10 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
+        val apiService = provideApiService(sharedPreferences)
+        val repository = MyRequestRepository(apiService)
+        viewModel = ViewModelProvider(this, ViewModelFactory(repository))
+            .get(MyRequestViewModel::class.java)
 
         /**
          * This sets the status bar to grey for the single complaint fragment if version code greater
@@ -70,16 +90,24 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
          * Creates the layout manager and adapter for the recycler that shows the list of Complains
          */
 
-        val complainRecyclerView = binding.dashboardComplaintRecyclerView
-        complainRecyclerView.adapter = complainRecyclerAdapter
-        complainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val recyclerView = binding.dashboardComplaintRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        feedsViewModel.myRequest.observe(viewLifecycleOwner, Observer {
-            if (it!!.isNotEmpty()) {
-                binding.noComplainText.visibility = View.GONE
-                complainRecyclerAdapter.loadData(it)
-            }
-        })
+        val userId = sharedPreferences.getString(USER_ID, "")
+        getMyRequest(userId!!)
+//        val complainRecyclerView = binding.dashboardComplaintRecyclerView
+//        complainRecyclerView.adapter = complainRecyclerAdapter
+//        complainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+//
+//        feedsViewModel.myRequest.observe(viewLifecycleOwner, Observer {
+//            if (it!!.isNotEmpty()) {
+//                binding.noComplainText.visibility = View.GONE
+//                complainRecyclerAdapter.loadData(it)
+//            }
+//        })
+
+
 
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
@@ -109,5 +137,38 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun provideApiService(sharedPreferences: SharedPreferences): ApiService {
+        val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        // Add authorization token to the header interceptor
+        val headerAuthorization = Interceptor { chain ->
+            val request = chain.request().newBuilder()
+            sharedPreferences.getString(TOKEN_NAME, null)?.let {
+                request.addHeader("Authorization", "Bearer $it")
+            }
+            chain.proceed(request.build())
+        }
+
+        // Creates an implementation of the ApiService
+        return Retrofit.Builder()
+            .client(
+                OkHttpClient.Builder().addInterceptor(logging)
+                    .addInterceptor(headerAuthorization).build()
+            )
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+    }
+
+    private fun getMyRequest(userId: String) {
+        getRequest?.cancel()
+        getRequest = lifecycleScope.launch {
+            viewModel.searchMyRequest(userId).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 }

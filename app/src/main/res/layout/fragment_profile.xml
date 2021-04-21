@@ -8,19 +8,6 @@
     android:background="@color/white"
     tools:context=".ui.profile.ProfileFragment">
 
-    <ImageView
-        android:id="@+id/fragment_profile_big_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:src="@drawable/profile_avatar"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/fragment_profile_appBarLayout"
         android:layout_width="match_parent"
@@ -76,13 +63,24 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/fragment_profile_big_iv"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline8">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:id="@+id/constLay"
             app:layout_constraintTop_toBottomOf="@+id/guideline8"
             app:layout_constraintBottom_toTopOf="@+id/guideline5">
+
+            <ImageView
+                android:id="@+id/fragment_profile_big_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:src="@drawable/profile_avatar"
+                android:visibility="invisible" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_fragment_container"
@@ -93,7 +91,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/fragment_profile_main_name"
