@@ -59,8 +59,4 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
             authRepository.updateUser(userData)
         }
     }
-
-
-
-
 }

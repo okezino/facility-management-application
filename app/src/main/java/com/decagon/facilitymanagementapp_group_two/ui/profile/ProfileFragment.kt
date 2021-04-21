@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         viewModel.userData.observe(viewLifecycleOwner, Observer {user ->
 
 
-            binding.fragmentProfileStackSquadText.setText("${user.stack} - ${user.squad}")
+            binding.fragmentProfileStackSquadText.text = "${user.stack} - ${user.squad}"
             val userFullName = "${user.firstName} ${user.lastName}"
             binding.fragmentProfileMainName.text = userFullName
             binding.fragmentProfileName.text = userFullName
@@ -95,8 +95,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        NetworkManager(this)
-
         // Sign out the current user when the sign out button is clicked.
         binding.fragmentProfileBtnLogout.setOnClickListener {
             MsWebAuthentication.signOutUser(this)
@@ -104,8 +102,9 @@ class ProfileFragment : Fragment() {
 
         // Update profile image with the uploaded image from the user
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
-        imgUrl?.let { binding.profileFragmentContainer.loadImage(it) }
-
+        imgUrl?.let {
+            binding.profileFragmentContainer.loadImage(it)
+        }
         binding.profileFragmentContainer.setOnClickListener {
             zoomImage(it, imgUrl, view)
         }

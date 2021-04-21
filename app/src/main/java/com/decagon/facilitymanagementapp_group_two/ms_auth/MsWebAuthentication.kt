@@ -17,10 +17,7 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthRespo
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
-import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
-import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
-import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
-import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
+import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
 import com.microsoft.graph.models.extensions.User
@@ -35,6 +32,7 @@ object MsWebAuthentication {
     private val TAG = "MsWebAuthentication"
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
+
 
     // Holds the result from Microsoft SSO authentication
     lateinit var ssoResultBody: SsoResultBody
@@ -55,6 +53,7 @@ object MsWebAuthentication {
                 ApiResponseHandler(serverResponse, fragment, failedAction = true) {
                     sharedPreferences.edit().putString(TOKEN_NAME, it.value.data.token).apply()
                     sharedPreferences.edit().putString(USER_ID, it.value.data.id).apply()
+                    Log.d("MsWebAuth", "UserId: ${it.value.data.id}")
                     // fragment.viewModel.saveAccessToken(authResponse)
                     logIt(it.toString())
                     val response = fragment.viewModel.getUserData(it.value.data.id)
@@ -62,6 +61,7 @@ object MsWebAuthentication {
                     ApiResponseHandler(response, fragment, failedAction = true) {
                         logIt(it.value.data.toString())
                         fragment.viewModel.saveUserToDatabase(it.value.data)
+                        sharedPreferences.edit().putString(PROFILE_IMG_URI,it.value.data.profileImageUrl).apply()
                         val action = AuthorizingUserFragmentDirections
                             .actionAuthorizingUserFragmentToSuccessfulAuthFragment("${it.value.data.firstName}  ${it.value.data.lastName}")
                         fragment.findNavController().navigate(action)
@@ -96,6 +96,7 @@ object MsWebAuthentication {
             .builder()
             .authenticationProvider {
                 logIt("Authenticating request, ${it.requestUrl}")
+                logIt("SSO TOKEN: $accessToken")
                 it.addHeader("Authorization", "Bearer $accessToken")
             }
             .buildClient()
@@ -191,10 +192,10 @@ object MsWebAuthentication {
         )
     }
 
-    fun signOutUser(fragment: Fragment) {
+    fun signOutUser(fragment: Fragment?= null) {
         mSingleAccountApp.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback {
             override fun onSignOut() {
-                fragment.findNavController().navigate(R.id.onboardingFragment)
+                fragment?.findNavController()?.navigate(R.id.onboardingFragment)
             }
 
             override fun onError(exception: MsalException) {

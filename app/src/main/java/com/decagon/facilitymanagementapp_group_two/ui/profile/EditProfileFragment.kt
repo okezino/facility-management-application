@@ -85,8 +85,6 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        NetworkManager(this)
-
         rootLayout = binding.editFragmentProfileRootLayout
         profileImage = binding.editFragmentProfilePic
 
@@ -95,7 +93,7 @@ class EditProfileFragment : Fragment() {
          * select image for their profile
          */
         binding.editFragmentCamera.setOnClickListener {
-            AlertDialog.Builder(requireContext())
+            AlertDialog.Builder(requireContext(), R.style.MyDialogTheme)
                 .setTitle("Change Photo")
                 .setItems(
                     arrayOf("Take Photo", "Choose Photo")

@@ -13,6 +13,7 @@ data class User(
 data class UserData(
     val firstName: String,
     val lastName: String,
+    @SerializedName("avatarUrl")
     val profileImageUrl: String?,
     @SerializedName("userName")
     val email: String,

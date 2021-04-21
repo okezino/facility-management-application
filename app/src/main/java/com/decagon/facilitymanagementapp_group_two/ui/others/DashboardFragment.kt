@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.facilitymanagementapp_group_two.R
@@ -16,6 +18,7 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboard
 import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
+import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,18 +32,20 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     private val binding
         get() = _binding!!
 
-    var complainRecycler = DashboardComplaintAdapter(this)
+    private val feedsViewModel by activityViewModels<FeedsViewModel>()
+
+    var complainRecyclerAdapter = DashboardComplaintAdapter(this)
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                activity?.finish()
             }
-
         })
     }
 
@@ -49,20 +54,32 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         /**
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
          */
         setStatusBarBaseColor(requireActivity(), requireContext())
 
+
+
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+
         /**
          * Creates the layout manager and adapter for the recycler that shows the list of Complains
          */
 
-        var complainRecyclerView = binding.dashboardComplaintRecyclerView
-        complainRecyclerView.adapter = complainRecycler
+        val complainRecyclerView = binding.dashboardComplaintRecyclerView
+        complainRecyclerView.adapter = complainRecyclerAdapter
         complainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        feedsViewModel.myRequest.observe(viewLifecycleOwner, Observer {
+            if (it!!.isNotEmpty()) {
+                binding.noComplainText.visibility = View.GONE
+                complainRecyclerAdapter.loadData(it)
+            }
+        })
 
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
@@ -89,8 +106,8 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         findNavController().navigate(R.id.singleComplaintFragment)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }
