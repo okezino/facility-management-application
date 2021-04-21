@@ -111,7 +111,7 @@ class SubmitFragment : Fragment() {
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
-            val user = Request(title = requestTitle, question = requestDes, userId = userId)
+            val user = Request(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
             //Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(viewLifecycleOwner, {

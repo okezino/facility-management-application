@@ -32,7 +32,7 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
     val myRequest = fRepository.getMyRequestFromDb()
 
     init {
-        getMyComplains(1)
+        getMyComplains(4)
     }
 
     fun getComplaints(feedId: String, page: Int): LiveData<ResultStatus<ComplaintItems>> {
