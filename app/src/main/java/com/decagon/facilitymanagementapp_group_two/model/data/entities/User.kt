@@ -13,6 +13,7 @@ data class User(
 data class UserData(
     val firstName: String,
     val lastName: String,
+    @SerializedName("avatarUrl")
     val profileImageUrl: String?,
     @SerializedName("userName")
     val email: String,
@@ -21,6 +22,6 @@ data class UserData(
     val phoneNumber: String?,
     val squad: String?
 ) {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     var userId: Long = 0
 }
