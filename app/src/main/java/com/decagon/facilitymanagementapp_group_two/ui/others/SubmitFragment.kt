@@ -100,7 +100,7 @@ class SubmitFragment : Fragment() {
          * create a new request object and toast it out for now
          *
          */
-        val requestCategory = binding.selectFeedCategory.text.toString()
+        val requestCategory = binding.selectFeedCategory.text.toString().toLowerCase()
 
         // Gets feedId
         submitViewModel.getFeedId(requestCategory.toLowerCase(Locale.ROOT))
@@ -111,7 +111,9 @@ class SubmitFragment : Fragment() {
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
-            val user = Request(title = requestTitle, question = requestDes, userId = userId)
+            val user = Request(title = requestTitle, question = requestDes, userId = userId,type = requestCategory)
+
+            Log.d("FOOD","Food category ${user.type}")
 
             //Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(viewLifecycleOwner, {

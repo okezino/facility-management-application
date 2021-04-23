@@ -39,7 +39,7 @@ class FoodFragment : Fragment() {
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
         feedsViewModel.foodFeedId.observe(viewLifecycleOwner, Observer {
-            val response = feedsViewModel.getComplaints(it, 1)
+            val response = feedsViewModel.getComplaints(it, 2)
             ApiResponseHandler(response, this, view) {
                 feedsViewModel.saveComplaints(it.value.data.items)
             }
