@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +22,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
@@ -32,9 +36,16 @@ import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -238,26 +249,45 @@ class EditProfileFragment : Fragment() {
      * and upload the image to the server using the helper method from the ProfileViewModel
      */
     private fun updateProfileImage() {
+        var fullSizeBitmap : Bitmap = BitmapFactory.decodeFile(imageUrl.toString())
+        var reducedBitmap : Bitmap   =  bitmapReducer(fullSizeBitmap,24000)
+
+        convertBitmapToFile(reducedBitmap)
+
+
         val parcelFileDescriptor = requireActivity().contentResolver
             .openFileDescriptor(imageUrl!!, "r", null) ?: return
         val file = File(
             requireActivity().cacheDir,
             requireActivity().contentResolver.getFileName(imageUrl!!)
         )
-        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-        val outputStream = FileOutputStream(file)
-        inputStream.copyTo(outputStream)
-        val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val image = MultipartBody.Part.createFormData("Image", file.name, body)
 
-        val serverResponse = viewModel.uploadProfileImage(image)
+            val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+            val outputStream = FileOutputStream(file)
+            inputStream.copyTo(outputStream)
+            val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val image = MultipartBody.Part.createFormData("Image", file.name, body)
 
-        ApiResponseHandler(serverResponse, this, view) {
-            viewModel.saveData(PROFILE_IMG_URI, it.value.data.url)
-            view?.showSnackBar("Profile image updated successfully")
-            imageUrl?.let { profileImage.loadImage(it.toString()) }
+
+            val serverResponse = viewModel.uploadProfileImage(image)
+
+            ApiResponseHandler(serverResponse, this, view) {
+                viewModel.saveData(PROFILE_IMG_URI, it.value.data.url)
+                view?.showSnackBar("Profile image updated successfully")
+                imageUrl?.let { profileImage.loadImage(it.toString()) }
+            }
+
         }
+
+    private fun convertBitmapToFile(reducedBitmap: Bitmap) {
+        var desPath : String  = requireContext().getExternalFilesDir(null)!!.getAbsolutePath()
+     var file = File(desPath+File.separator+"reducedImage")
+        var byteStream = ByteArrayOutputStream()
+        reducedBitmap.compress(Bitmap.CompressFormat.JPEG,0,byteStream)
+       var  bytemapData = byteStream.toByteArray()
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

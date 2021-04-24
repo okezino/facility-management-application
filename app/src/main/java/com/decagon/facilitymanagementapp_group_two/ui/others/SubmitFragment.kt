@@ -78,7 +78,7 @@ class SubmitFragment : Fragment() {
         binding.requestSubject.doOnTextChanged { text, start, before, count ->
 
             binding.requestSubjectLayout.error = null
-            if (text!!.length > 120) binding.requestSubjectLayout.error = "Text length exceeded"
+            if (text!!.length > 30) binding.requestSubjectLayout.error = "Text length exceeded"
         }
 
         binding.requestDescription.doOnTextChanged { text, start, before, count ->
@@ -100,7 +100,7 @@ class SubmitFragment : Fragment() {
          * create a new request object and toast it out for now
          *
          */
-        val requestCategory = binding.selectFeedCategory.text.toString().toLowerCase()
+        val requestCategory = binding.selectFeedCategory.text.toString()
 
         // Gets feedId
         submitViewModel.getFeedId(requestCategory.toLowerCase(Locale.ROOT))
@@ -111,9 +111,7 @@ class SubmitFragment : Fragment() {
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
-            val user = Request(title = requestTitle, question = requestDes, userId = userId,type = requestCategory)
-
-            Log.d("FOOD","Food category ${user.type}")
+            val user = Request(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
             //Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(viewLifecycleOwner, {
