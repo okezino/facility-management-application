@@ -1,6 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository.facility
 
 import androidx.lifecycle.LiveData
+import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
@@ -35,4 +36,8 @@ interface FacilityRepository {
     fun getMyRequestFromDb(): LiveData<List<Request>?>
 
     fun getFeedIdByName(name: String): LiveData<String>
+
+    suspend fun deleteComplaint(complainId: String) : ResultStatus<DeleteResponse>
+
+    suspend fun deleteComplaintFromDataBase(request: Request)
 }

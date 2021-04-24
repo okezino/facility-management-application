@@ -42,4 +42,12 @@ class DashboardComplaintAdapter(private val clickListner: ComplaintClickListener
         this.listOfRequests = complaints as MutableList<Request>
         notifyDataSetChanged()
     }
+
+    fun getComplaintId(id:Int) : String?{
+        return listOfRequests[id].id
+    }
+
+    fun getComplain(id : Int) : Request{
+        return listOfRequests[id]
+    }
 }

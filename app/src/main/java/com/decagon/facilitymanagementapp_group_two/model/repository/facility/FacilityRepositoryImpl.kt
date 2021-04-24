@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.model.repository.facility
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
+import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
@@ -76,5 +77,14 @@ class FacilityRepositoryImpl(
 
     override fun getFeedIdByName(name: String): LiveData<String> {
         return centralDatabase.feedDao.getFeedIdByName(name)
+    }
+
+    override suspend fun deleteComplaint(complainId: String) : ResultStatus<DeleteResponse> {
+
+        return safeApiCall { apiService.deleteRequest(complainId) }
+    }
+
+    override suspend fun deleteComplaintFromDataBase(request: Request) {
+       centralDatabase.requestDao.deleteRequest(request)
     }
 }

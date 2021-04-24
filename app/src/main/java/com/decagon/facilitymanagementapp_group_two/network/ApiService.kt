@@ -51,9 +51,6 @@ interface ApiService {
     @PATCH("api/v1/User/update-profile")
     suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
 
-//<<<<<<< HEAD
-//    @GET("api/v1/Feed/get-feeds/1")
-//    suspend fun getFeedsCategories(): FeedItems
 
     @GET("/api/v1/Feed/{feedId}/get-complaints/{pageNumber}")
     suspend fun getComplaints(
@@ -66,7 +63,7 @@ interface ApiService {
         @Path("userId") userId: String,
         @Path("pageNumber") page: Int
     ): ComplaintItems
-//=======
+
     /**
      * Posts new request to endpoint and retrieves the response body containing the request
      */
@@ -85,5 +82,7 @@ interface ApiService {
     @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
     suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String)
 
-//>>>>>>> develop
+    @DELETE("/api/v1/Feed/delete-complaint/{complaintId}")
+    suspend fun deleteRequest(@Path("complaintId") complaintId: String) : DeleteResponse
+
 }

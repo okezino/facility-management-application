@@ -18,4 +18,7 @@ interface RequestDao {
 
     @Query("SELECT * FROM Requests ORDER BY uuid DESC")
     fun getAllRequest() : LiveData<List<Request>?>
+
+    @Delete
+    suspend fun deleteRequest(request: Request)
 }
