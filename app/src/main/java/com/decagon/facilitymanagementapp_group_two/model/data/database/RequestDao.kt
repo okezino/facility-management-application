@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 
 /**
@@ -10,7 +11,7 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 @Dao
 interface RequestDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(request: Request)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,4 +22,9 @@ interface RequestDao {
 
     @Delete
     suspend fun deleteRequest(request: Request)
+
+    // get a particular request by id
+    @Query("SELECT * from Requests WHERE id = :id ")
+    fun getCommentById(id : String) : LiveData<Request>
+
 }

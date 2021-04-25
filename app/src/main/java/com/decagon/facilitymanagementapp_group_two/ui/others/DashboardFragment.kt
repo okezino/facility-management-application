@@ -144,8 +144,9 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     /**
      * OnclickListener function to Navigate to the single Complaint Fragment
      */
-    override fun onCompalinClicked() {
-        findNavController().navigate(R.id.singleComplaintFragment)
+    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
+        val action = DashboardFragmentDirections.actionDashboardFragmentToSingleComplaintFragment(id,title,body)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
