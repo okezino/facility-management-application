@@ -16,7 +16,6 @@ import javax.inject.Named
 
 
 @ExperimentalCoroutinesApi
-@Ignore
 @HiltAndroidTest
 @SmallTest
 class RequestDaoTest {
