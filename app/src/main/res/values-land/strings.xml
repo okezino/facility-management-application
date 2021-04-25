@@ -9,8 +9,8 @@
     <string name="fragment_singleComplaint_complaintBody">An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum. An suas viderer pro. \n\nAn suas viderer pro. Vis cu magna altera, ex his vivendo atomorum. An suas viderer pro.</string>
     <string name="fragment_singleComplaint_comments">Comments</string>
     <string name="fragment_singleComplaint_complaintImage_contentDescription">Complaint Image Description</string>
-    <string name="fragment_singleComplaint_commentCount">342</string>
-    <string name="fragment_singleComplaint_likesCount">6473</string>
+    <string name="fragment_singleComplaint_commentCount">0</string>
+    <string name="fragment_singleComplaint_likesCount">0</string>
     <string name="fragment_singleComplaint_writeAComment">Write a comment</string>
     <string name="fragment_singleComplaint_contentDesc_clickToLike">Click to like</string>
     <string name="fragment_singleComplaint_contentDesc_clickToPost">Click to post</string>
@@ -23,4 +23,5 @@
     <string name="fragment_singleComplaint_acNotWorking">AC is Not Working</string>
     <string name="fragment_singleComplaint_back">Back</string>
     <string name="fragment_singleComplaint_back_contentDescription">Click to go back</string>
+    <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
 </resources>

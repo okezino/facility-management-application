@@ -4,19 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.databinding.SingleComplaintItemBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.Comment
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
+import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 
-class SingleComplaintAdapter : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
-    // List of items for the placeholder data
-    private var items = mutableListOf<Comment>()
+class SingleComplaintAdapter(private val items : List<Comment>) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: SingleComplaintItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Comment) {
-            binding.fragmentSingleComplaintCommenterNameTv.text = item.commentName
-            binding.fragmentSingleComplaintCommentBodyTv.text = item.commentBody
-            binding.fragmentSingleComplaintCommenterImageIv.setImageResource(item.commentImage)
-            binding.fragmentSingleComplaintTimeElapsedTv.text = item.commentTime
+            val fullName = "${item.user.firstName} ${item.user.lastName}"
+            binding.fragmentSingleComplaintCommenterNameTv.text = fullName
+            binding.fragmentSingleComplaintCommentBodyTv.text = item.comment
+            item.user.avatarUrl?.let { binding.cardView2.loadImage(it)}
+            binding.fragmentSingleComplaintTimeElapsedTv.text = "2 hours ago"
+
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,7 +34,4 @@ class SingleComplaintAdapter : RecyclerView.Adapter<SingleComplaintAdapter.ViewH
         return items.size
     }
 
-    fun setupItems(items: List<Comment>) {
-        this.items = items as MutableList<Comment>
-    }
 }

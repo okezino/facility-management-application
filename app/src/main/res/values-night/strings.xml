@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
+</resources>

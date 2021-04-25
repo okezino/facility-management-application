@@ -9,38 +9,41 @@ import com.decagon.facilitymanagementapp_group_two.databinding.DashboardRecycler
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 
-class MyRequestAdapter : PagingDataAdapter<Complaints, MyRequestAdapter.MyRequestViewHolder>(REQUEST_COMPARATOR) {
+class MyRequestAdapter(private val clickListener: ComplaintClickListener) :
+    PagingDataAdapter<Request, MyRequestAdapter.MyRequestViewHolder>(REQUEST_COMPARATOR) {
 
-    class MyRequestViewHolder(private val binding: DashboardRecyclerViewLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Complaints) {
-            binding.complainTitle.text = item.subject
+   inner class MyRequestViewHolder(private val binding: DashboardRecyclerViewLayoutBinding):
+       RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Request) {
+            binding.complainTitle.text = item.title
             binding.complainDate.text = "Today"
-            binding.complainDetails.text = item.description
-//            binding.complainLayout.setOnClickListener {
-//                clickListner.onCompalinClicked()
-//            }
+            binding.complainDetails.text = item.question
+            binding.complainLayout.setOnClickListener {
+                clickListener.onCompalinClicked(item.title, item.question,item.id)
+            }
         }
     }
 
     companion object {
-        private val REQUEST_COMPARATOR = object : DiffUtil.ItemCallback<Complaints>() {
-            override fun areItemsTheSame(oldItem: Complaints, newItem: Complaints): Boolean =
+        private val REQUEST_COMPARATOR = object : DiffUtil.ItemCallback<Request>() {
+            override fun areItemsTheSame(oldItem: Request, newItem: Request): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Complaints, newItem: Complaints): Boolean =
+            override fun areContentsTheSame(oldItem: Request, newItem: Request): Boolean =
                 oldItem == newItem
         }
     }
 
     override fun onBindViewHolder(holder: MyRequestViewHolder, position: Int) {
-        val complain = getItem(position)
-        if (complain != null) {
-            holder.bind(complain)
-        }
+        val request = getItem(position)
+        if (request != null)
+            holder.bind(request)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRequestViewHolder {
-        val binding = DashboardRecyclerViewLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = DashboardRecyclerViewLayoutBinding.inflate(LayoutInflater
+            .from(parent.context), parent, false)
         return MyRequestViewHolder(binding)
     }
+
 }

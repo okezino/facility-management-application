@@ -2,6 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import com.decagon.facilitymanagementapp_group_two.model.data.database.dao.FeedDao
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Feeds
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -11,7 +12,6 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
-
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
@@ -43,7 +43,7 @@ class FeedDaoTest {
 
     @Test
     fun insertAllFeeds() = runBlockingTest {
-        val feeds = listOf(Feeds("Food",1,"1234","Food"),Feeds("Health",2,"5678","Health"))
+        val feeds = listOf(Feeds("Food","1234","Food"),Feeds("Health","5678","Health"))
         feedDao.insertAllFeeds(feeds)
 
         val feedId = feedDao.getFeedId("Health")

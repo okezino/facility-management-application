@@ -17,10 +17,7 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthRespo
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
-import com.decagon.facilitymanagementapp_group_two.utils.SHARED_PREF_NAME
-import com.decagon.facilitymanagementapp_group_two.utils.TOKEN_NAME
-import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
-import com.decagon.facilitymanagementapp_group_two.utils.writeSsoDetailsToSharedPref
+import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.microsoft.graph.concurrency.ICallback
 import com.microsoft.graph.core.ClientException
 import com.microsoft.graph.models.extensions.User
@@ -64,8 +61,12 @@ object MsWebAuthentication {
                     ApiResponseHandler(response, fragment, failedAction = true) {
                         logIt(it.value.data.toString())
                         fragment.viewModel.saveUserToDatabase(it.value.data)
+                        sharedPreferences.edit().putString(PROFILE_IMG_URI,it.value.data.profileImageUrl).apply()
                         val action = AuthorizingUserFragmentDirections
-                            .actionAuthorizingUserFragmentToSuccessfulAuthFragment("${it.value.data.firstName}  ${it.value.data.lastName}")
+                            .actionAuthorizingUserFragmentToSuccessfulAuthFragment(
+                                "${it.value.data.firstName}  ${it.value.data.lastName}",
+                                flag = it.value.data.isProfileCompleted!!
+                            )
                         fragment.findNavController().navigate(action)
                     }
                 }

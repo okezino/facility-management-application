@@ -19,6 +19,10 @@
         <argument
             android:name="userName"
             app:argType="string" />
+        <argument
+            android:name="flag"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -42,7 +46,20 @@
         android:id="@+id/singleComplaintFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.others.SingleComplaintFragment"
         android:label="fragment_single_complaint"
-        tools:layout="@layout/fragment_single_complaint" />
+        tools:layout="@layout/fragment_single_complaint" >
+        <argument
+            android:name="complaintId"
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
+            android:name="complaintTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="complaintBody"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 
 
     <fragment
@@ -53,6 +70,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_submitFragment"
             app:destination="@id/submitFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_singleComplaintFragment"
+            app:destination="@id/singleComplaintFragment" />
     </fragment>
     <fragment
         android:id="@+id/feedsFragment"
@@ -63,27 +83,20 @@
         android:id="@+id/profileFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/apartmentFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.ApartmentFragment"
-        android:label="ApartmentFragment"
-        tools:layout="@layout/fragment_apartment"/>
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
     <fragment
         android:id="@+id/foodFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.FoodFragment"
         android:label="FoodFragment"
         tools:layout="@layout/fragment_general"/>
-    <fragment
-        android:id="@+id/othersFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.OthersFragment"
-        android:label="OthersFragment"
-        tools:layout="@layout/fragment_others"/>
-    <fragment
-        android:id="@+id/applianceFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.ApplianceFragment"
-        android:label="ApplianceFragment"
-        tools:layout="@layout/fragment_appliance" />
     <fragment
         android:id="@+id/failedAuthenticationFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.authentication.FailedAuthenticationFragment"

@@ -78,7 +78,7 @@ class SubmitFragment : Fragment() {
         binding.requestSubject.doOnTextChanged { text, start, before, count ->
 
             binding.requestSubjectLayout.error = null
-            if (text!!.length > 120) binding.requestSubjectLayout.error = "Text length exceeded"
+            if (text!!.length > 30) binding.requestSubjectLayout.error = "Text length exceeded"
         }
 
         binding.requestDescription.doOnTextChanged { text, start, before, count ->
@@ -100,10 +100,10 @@ class SubmitFragment : Fragment() {
          * create a new request object and toast it out for now
          *
          */
-        val requestCategory = binding.selectFeedCategory.text.toString()
+        val requestCategory = binding.selectFeedCategory.text.toString().toLowerCase(Locale.ROOT)
 
         // Gets feedId
-        submitViewModel.getFeedId(requestCategory.toLowerCase(Locale.ROOT))
+        submitViewModel.getFeedId(requestCategory)
 
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()
@@ -111,13 +111,13 @@ class SubmitFragment : Fragment() {
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
-            val user = Request(title = requestTitle, question = requestDes, userId = userId)
+            val user = Request(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
             //Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(viewLifecycleOwner, {
                 Log.d("FeedID", "addNewRequest: $it")
                 val response = submitViewModel.postNewRequest(it, user)
-                ApiResponseHandler(response, this, failedAction = true) { request ->
+                ApiResponseHandler(response, this, view) { request ->
                     submitViewModel.saveRequestToDb(request.value.data)
                     Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
                     findNavController().popBackStack()

@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRep
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -50,6 +52,14 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
         }
 
     fun saveData(key: String, value: String) {
-        authRepository.saveDataInPref(key, value)
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.saveDataInPref(key, value)
+        }
+    }
+
+    fun updateUserToDataBase(userData: UserData){
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.updateUser(userData)
+        }
     }
 }

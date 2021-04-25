@@ -29,8 +29,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding
         get() = _binding!!
-    private lateinit var userDetails: SsoResultBody
-    private lateinit var userData : UpdateProfileBody
     private val viewModel: ProfileViewModel by viewModels()
 
     @Inject
@@ -87,7 +85,7 @@ class ProfileFragment : Fragment() {
          * Navigate back to Edit Profile Fragment
          */
         binding.fragmentProfileEditBtn.setOnClickListener {
-            findNavController().navigate(R.id.editProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
         return binding.root
@@ -104,15 +102,16 @@ class ProfileFragment : Fragment() {
 
         // Update profile image with the uploaded image from the user
         val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
-        imgUrl?.let { binding.profileFragmentContainer.loadImage(it) }
-
+        imgUrl?.let {
+            binding.profileFragmentContainer.loadImage(it)
+        }
         binding.profileFragmentContainer.setOnClickListener {
             zoomImage(it, imgUrl, view)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

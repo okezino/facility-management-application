@@ -14,6 +14,10 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.model.repository.auth.AuthRepository
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
+import com.decagon.facilitymanagementapp_group_two.utils.APARTMENT
+import com.decagon.facilitymanagementapp_group_two.utils.APPLIANCE
+import com.decagon.facilitymanagementapp_group_two.utils.FOOD
+import com.decagon.facilitymanagementapp_group_two.utils.OTHERS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -29,8 +33,6 @@ class AuthViewModel @Inject constructor (private val authRepository: AuthReposit
     val accessToken : LiveData<AuthResponse>
         get() = _accessToken
 
-
-
     /**
      * Sends SSO details to endpoint and perform appropriate actions
      * when the response from the network call is successful else
@@ -45,7 +47,9 @@ class AuthViewModel @Inject constructor (private val authRepository: AuthReposit
     }
 
     fun saveData(key: String, value: String) {
-        authRepository.saveDataInPref(key, value)
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.saveDataInPref(key, value)
+        }
     }
 
     fun getAccessToken(){
@@ -87,6 +91,19 @@ class AuthViewModel @Inject constructor (private val authRepository: AuthReposit
     fun saveFeedToDb(feeds : List<Feeds>){
         viewModelScope.launch(Dispatchers.IO) {
             authRepository.saveFeedsToDb(feeds)
+        }
+    }
+
+    fun saveFeedsIdToPref(feeds: List<Feeds>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            for (feed in feeds) {
+                when (feed.name) {
+                    APARTMENT -> authRepository.saveDataInPref(APARTMENT, feed.id)
+                    APPLIANCE -> authRepository.saveDataInPref(APPLIANCE, feed.id)
+                    FOOD -> authRepository.saveDataInPref(FOOD, feed.id)
+                    OTHERS -> authRepository.saveDataInPref(OTHERS, feed.id)
+                }
+            }
         }
     }
 }

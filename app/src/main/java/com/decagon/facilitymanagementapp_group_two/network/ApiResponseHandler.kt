@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.utils.showSnackBar
 
 /**
@@ -42,10 +43,13 @@ data class ApiResponseHandler<T>(
                     is ResultStatus.GenericError -> {
                         Log.d("ApiCall Error", "${it.code}")
                         if (failedAction) fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
+                        if (it.code == 401) {
+                            view?.showSnackBar("Your session has expired. Please login to continue")
+                            MsWebAuthentication.signOutUser(fragment)
+                        }
                         message = when (it.code) {
                             400 -> "Bad request! Please verify your inputs"
-                            401 -> "Your session has expired. Please logout and login again to continue"
-                            403 -> "Access to that resource is forbidden."
+                            403 -> "Sorry, only admin and vendors can post comment"
                             404 -> "The requested resource was not found."
                             405 -> "Method not allowed. Try again"
                             406 -> "Not acceptable response. Please verify your request"

@@ -1,6 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository
 
 import androidx.lifecycle.LiveData
+import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
@@ -35,8 +36,8 @@ class FakeFacilityRepository : FacilityRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun postNewComment(complaintId: String, comment: String) {
-
+    override suspend fun postNewComment(complaintId: String, comment: String): ResultStatus<CommentResponseBody> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getComplaints(feedId: String, page: Int): ResultStatus<ComplaintItems> {
@@ -64,6 +65,14 @@ class FakeFacilityRepository : FacilityRepository {
     }
 
     override fun getFeedIdByName(name: String): LiveData<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getRequestById(id: String): ResultStatus<RequestResponseBody> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCommentsFromDb(id: String): LiveData<Request> {
         TODO("Not yet implemented")
     }
 }

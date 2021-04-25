@@ -8,8 +8,8 @@
     <string name="fragment_singleComplaint_complaintBody">An suas viderer pro. Vis cu magna altera, ex his vivendo atomorum. An suas viderer pro. \n\nAn suas viderer pro. Vis cu magna altera, ex his vivendo atomorum. An suas viderer pro.</string>
     <string name="fragment_singleComplaint_comments">Comments</string>
     <string name="fragment_singleComplaint_complaintImage_contentDescription">Complaint Image Description</string>
-    <string name="fragment_singleComplaint_commentCount">342</string>
-    <string name="fragment_singleComplaint_likesCount">6473</string>
+    <string name="fragment_singleComplaint_commentCount">0</string>
+    <string name="fragment_singleComplaint_likesCount">0</string>
     <string name="fragment_singleComplaint_writeAComment">Write a comment</string>
     <string name="fragment_singleComplaint_contentDesc_clickToLike">Click to like</string>
     <string name="fragment_singleComplaint_contentDesc_clickToPost">Click to post</string>
@@ -59,6 +59,7 @@
     <string name="sq006">SQ006</string>
     <string name="android">Android</string>
     <string name="empty_feeds_msg">No items to display</string>
+    <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
     <!-- dropdown adapter field-->
     <string-array name="selection_field">
         <item>Food</item>

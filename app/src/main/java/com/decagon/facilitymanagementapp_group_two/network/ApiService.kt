@@ -12,8 +12,8 @@ interface ApiService {
     /**
      * Get all comments from Api
      */
-    @GET("comments")
-    suspend fun getAllComment(): List<Comment>
+    @GET("/api/v1/Feed/get-complaint/{id}")
+    suspend fun getRequestById(@Path( "id") id: String) : RequestResponseBody
 
     /**
      * @param id
@@ -79,6 +79,6 @@ interface ApiService {
      * Post a comment to an existing complaint and associates it to a User
      */
     @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
-    suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String)
+    suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String) : CommentResponseBody
 
 }

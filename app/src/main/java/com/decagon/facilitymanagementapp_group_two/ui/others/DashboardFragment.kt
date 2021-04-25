@@ -2,37 +2,30 @@ package com.decagon.facilitymanagementapp_group_two.ui.others
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
-import com.decagon.facilitymanagementapp_group_two.adapter.DashboardComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.adapter.MyRequestAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
-import com.decagon.facilitymanagementapp_group_two.model.repository.MyRequestRepository
-import com.decagon.facilitymanagementapp_group_two.network.ApiService
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
-import com.decagon.facilitymanagementapp_group_two.viewmodel.MyRequestViewModel
-import com.decagon.facilitymanagementapp_group_two.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,15 +34,13 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
      * Declaration of FragmentDashboardBinding and initialization of Dashboard Adapter
      */
 
+    private lateinit var recyclerView: RecyclerView
     private var _binding: FragmentDashboardBinding? = null
     private val binding
         get() = _binding!!
 
-   // private val feedsViewModel by activityViewModels<FeedsViewModel>()
-    private lateinit var viewModel: MyRequestViewModel
-
-   // var complainRecyclerAdapter = DashboardComplaintAdapter(this)
-    private val adapter = MyRequestAdapter()
+    private val feedsViewModel by viewModels<FeedsViewModel>()
+    private val adapter = MyRequestAdapter(this)
     private var getRequest: Job? = null
 
     @Inject
@@ -71,47 +62,28 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        val apiService = provideApiService(sharedPreferences)
-        val repository = MyRequestRepository(apiService)
-        viewModel = ViewModelProvider(this, ViewModelFactory(repository))
-            .get(MyRequestViewModel::class.java)
-
         /**
          * This sets the status bar to grey for the single complaint fragment if version code greater
          * than or equal marshmallow else maintains the default status bar color
          */
         setStatusBarBaseColor(requireActivity(), requireContext())
 
-
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        /**
-         * Creates the layout manager and adapter for the recycler that shows the list of Complains
-         */
-
-        val recyclerView = binding.dashboardComplaintRecyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val userId = sharedPreferences.getString(USER_ID, "")
-        getMyRequest(userId!!)
-//        val complainRecyclerView = binding.dashboardComplaintRecyclerView
-//        complainRecyclerView.adapter = complainRecyclerAdapter
-//        complainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//
-//        feedsViewModel.myRequest.observe(viewLifecycleOwner, Observer {
-//            if (it!!.isNotEmpty()) {
-//                binding.noComplainText.visibility = View.GONE
-//                complainRecyclerAdapter.loadData(it)
-//            }
-//        })
-
-
+        initAdapter()
+        getMyRequest()
 
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
         }
+
+        // react to text changes in the search bar
+        binding.searchBar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {searchAction(s)}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { searchAction(s) }
+            override fun afterTextChanged(s: Editable?) { searchAction(s) }
+        })
+
         return binding.root
     }
 
@@ -130,44 +102,64 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     /**
      * OnclickListener function to Navigate to the single Complaint Fragment
      */
-    override fun onCompalinClicked() {
-        findNavController().navigate(R.id.singleComplaintFragment)
+    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
+        val action = DashboardFragmentDirections.actionDashboardFragmentToSingleComplaintFragment(id,title,body)
+        findNavController().navigate(action)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 
-    fun provideApiService(sharedPreferences: SharedPreferences): ApiService {
-        val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        // Add authorization token to the header interceptor
-        val headerAuthorization = Interceptor { chain ->
-            val request = chain.request().newBuilder()
-            sharedPreferences.getString(TOKEN_NAME, null)?.let {
-                request.addHeader("Authorization", "Bearer $it")
+    /**
+     * Method to get my request
+     */
+    private fun getMyRequest() {
+        getRequest?.cancel()
+        getRequest = viewLifecycleOwner.lifecycleScope.launch {
+            feedsViewModel.getMyRequests().collectLatest {
+                adapter.submitData(it)
+                if (adapter.itemCount == 0) {
+                    binding.noComplainText.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                } else {
+                    recyclerView.visibility = View.VISIBLE
+                    binding.noComplainText.visibility = View.GONE
+                }
             }
-            chain.proceed(request.build())
         }
-
-        // Creates an implementation of the ApiService
-        return Retrofit.Builder()
-            .client(
-                OkHttpClient.Builder().addInterceptor(logging)
-                    .addInterceptor(headerAuthorization).build()
-            )
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
     }
 
-    private fun getMyRequest(userId: String) {
-        getRequest?.cancel()
-        getRequest = lifecycleScope.launch {
-            viewModel.searchMyRequest(userId).collectLatest {
+    /**
+     * Set up recyclerView Adapter and notify user's of data state
+     */
+    private fun initAdapter() {
+        recyclerView = binding.dashboardComplaintRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        adapter.addLoadStateListener { loadState ->
+            binding.dashboardComplaintRecyclerView.isVisible =
+                loadState.refresh is LoadState.NotLoading
+            binding.progBar.isVisible = loadState.refresh is LoadState.Loading
+        }
+    }
+
+    /**
+     * method that handles the search logic and functionality
+     */
+    private fun searchAction(s: Any?) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            feedsViewModel.searchMyRequest(s.toString())?.collectLatest {
                 adapter.submitData(it)
+                if (adapter.itemCount == 0) {
+                    recyclerView.visibility = View.GONE
+                    binding.fragmentDashboardNoMatch.visibility = View.VISIBLE
+                } else {
+                    binding.fragmentDashboardNoMatch.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
             }
         }
     }

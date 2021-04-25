@@ -18,12 +18,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
@@ -47,8 +49,7 @@ class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding
         get() = _binding!!
-    private lateinit var userDetails: SsoResultBody
-    private lateinit var userData : UpdateProfileBody
+
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -59,13 +60,6 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        /**
-         * Gets SSO details from sharedPreference
-         */
-        val firstName = sharedPreferences.getString(FIRST_NAME, null)
-        val lastName = sharedPreferences.getString(LAST_NAME, null)
-        val email = sharedPreferences.getString(EMAIL, null)
-        userDetails = SsoResultBody(firstName!!, lastName!!, email!!)
 
         /**
          * Update Status Bar Colour
@@ -82,7 +76,7 @@ class EditProfileFragment : Fragment() {
          */
         binding.editFragmentProfileBackBtn.setOnClickListener {
             findNavController().popBackStack()
-            findNavController().navigate(R.id.profileFragment)
+           // findNavController().navigate(R.id.profileFragment)
         }
         return binding.root
     }
@@ -117,38 +111,31 @@ class EditProfileFragment : Fragment() {
 
         binding.editFragmentProfileBtnSubmit.setOnClickListener { updateProfileDetails() }
 
-        val userFullName = "${userDetails.firstName} ${userDetails.lastName}"
-        binding.editFragmentProfileMail.text = userDetails.email
-        binding.editFragmentProfileMainName.text = userFullName
-        binding.editFragmentProfileName.text = userFullName
-        val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
-        val squad = sharedPreferences.getString(SQUAD,null)
-        val stack = sharedPreferences.getString(STACK,null)
-        val phoneNumber = sharedPreferences.getString(PHONE_NUMBER,null)
-        userData = UpdateProfileBody(squad!!,stack!!,phoneNumber!!)
-        binding.editFragmentProfileStackSquadText.text = "${userData.stack}-${userData.squad}"
+        /**
+         * Gets Profile details from DataBase and update the View
+         */
+
+        viewModel.userData.observe(viewLifecycleOwner, Observer {user ->
+            binding.editFragmentProfileMainName.text = "${user.firstName}  ${user.lastName}"
+            binding.editFragmentProfileStackSquadText.text =  "${user.stack} - ${user.squad}"
+            binding.editFragmentProfileMail.text = user.email
+            binding.editFragmentProfileName.text = "${user.firstName} ${user.lastName}"
+            binding.editFragmentProfilePhoneNumber.setText(user.phoneNumber)
+            binding.editFragmentProfileStackInput.setText(user.stack)
+            binding.editFragmentProfileSquadInput.setText(user.squad)
+        })
+
 
         /**
          * Upload profile image from shared preference
          */
+        val imgUrl = sharedPreferences.getString(PROFILE_IMG_URI, null)
         imgUrl?.let {
             binding.editFragmentProfilePic.loadImage(imgUrl)
         }
 
-        /**
-         * Update the editable text with previous data from shared Preference
-         */
-        squad?.let {
-            binding.editFragmentProfileSquadInput.setText(it)
-        }
-        stack?.let {
-            binding.editFragmentProfileStackInput.setText(it)
 
-        }
 
-        phoneNumber?.let {
-            binding.editFragmentProfilePhoneNumber.setText(it)
-        }
     }
 
     private fun updateProfileDetails() {
@@ -160,8 +147,9 @@ class EditProfileFragment : Fragment() {
         val updateSquad = binding.editFragmentProfileSquadInput.text.toString().toUpperCase().trim()
         val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
         val username = binding.editFragmentProfileName.text.toString()
-        val (firstName, lastName) = username.split(" ")
+        val (firstName,lastName)= username.split(" ")
         val profileEmail = binding.editFragmentProfileMail.text.toString()
+
 
         /**
          * Validate Input data, update input profile and show error respectively
@@ -178,18 +166,16 @@ class EditProfileFragment : Fragment() {
                 updatePhoneNumber
             )
             val result = viewModel.updateProfileDetails(updateProfileDetails)
+            val user = UserData(firstName,lastName,"null",profileEmail,updateStack,updatePhoneNumber,updateSquad)
 
             ApiResponseHandler(result, this, view) {
                 when (it.value.code()) {
                     204 -> {
-                        viewModel.apply {
-                            saveData(FIRST_NAME, updateProfileDetails.firstName)
-                            saveData(LAST_NAME, updateProfileDetails.lastName)
-                            saveData(USER_NAME, updateProfileDetails.userName)
-                            saveData(SQUAD, updateProfileDetails.squad)
-                            saveData(PHONE_NUMBER, updateProfileDetails.phoneNumber)
-                            saveData(STACK, updateProfileDetails.gender)
-                        }
+                        /**
+                         * Updated user profile to Database
+                         */
+                        viewModel.updateUserToDataBase(user)
+
                         view?.showSnackBar("Profile details updated successfully")
                         findNavController().popBackStack()
                         findNavController().navigate(R.id.profileFragment)
@@ -273,8 +259,8 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

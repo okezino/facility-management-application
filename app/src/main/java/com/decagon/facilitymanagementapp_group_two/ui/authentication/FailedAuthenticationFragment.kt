@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentFailedAuthenticationBinding
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
-import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 
 class FailedAuthenticationFragment : Fragment() {
     private var _binding: FragmentFailedAuthenticationBinding? = null

@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "All feeds")
 data class Feeds(
     val description: String,
-    @PrimaryKey(autoGenerate = true)
-    val feedId : Int? = null,
+  //  val feedId : Int? = null,
+    @PrimaryKey(autoGenerate = false)
     val id: String,
     val name: String
 )
