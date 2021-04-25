@@ -12,7 +12,4 @@ interface ComplaintsDao {
 
     @Query("SELECT * FROM `Complaints/Requests` WHERE category = :cat")
     fun getComplaintsByCat(cat: String): LiveData<List<Complaints>?>
-
-
-
 }

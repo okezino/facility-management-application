@@ -18,7 +18,7 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
         AuthResponse::class,
         Feeds::class,
         Complaints::class
-               ],
+    ],
     version = 1,
     exportSchema = false
 )
@@ -30,6 +30,5 @@ abstract class CentralDatabase : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val authResponseDao: AuthResponseDao
     abstract val complaintsDao: ComplaintsDao
-    abstract val feedDao : FeedDao
-
+    abstract val feedDao: FeedDao
 }

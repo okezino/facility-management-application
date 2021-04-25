@@ -5,7 +5,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.launchFragmentInHiltContainer
-import com.decagon.facilitymanagementapp_group_two.ui.authentication.SuccessfulAuthFragmentArgs
 import com.decagon.facilitymanagementapp_group_two.ui.others.SingleComplaintFragment
 import com.decagon.facilitymanagementapp_group_two.ui.others.SingleComplaintFragmentArgs
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -26,7 +25,7 @@ class SingleComplaintFragmentTest {
      */
     @Before
     fun testLaunchFragmentInHiltContainer() {
-        val bundle = SingleComplaintFragmentArgs("1234","Food","Food tastes bad").toBundle()
+        val bundle = SingleComplaintFragmentArgs("1234", "Food", "Food tastes bad").toBundle()
         launchFragmentInHiltContainer<SingleComplaintFragment>(bundle)
     }
 

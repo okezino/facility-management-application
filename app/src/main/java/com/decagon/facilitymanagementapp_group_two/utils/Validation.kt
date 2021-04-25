@@ -31,7 +31,7 @@ fun squadInputValidation(s: String): Boolean {
 }
 
 fun stackValidation(s: String): Boolean {
-    val validStack = listOf(".NET", "PYTHON", "NODE", "IOS", "JAVA", "QUALITY ASSURANCE", "ANDROID","QA")
+    val validStack = listOf(".NET", "PYTHON", "NODE", "IOS", "JAVA", "QUALITY ASSURANCE", "ANDROID", "QA")
     return validStack.contains(s)
 }
 

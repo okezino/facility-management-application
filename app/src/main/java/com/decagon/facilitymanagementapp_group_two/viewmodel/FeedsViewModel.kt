@@ -47,7 +47,7 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
 
     fun getMyComplains(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-          val  response = fRepository.getMyComplains(page)
+            val response = fRepository.getMyComplains(page)
             if (response is ResultStatus.Success) {
                 fRepository.saveComplainsAsRequest(response.value.data.items)
             }
@@ -66,18 +66,17 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
         }
     }
 
-    fun deleteComplain(complaintId : String) : LiveData<ResultStatus<DeleteResponse>>{
+    fun deleteComplain(complaintId: String): LiveData<ResultStatus<DeleteResponse>> {
         val response = MutableLiveData<ResultStatus<DeleteResponse>>()
         viewModelScope.launch {
             response.value = fRepository.deleteComplaint(complaintId)
         }
-        return  response
+        return response
     }
 
-    fun deleteComplainFromDataBase(request: Request){
+    fun deleteComplainFromDataBase(request: Request) {
         viewModelScope.launch(Dispatchers.IO) {
             fRepository.deleteComplaintFromDataBase(request)
         }
-
     }
 }

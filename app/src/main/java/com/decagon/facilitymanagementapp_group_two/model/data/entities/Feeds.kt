@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Feeds(
     val description: String,
     @PrimaryKey(autoGenerate = true)
-    val feedId : Int? = null,
+    val feedId: Int? = null,
     val id: String,
     val name: String
 )

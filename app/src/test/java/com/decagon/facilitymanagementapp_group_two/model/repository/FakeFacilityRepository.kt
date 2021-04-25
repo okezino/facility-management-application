@@ -2,13 +2,13 @@ package com.decagon.facilitymanagementapp_group_two.model.repository
 
 import androidx.lifecycle.LiveData
 import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
-
 
 class FakeFacilityRepository : FacilityRepository {
     private val requests = mutableListOf<Request>()
@@ -17,14 +17,14 @@ class FakeFacilityRepository : FacilityRepository {
         feedId: String,
         request: Request,
     ): ResultStatus<RequestResponseBody> {
-        return if (shouldReturnNetworkError){
+        return if (shouldReturnNetworkError) {
             ResultStatus.NetworkError
-        }else{
-            ResultStatus.Success(RequestResponseBody(Request(),"Post Request Successful",true))
+        } else {
+            ResultStatus.Success(RequestResponseBody(Request(), "Post Request Successful", true))
         }
     }
 
-    fun setShouldReturnNetworkError(value : Boolean){
+    fun setShouldReturnNetworkError(value: Boolean) {
         shouldReturnNetworkError = value
     }
 
@@ -65,6 +65,14 @@ class FakeFacilityRepository : FacilityRepository {
     }
 
     override fun getFeedIdByName(name: String): LiveData<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteComplaint(complainId: String): ResultStatus<DeleteResponse> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteComplaintFromDataBase(request: Request) {
         TODO("Not yet implemented")
     }
 
