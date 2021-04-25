@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.databinding.DashboardRecyclerViewLayoutBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.Complain
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 
 class DashboardComplaintAdapter(private val clickListner: ComplaintClickListener) : RecyclerView.Adapter<DashboardComplaintAdapter.ViewHolder>() {
@@ -19,7 +17,7 @@ class DashboardComplaintAdapter(private val clickListner: ComplaintClickListener
             binding.complainDate.text = "Today"
             binding.complainDetails.text = item.question
             binding.complainLayout.setOnClickListener {
-                clickListner.onCompalinClicked(item.title, item.question,item.id)
+                clickListner.onCompalinClicked(item.title, item.question, item.id)
             }
         }
     }
@@ -41,5 +39,13 @@ class DashboardComplaintAdapter(private val clickListner: ComplaintClickListener
     fun loadData(complaints: List<Request>) {
         this.listOfRequests = complaints as MutableList<Request>
         notifyDataSetChanged()
+    }
+
+    fun getComplaintId(id: Int): String? {
+        return listOfRequests[id].id
+    }
+
+    fun getComplain(id: Int): Request {
+        return listOfRequests[id]
     }
 }

@@ -38,12 +38,15 @@ class FoodFragment : Fragment() {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        feedsViewModel.foodFeedId.observe(viewLifecycleOwner, Observer {
-            val response = feedsViewModel.getComplaints(it, 1)
-            ApiResponseHandler(response, this, view) {
-                feedsViewModel.saveComplaints(it.value.data.items)
+        feedsViewModel.foodFeedId.observe(
+            viewLifecycleOwner,
+            Observer {
+                val response = feedsViewModel.getComplaints(it, 2)
+                ApiResponseHandler(response, this, view) {
+                    feedsViewModel.saveComplaints(it.value.data.items)
+                }
             }
-        })
+        )
 
         return binding.root
     }
@@ -58,12 +61,15 @@ class FoodFragment : Fragment() {
         foodRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         foodRecyclerView.adapter = adapter
 
-        feedsViewModel.foodComplaints.observe(viewLifecycleOwner, Observer {
-            if (it!!.isNotEmpty()) {
-                adapter.loadData(it)
-              binding.noItemsTv.visibility = View.GONE
+        feedsViewModel.foodComplaints.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it!!.isNotEmpty()) {
+                    adapter.loadData(it)
+                    binding.noItemsTv.visibility = View.GONE
+                }
             }
-        })
+        )
     }
 
     override fun onDestroyView() {

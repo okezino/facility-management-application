@@ -13,7 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class SubmitRequestViewModelTest{
+class SubmitRequestViewModelTest {
     @get: Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -23,15 +23,13 @@ class SubmitRequestViewModelTest{
     private lateinit var submitRequestViewModel: SubmitRequestViewModel
 
     @Before
-    fun setup(){
+    fun setup() {
         submitRequestViewModel = SubmitRequestViewModel(FakeFacilityRepository())
     }
 
     @Test
-    fun `insert new request when no network should return network error`(){
+    fun `insert new request when no network should return network error`() {
         val value = submitRequestViewModel.postNewRequest("12345", Request()).getOrAwaitValueTest()
         assertThat(value).isEqualTo(ResultStatus.NetworkError)
     }
-
-
 }

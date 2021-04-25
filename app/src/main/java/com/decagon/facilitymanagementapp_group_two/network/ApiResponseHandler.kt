@@ -59,7 +59,7 @@ data class ApiResponseHandler<T>(
                             415 -> "Unsupported Media Type"
                             416 -> "Range Not Satisfiable"
                             417 -> "Expectation Failed. Try again"
-                            in  422..431 -> "The request could not be understood by the server due to wrong request format"
+                            in 422..431 -> "The request could not be understood by the server due to wrong request format"
                             451 -> "Unavailable for Legal Reasons"
                             500 -> "There was an error on the server and the request could not be completed"
                             501 -> "Not Implemented."

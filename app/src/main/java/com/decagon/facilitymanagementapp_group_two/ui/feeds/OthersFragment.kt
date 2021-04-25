@@ -29,7 +29,6 @@ class OthersFragment : Fragment() {
     private val feedsViewModel by activityViewModels<FeedsViewModel>()
     private val adapter = GeneralCompliantAdapter()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,12 +40,15 @@ class OthersFragment : Fragment() {
 
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        feedsViewModel.otherFeedId.observe(viewLifecycleOwner, Observer {
-            val response = feedsViewModel.getComplaints(it, 1)
-            ApiResponseHandler(response, this, view) {
-                feedsViewModel.saveComplaints(it.value.data.items)
+        feedsViewModel.otherFeedId.observe(
+            viewLifecycleOwner,
+            Observer {
+                val response = feedsViewModel.getComplaints(it, 1)
+                ApiResponseHandler(response, this, view) {
+                    feedsViewModel.saveComplaints(it.value.data.items)
+                }
             }
-        })
+        )
 
         return binding.root
     }
@@ -61,15 +63,17 @@ class OthersFragment : Fragment() {
         otherRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         otherRecyclerView.adapter = adapter
 
-        feedsViewModel.otherComplaints.observe(viewLifecycleOwner, Observer {
-            Log.d("FeedsCateOther", it.toString())
-            if (it!!.isNotEmpty()) {
-                adapter.loadData(it)
-                Log.d("FeedsCateOther", it.size.toString())
-                binding.noItemsTv.visibility = View.GONE
+        feedsViewModel.otherComplaints.observe(
+            viewLifecycleOwner,
+            Observer {
+                Log.d("FeedsCateOther", it.toString())
+                if (it!!.isNotEmpty()) {
+                    adapter.loadData(it)
+                    Log.d("FeedsCateOther", it.size.toString())
+                    binding.noItemsTv.visibility = View.GONE
+                }
             }
-        })
-
+        )
     }
 
     override fun onDestroyView() {

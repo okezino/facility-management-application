@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.ui.others
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,24 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.SingleComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSingleComplaintBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.Comment
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import com.decagon.facilitymanagementapp_group_two.viewmodel.SingleComplaintViewModel
-import com.decagon.facilitymanagementapp_group_two.viewmodel.SubmitRequestViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SingleComplaintFragment : Fragment() {
     private lateinit var singleComplaintAdapter: SingleComplaintAdapter
-    private val viewModel : SingleComplaintViewModel by viewModels()
+    private val viewModel: SingleComplaintViewModel by viewModels()
     private var _binding: FragmentSingleComplaintBinding? = null
     private val binding
         get() = _binding!!
     private val args by navArgs<SingleComplaintFragmentArgs>()
-    private lateinit var complaintId : String
-    private lateinit var complaintTitle : String
-    private lateinit var complaintBody : String
+    private lateinit var complaintId: String
+    private lateinit var complaintTitle: String
+    private lateinit var complaintBody: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,9 +51,9 @@ class SingleComplaintFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val response = viewModel.getRequestById(complaintId)
-      //  viewModel.getRequestFromDb(complaintId)
-        ApiResponseHandler(response,this,failedAction = true){
-           // submitViewModel.saveRequestToDb(it.value.data)
+        //  viewModel.getRequestFromDb(complaintId)
+        ApiResponseHandler(response, this, failedAction = true) {
+            // submitViewModel.saveRequestToDb(it.value.data)
             Log.d("Testing1", "onViewCreated: ${it.value.data.comments}")
             val comments = it.value.data.comments
             if (comments != null) {
@@ -71,7 +68,6 @@ class SingleComplaintFragment : Fragment() {
                 binding.fragmentSingleComplaintComplaintsRecylcerView.visibility = View.VISIBLE
                 binding.fragmentSingleComplaintCommentCountTv.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
-
             }
 //            viewModel.getRequestFromDb(complaintId).observe(viewLifecycleOwner, { request ->
 //                Log.d("Testing", "onViewCreated: ${response.comm}")
@@ -89,9 +85,9 @@ class SingleComplaintFragment : Fragment() {
 
         binding.fragmentSingleComplaintPostIv.setOnClickListener {
             val comment = binding.fragmentSingleComplaintWriteACommentEt.text.toString()
-            val serverResponse = viewModel.postNewComment(complaintId,comment)
-            ApiResponseHandler(serverResponse,this,failedAction = true){
-                Toast.makeText(requireContext(),it.value.message, Toast.LENGTH_SHORT).show()
+            val serverResponse = viewModel.postNewComment(complaintId, comment)
+            ApiResponseHandler(serverResponse, this, failedAction = true) {
+                Toast.makeText(requireContext(), it.value.message, Toast.LENGTH_SHORT).show()
             }
         }
         binding.fragmentSingleComplaintBackIv.setOnClickListener {

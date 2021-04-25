@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.utils.APARTMENT
@@ -45,7 +47,7 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
 
     fun getMyComplains(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-          val  response = fRepository.getMyComplains(page)
+            val response = fRepository.getMyComplains(page)
             if (response is ResultStatus.Success) {
                 fRepository.saveComplainsAsRequest(response.value.data.items)
             }
@@ -61,6 +63,20 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
     fun saveComplainsAsRequest(complains: List<Complaints>) {
         viewModelScope.launch(Dispatchers.IO) {
             fRepository.saveComplainsAsRequest(complains)
+        }
+    }
+
+    fun deleteComplain(complaintId: String): LiveData<ResultStatus<DeleteResponse>> {
+        val response = MutableLiveData<ResultStatus<DeleteResponse>>()
+        viewModelScope.launch {
+            response.value = fRepository.deleteComplaint(complaintId)
+        }
+        return response
+    }
+
+    fun deleteComplainFromDataBase(request: Request) {
+        viewModelScope.launch(Dispatchers.IO) {
+            fRepository.deleteComplaintFromDataBase(request)
         }
     }
 }

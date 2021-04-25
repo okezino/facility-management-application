@@ -28,7 +28,6 @@ class ApplianceFragment : Fragment() {
     private val feedsViewModel by activityViewModels<FeedsViewModel>()
     val adapter = GeneralCompliantAdapter()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,12 +38,15 @@ class ApplianceFragment : Fragment() {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        feedsViewModel.appFeedId.observe(viewLifecycleOwner, Observer {
-            val response = feedsViewModel.getComplaints(it, 1)
-            ApiResponseHandler(response, this, view) {
-                feedsViewModel.saveComplaints(it.value.data.items)
+        feedsViewModel.appFeedId.observe(
+            viewLifecycleOwner,
+            Observer {
+                val response = feedsViewModel.getComplaints(it, 1)
+                ApiResponseHandler(response, this, view) {
+                    feedsViewModel.saveComplaints(it.value.data.items)
+                }
             }
-        })
+        )
 
         return binding.root
     }
@@ -58,15 +60,18 @@ class ApplianceFragment : Fragment() {
         val applianceRecyclerView = binding.generalRecyclerView
         applianceRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        feedsViewModel.appliancesComplaints.observe(viewLifecycleOwner, Observer {
-            Log.d("FeedsCateApp", it.toString())
-            if (it!!.isNotEmpty()) {
-                applianceRecyclerView.adapter = adapter
-                adapter.loadData(it)
-                Log.d("FeedsCateApp", it.size.toString())
-                binding.noItemsTv.visibility = View.GONE
+        feedsViewModel.appliancesComplaints.observe(
+            viewLifecycleOwner,
+            Observer {
+                Log.d("FeedsCateApp", it.toString())
+                if (it!!.isNotEmpty()) {
+                    applianceRecyclerView.adapter = adapter
+                    adapter.loadData(it)
+                    Log.d("FeedsCateApp", it.size.toString())
+                    binding.noItemsTv.visibility = View.GONE
+                }
             }
-        })
+        )
     }
 
     override fun onDestroyView() {

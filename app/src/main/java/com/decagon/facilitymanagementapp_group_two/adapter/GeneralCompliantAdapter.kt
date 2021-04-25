@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,20 +12,23 @@ class GeneralCompliantAdapter : RecyclerView.Adapter<GeneralCompliantAdapter.Vie
 
     class ViewHolder(private val binding: FeedsRecyclerViewLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: Complaints) {
-                val user = "${item.userFirstName} ${item.userLastName}"
-                binding.complaintName.text = user
-                binding.complainDetails.text = item.description
-                binding.complainDate.text = "Today"
-                item.userImgUrl?.let {
-                    binding.profileImage.loadImage(it)
-                }
+        fun bind(item: Complaints) {
+            val user = "${item.userFirstName} ${item.userLastName}"
+            binding.complaintName.text = user
+            binding.complainDetails.text = item.description
+            binding.complainDate.text = "Today"
+            item.userImgUrl?.let {
+                binding.profileImage.loadImage(it)
             }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val adapterLayout = FeedsRecyclerViewLayoutBinding.inflate(LayoutInflater
-            .from(parent.context), parent, false)
+        val adapterLayout = FeedsRecyclerViewLayoutBinding.inflate(
+            LayoutInflater
+                .from(parent.context),
+            parent, false
+        )
         return ViewHolder(adapterLayout)
     }
 
