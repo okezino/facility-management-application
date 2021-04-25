@@ -249,12 +249,6 @@ class EditProfileFragment : Fragment() {
      * and upload the image to the server using the helper method from the ProfileViewModel
      */
     private fun updateProfileImage() {
-        var fullSizeBitmap : Bitmap = BitmapFactory.decodeFile(imageUrl.toString())
-        var reducedBitmap : Bitmap   =  bitmapReducer(fullSizeBitmap,24000)
-
-        convertBitmapToFile(reducedBitmap)
-
-
         val parcelFileDescriptor = requireActivity().contentResolver
             .openFileDescriptor(imageUrl!!, "r", null) ?: return
         val file = File(
@@ -262,11 +256,12 @@ class EditProfileFragment : Fragment() {
             requireActivity().contentResolver.getFileName(imageUrl!!)
         )
 
+
             val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
             val outputStream = FileOutputStream(file)
             inputStream.copyTo(outputStream)
-            val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-            val image = MultipartBody.Part.createFormData("Image", file.name, body)
+            val body = file!!.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val image = MultipartBody.Part.createFormData("Image", file!!.name, body)
 
 
             val serverResponse = viewModel.uploadProfileImage(image)
@@ -279,13 +274,6 @@ class EditProfileFragment : Fragment() {
 
         }
 
-    private fun convertBitmapToFile(reducedBitmap: Bitmap) {
-        var desPath : String  = requireContext().getExternalFilesDir(null)!!.getAbsolutePath()
-     var file = File(desPath+File.separator+"reducedImage")
-        var byteStream = ByteArrayOutputStream()
-        reducedBitmap.compress(Bitmap.CompressFormat.JPEG,0,byteStream)
-       var  bytemapData = byteStream.toByteArray()
-    }
 
 
 
