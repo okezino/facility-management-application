@@ -99,10 +99,10 @@ class SubmitFragment : Fragment() {
          * create a new request object and toast it out for now
          *
          */
-        val requestCategory = binding.selectFeedCategory.text.toString()
+        val requestCategory = binding.selectFeedCategory.text.toString().toLowerCase(Locale.ROOT)
 
         // Gets feedId
-        submitViewModel.getFeedId(requestCategory.toLowerCase(Locale.ROOT))
+        submitViewModel.getFeedId(requestCategory)
 
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()

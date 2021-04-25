@@ -72,7 +72,7 @@ class EditProfileFragment : Fragment() {
          */
         binding.editFragmentProfileBackBtn.setOnClickListener {
             findNavController().popBackStack()
-            findNavController().navigate(R.id.profileFragment)
+           // findNavController().navigate(R.id.profileFragment)
         }
         return binding.root
     }
@@ -254,8 +254,8 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

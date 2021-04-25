@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
+import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -82,6 +83,7 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
             start()
         }
         bigImage.setOnClickListener {
+            Log.d("ZoomImage", "Big image clicked!")
             currentAnimator?.cancel()
             currentAnimator = AnimatorSet().apply {
                 play(ObjectAnimator.ofFloat(bigImage, View.X, startBounds.left)).apply {

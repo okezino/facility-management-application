@@ -61,6 +61,7 @@ interface ApiService {
         @Path("userId") userId: String,
         @Path("pageNumber") page: Int
     ): ComplaintItems
+
     /**
      * Posts new request to endpoint and retrieves the response body containing the request
      */

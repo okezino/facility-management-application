@@ -58,7 +58,10 @@ object MsWebAuthentication {
                         fragment.viewModel.saveUserToDatabase(it.value.data)
                         sharedPreferences.edit().putString(PROFILE_IMG_URI, it.value.data.profileImageUrl).apply()
                         val action = AuthorizingUserFragmentDirections
-                            .actionAuthorizingUserFragmentToSuccessfulAuthFragment("${it.value.data.firstName}  ${it.value.data.lastName}")
+                            .actionAuthorizingUserFragmentToSuccessfulAuthFragment(
+                                "${it.value.data.firstName}  ${it.value.data.lastName}",
+                                flag = it.value.data.isProfileCompleted!!
+                            )
                         fragment.findNavController().navigate(action)
                     }
                 }

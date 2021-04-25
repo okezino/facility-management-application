@@ -18,7 +18,7 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(SingletonComponent::class)
-object AuthRepositoryModule {
+object RepositoryModule {
     @Singleton
     @Provides
     fun provideAuthRepository(apiService: ApiService, sharedPreferences: SharedPreferences, centralDatabase: CentralDatabase): AuthRepository {

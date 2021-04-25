@@ -89,6 +89,7 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:paddingTop="1dp"
+        android:layout_marginBottom="87dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,12 +106,44 @@
         android:textColor="@color/dark"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
         app:layout_constraintVertical_bias="0.397" />
+
+    <TextView
+        android:id="@+id/fragment_dashboard_no_match"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_search_list_msg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout2"
+        app:layout_constraintVertical_bias="0.414"
+        android:visibility="gone"
+        android:maxLines="2"
+        android:padding="10dp"
+        android:textColor="@color/gray3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <ProgressBar
+        android:id="@+id/prog_bar"
+        android:layout_width="73dp"
+        android:layout_height="64dp"
+        android:indeterminateDrawable="@drawable/fragment_authorizing_user_progbar_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout2"
+        app:layout_constraintVertical_bias="0.376" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

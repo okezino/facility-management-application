@@ -10,6 +10,8 @@ import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.decagon.facilitymanagementapp_group_two.R
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.ApartComplaints
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.google.android.material.snackbar.Snackbar
 
 fun writeSsoDetailsToSharedPref(

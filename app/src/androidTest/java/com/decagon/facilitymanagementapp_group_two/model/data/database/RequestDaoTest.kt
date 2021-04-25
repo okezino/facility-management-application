@@ -3,6 +3,7 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import com.decagon.facilitymanagementapp_group_two.getOrAwaitValue
+import com.decagon.facilitymanagementapp_group_two.model.data.database.dao.RequestDao
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -12,6 +13,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
+
 
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
@@ -43,7 +45,8 @@ class RequestDaoTest {
 
     @Test
     fun insertNewRequest() = runBlockingTest {
-        val request = Request(title = "Water Issues", question = "Water is not running in room 205", userId = "12345", uuid = 1)
+
+        val request = Request("Water Issues",null, userId = "12345")
         requestDao.insert(request)
         val requests = requestDao.getAllRequest().getOrAwaitValue()
         assertThat(requests).contains(request)

@@ -18,10 +18,6 @@ class SingleComplaintViewModel @Inject constructor(
     private val facilityRepository: FacilityRepository
 ) : ViewModel() {
 
-//    private var _request = MutableLiveData<List<String>>()
-//    val request : LiveData<List<String>>
-//    get() = _request
-
     fun postNewComment(complaintId: String, comment: String): LiveData<ResultStatus<CommentResponseBody>> {
         val response = MutableLiveData<ResultStatus<CommentResponseBody>>()
         viewModelScope.launch {

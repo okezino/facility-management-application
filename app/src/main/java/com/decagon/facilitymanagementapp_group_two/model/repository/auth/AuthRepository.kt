@@ -21,7 +21,7 @@ interface AuthRepository {
 
     suspend fun updateProfileDetails(updateProfileDetails: UpdateProfileDetails): ResultStatus<Response<Unit>>
 
-    fun saveDataInPref(key: String, value: String)
+    suspend fun saveDataInPref(key: String, value: String)
 
     suspend fun saveAccessToken(authResponse: AuthResponse)
 
@@ -34,6 +34,8 @@ interface AuthRepository {
     suspend fun updateUser(userData: UserData)
 
     fun getUserFromDb(): LiveData<UserData>
+
+    suspend fun getAllFeedsId(): List<Feeds>
 
     suspend fun getAllFeeds(): ResultStatus<FeedResponseBody>
 

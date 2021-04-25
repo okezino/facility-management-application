@@ -81,7 +81,7 @@ class ProfileFragment : Fragment() {
          * Navigate back to Edit Profile Fragment
          */
         binding.fragmentProfileEditBtn.setOnClickListener {
-            findNavController().navigate(R.id.editProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
         return binding.root
@@ -106,8 +106,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

@@ -39,7 +39,7 @@ class AuthRepositoryImpl(
             return safeApiCall { apiService.updateProfileDetails(updateProfileDetails) }
         }
 
-    override fun saveDataInPref(key: String, value: String) {
+    override suspend fun saveDataInPref(key: String, value: String) {
         sharedPreferences.edit().putString(key, value).apply()
     }
 
@@ -73,5 +73,9 @@ class AuthRepositoryImpl(
 
     override suspend fun saveFeedsToDb(feeds: List<Feeds>) {
         centralDatabase.feedDao.insertAllFeeds(feeds)
+    }
+
+    override suspend fun getAllFeedsId(): List<Feeds> {
+       return centralDatabase.feedDao.getAllFeedsId()
     }
 }

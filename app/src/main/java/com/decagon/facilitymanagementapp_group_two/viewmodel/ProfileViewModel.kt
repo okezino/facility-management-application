@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -51,7 +52,9 @@ class ProfileViewModel @Inject constructor(private val authRepository: AuthRepos
         }
 
     fun saveData(key: String, value: String) {
-        authRepository.saveDataInPref(key, value)
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.saveDataInPref(key, value)
+        }
     }
 
     fun updateUserToDataBase(userData: UserData) {
