@@ -56,10 +56,6 @@ class FakeFacilityRepository : FacilityRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getComplaintsFromDb(cat: String): LiveData<List<Complaints>?> {
-        TODO("Not yet implemented")
-    }
-
     override fun getMyRequestFromDb(): LiveData<List<Request>?> {
         TODO("Not yet implemented")
     }

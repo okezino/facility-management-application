@@ -11,15 +11,8 @@ data class Request(
     val categoryId: String? = null,
     @TypeConverters(Converters::class)
     val comments: List<Comment>? = null,
-//<<<<<<< HEAD
-//    var uuid : Long = 0,
     @PrimaryKey(autoGenerate = false)
     val id: String = "",
-//=======
-//    @PrimaryKey(autoGenerate = true)
-//    var uuid: Int? = null,
-//    val id: String? = null,
-//>>>>>>> develop
     val image: String? = null,
     val isTask: Boolean? = null,
     val question: String? = null,

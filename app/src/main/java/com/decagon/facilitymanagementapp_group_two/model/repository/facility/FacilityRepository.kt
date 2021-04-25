@@ -52,7 +52,6 @@ interface FacilityRepository {
 
     fun getOthersComplains(): Flow<PagingData<OthersComplaints>>
 
-
     suspend fun deleteComplaintFromDataBase(request: Request)
 
     suspend fun getRequestById(id: String): ResultStatus<RequestResponseBody>
