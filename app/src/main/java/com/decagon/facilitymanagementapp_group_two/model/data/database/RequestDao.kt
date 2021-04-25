@@ -23,4 +23,10 @@ interface RequestDao {
     // get a particular request by id
     @Query("SELECT * from Requests WHERE id = :id ")
     fun getCommentById(id : String) : LiveData<Request>
+
+    @Query("SELECT ratingId from Requests WHERE id = :complaintId")
+    suspend fun getRequestRatingId(complaintId : String) : String
+
+    @Query("SELECT isLiked from Requests WHERE id = :complaintId")
+    fun getIsLikedFromDb(complaintId : String) : LiveData<Boolean>
 }

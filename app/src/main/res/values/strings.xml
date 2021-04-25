@@ -59,6 +59,7 @@
     <string name="sq006">SQ006</string>
     <string name="android">Android</string>
     <string name="empty_feeds_msg">No items to display</string>
+    <string name="fragment_single_complaint_noComments">No Comments Found!</string>
     <!-- dropdown adapter field-->
     <string-array name="selection_field">
         <item>Food</item>

@@ -20,7 +20,10 @@ data class ApiResponseHandler<T>(
     val resultStatus: LiveData<ResultStatus<T>>,
     val fragment: Fragment,
     var view: View? = null,
+    var view2 : View? = null,
+    var view3 : View? = null,
     var failedAction: Boolean = false,
+    var networkError : Boolean = false,
     var action: ((result: ResultStatus.Success<T>) -> Unit)? = null
 ) {
 
@@ -37,7 +40,14 @@ data class ApiResponseHandler<T>(
                     is ResultStatus.Loading -> view?.showSnackBar(it.message)
                     is ResultStatus.NetworkError -> {
                         if (failedAction) fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
+                        if(networkError) {
+                            view?.visibility = View.GONE
+                            view2?.visibility = View.GONE
+                            view3?.visibility = View.VISIBLE
+                        }
                         view?.showSnackBar("No internet connection, please check your network settings and try again")
+
+
                     }
                     is ResultStatus.GenericError -> {
                         Log.d("ApiCall Error", "${it.code}")

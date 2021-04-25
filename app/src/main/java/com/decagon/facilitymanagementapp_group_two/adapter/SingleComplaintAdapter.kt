@@ -7,7 +7,7 @@ import com.decagon.facilitymanagementapp_group_two.databinding.SingleComplaintIt
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 
-class SingleComplaintAdapter(private val items : List<Comment>) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
+class SingleComplaintAdapter(private val items : List<Comment>, private val clickListner: ComplaintClickListener) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: SingleComplaintItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -17,6 +17,9 @@ class SingleComplaintAdapter(private val items : List<Comment>) : RecyclerView.A
             binding.fragmentSingleComplaintCommentBodyTv.text = item.comment
             item.user.avatarUrl?.let { binding.cardView2.loadImage(it)}
             binding.fragmentSingleComplaintTimeElapsedTv.text = "2 hours ago"
+            binding.fragmentSingleComplaintReplyTv.setOnClickListener {
+                clickListner.onCompalinClicked()
+            }
 
         }
     }

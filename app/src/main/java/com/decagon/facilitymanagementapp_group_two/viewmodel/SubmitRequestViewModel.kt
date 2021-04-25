@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.decagon.facilitymanagementapp_group_two.model.data.RequestBody
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
@@ -28,7 +29,7 @@ class SubmitRequestViewModel @Inject constructor(
 
 
 
-    fun postNewRequest(feedId : String, request : Request) : LiveData<ResultStatus<RequestResponseBody>>{
+    fun postNewRequest(feedId : String, request : RequestBody) : LiveData<ResultStatus<RequestResponseBody>>{
         val response = MutableLiveData<ResultStatus<RequestResponseBody>>()
         viewModelScope.launch {
             response.value = facilityRepository.postRequest(feedId, request)

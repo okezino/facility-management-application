@@ -1,6 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
 import com.decagon.facilitymanagementapp_group_two.model.data.*
+import com.decagon.facilitymanagementapp_group_two.model.data.RatingResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -70,7 +71,7 @@ interface ApiService {
      * Posts new request to endpoint and retrieves the response body containing the request
      */
     @POST("/api/v1/Feed/{feedId}/add-complaint")
-    suspend fun postNewRequest(@Path("feedId") feedId : String, @Body request: Request) : RequestResponseBody
+    suspend fun postNewRequest(@Path("feedId") feedId : String, @Body request: RequestBody) : RequestResponseBody
 
     /**
      * Gets all the feeds category from the endpoint
@@ -84,4 +85,9 @@ interface ApiService {
     @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
     suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String) : CommentResponseBody
 
+    @POST("api/v1/Feed/complaint/{complaintId}/add-rate")
+    suspend fun addRating(@Path ("complaintId") complaintId: String, @Body rating : RatingBody) : RatingResponseBody
+
+    @DELETE("/api/v1/Feed/complaint/delete-rate/{ratingId}")
+    suspend fun deleteRating(@Path ("ratingId") ratingId : String) : RatingResponseBody
 }

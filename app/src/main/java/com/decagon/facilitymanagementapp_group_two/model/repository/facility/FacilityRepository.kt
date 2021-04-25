@@ -1,8 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository.facility
 
 import androidx.lifecycle.LiveData
-import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
@@ -15,7 +14,7 @@ import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
  */
 interface FacilityRepository {
 
-    suspend fun postRequest(feedId : String, request : Request) : ResultStatus<RequestResponseBody>
+    suspend fun postRequest(feedId : String, request : RequestBody) : ResultStatus<RequestResponseBody>
 
     suspend fun addNewRequestToDb(request: Request)
 
@@ -40,4 +39,14 @@ interface FacilityRepository {
     suspend fun getRequestById(id : String) : ResultStatus<RequestResponseBody>
 
     fun getCommentsFromDb(id : String) : LiveData<Request>
+
+    suspend fun postRating(complaintId: String, rating : RatingBody) : ResultStatus<RatingResponseBody>
+
+    suspend fun deleteRating(ratingId: String) : ResultStatus<RatingResponseBody>
+
+    suspend fun getRequestRatingIdFromDb(complaintId: String) : String
+
+    fun getIsLikedFromDb(complaintId: String): LiveData<Boolean>
+
+
 }
