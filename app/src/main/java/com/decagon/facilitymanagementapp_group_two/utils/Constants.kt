@@ -19,3 +19,4 @@ const val OTHERS = "others"
 const val USER_ID = "userId"
 const val NETWORK_STARTING_PAGE = 1
 const val NETWORK_PAGE_SIZE = 10
+

@@ -34,7 +34,7 @@ class ProfileFragmentTest {
     fun testLaunchFragmentInHiltContainer() {
         hiltRule.inject()
         val ssoResultBody = SsoResultBody("Godday", "Okoduwa", "godday.okoduwa@decagon.dev")
-        val updateProfileBody = UpdateProfileBody("SQ--","NIL","NIL")
+        val updateProfileBody = UpdateProfileBody("SQ--", "NIL", "NIL")
         writeSsoDetailsToSharedPref(
             ssoResultBody.firstName, ssoResultBody.lastName, ssoResultBody.email,
             updateProfileBody.squad,

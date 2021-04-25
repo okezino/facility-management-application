@@ -1,17 +1,23 @@
 package com.decagon.facilitymanagementapp_group_two.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
+import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
+import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -122,6 +128,20 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
                 request.title?.contains(searchEntry, ignoreCase = true) == true ||
                         request.question?.contains(searchEntry, ignoreCase = true) == true
             }
+        }
+    }
+
+    fun deleteComplain(complaintId: String): LiveData<ResultStatus<DeleteResponse>> {
+        val response = MutableLiveData<ResultStatus<DeleteResponse>>()
+        viewModelScope.launch {
+            response.value = fRepository.deleteComplaint(complaintId)
+        }
+        return response
+    }
+
+    fun deleteComplainFromDataBase(request: Request) {
+        viewModelScope.launch(Dispatchers.IO) {
+            fRepository.deleteComplaintFromDataBase(request)
         }
     }
 }

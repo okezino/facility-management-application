@@ -7,7 +7,7 @@ import com.decagon.facilitymanagementapp_group_two.databinding.SingleComplaintIt
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 
-class SingleComplaintAdapter(private val items : List<Comment>) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
+class SingleComplaintAdapter(private val items: List<Comment>) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: SingleComplaintItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -15,9 +15,8 @@ class SingleComplaintAdapter(private val items : List<Comment>) : RecyclerView.A
             val fullName = "${item.user.firstName} ${item.user.lastName}"
             binding.fragmentSingleComplaintCommenterNameTv.text = fullName
             binding.fragmentSingleComplaintCommentBodyTv.text = item.comment
-            item.user.avatarUrl?.let { binding.cardView2.loadImage(it)}
+            item.user.avatarUrl?.let { binding.cardView2.loadImage(it) }
             binding.fragmentSingleComplaintTimeElapsedTv.text = "2 hours ago"
-
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,5 +32,4 @@ class SingleComplaintAdapter(private val items : List<Comment>) : RecyclerView.A
     override fun getItemCount(): Int {
         return items.size
     }
-
 }

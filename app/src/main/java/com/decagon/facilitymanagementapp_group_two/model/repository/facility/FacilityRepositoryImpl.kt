@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.paging.*
 import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
@@ -24,30 +25,34 @@ class FacilityRepositoryImpl(
     private val sharedPref: SharedPreferences
 ) : FacilityRepository {
 
-    override suspend fun postRequest(feedId : String, request: Request) : ResultStatus<RequestResponseBody> {
-       return safeApiCall { apiService.postNewRequest(feedId, request) }
+    override suspend fun postRequest(feedId: String, request: Request): ResultStatus<RequestResponseBody> {
+        return safeApiCall { apiService.postNewRequest(feedId, request) }
     }
 
     override suspend fun addNewRequestToDb(request: Request) {
         centralDatabase.requestDao.insert(request)
     }
 
-    override suspend fun getFeedId(requestCategory : String) : String{
+    override suspend fun getFeedId(requestCategory: String): String {
         return centralDatabase.feedDao.getFeedId(requestCategory)
     }
 
-    override suspend fun postNewComment(complaintId: String, comment: String) : ResultStatus<CommentResponseBody> {
-       return safeApiCall { apiService.postNewComment(complaintId, comment) }
+    override suspend fun postNewComment(complaintId: String, comment: String): ResultStatus<CommentResponseBody> {
+        return safeApiCall { apiService.postNewComment(complaintId, comment) }
     }
-
 
     override suspend fun getComplaints(feedId: String, page: Int): ResultStatus<ComplaintItems> {
         return safeApiCall { apiService.getComplaints(feedId, page) }
     }
 
     override suspend fun getMyComplains(page: Int): ResultStatus<ComplaintItems> {
-        return safeApiCall { apiService.getMyComplains(sharedPref
-            .getString(USER_ID, null)!!, page) }
+        return safeApiCall {
+            apiService.getMyComplains(
+                sharedPref
+                    .getString(USER_ID, null)!!,
+                page
+            )
+        }
     }
 
     override suspend fun saveComplaints(complaints: List<Complaints>) {
@@ -76,12 +81,13 @@ class FacilityRepositoryImpl(
         return centralDatabase.feedDao.getFeedIdByName(name)
     }
 
-    override suspend fun getRequestById(id: String): ResultStatus<RequestResponseBody> {
-        return safeApiCall { apiService.getRequestById(id) }
+    override suspend fun deleteComplaint(complainId: String): ResultStatus<DeleteResponse> {
+
+        return safeApiCall { apiService.deleteRequest(complainId) }
     }
 
-    override fun getCommentsFromDb(id: String): LiveData<Request>{
-       return centralDatabase.requestDao.getCommentById(id)
+    override suspend fun deleteComplaintFromDataBase(request: Request) {
+        centralDatabase.requestDao.deleteRequest(request)
     }
 
     // Paging
@@ -168,4 +174,11 @@ class FacilityRepositoryImpl(
         ).flow
     }
 
+    override suspend fun getRequestById(id: String): ResultStatus<RequestResponseBody> {
+        return safeApiCall { apiService.getRequestById(id) }
+    }
+
+    override fun getCommentsFromDb(id: String): LiveData<Request> {
+        return centralDatabase.requestDao.getCommentById(id)
+    }
 }

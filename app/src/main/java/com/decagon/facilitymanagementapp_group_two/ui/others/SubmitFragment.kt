@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -30,7 +29,7 @@ class SubmitFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val submitViewModel : SubmitRequestViewModel by viewModels()
+    private val submitViewModel: SubmitRequestViewModel by viewModels()
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -107,23 +106,26 @@ class SubmitFragment : Fragment() {
 
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()
-        val userId = sharedPreferences.getString(USER_ID,null)
+        val userId = sharedPreferences.getString(USER_ID, null)
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
             val user = Request(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
-            //Obseves feed id result and adds it to the post new request
-            submitViewModel.feedId.observe(viewLifecycleOwner, {
-                Log.d("FeedID", "addNewRequest: $it")
-                val response = submitViewModel.postNewRequest(it, user)
-                ApiResponseHandler(response, this, view) { request ->
-                    submitViewModel.saveRequestToDb(request.value.data)
-                    Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
-                    findNavController().popBackStack()
-                    findNavController().navigate(R.id.dashboardFragment)
+            // Obseves feed id result and adds it to the post new request
+            submitViewModel.feedId.observe(
+                viewLifecycleOwner,
+                {
+                    Log.d("FeedID", "addNewRequest: $it")
+                    val response = submitViewModel.postNewRequest(it, user)
+                    ApiResponseHandler(response, this, failedAction = true) { request ->
+                        submitViewModel.saveRequestToDb(request.value.data)
+                        Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
+                        findNavController().popBackStack()
+                        findNavController().navigate(R.id.dashboardFragment)
+                    }
                 }
-            })
+            )
         } else {
             if (requestDes.isEmpty()) binding.requestDescriptionLayout.error = "Request description needed"
 

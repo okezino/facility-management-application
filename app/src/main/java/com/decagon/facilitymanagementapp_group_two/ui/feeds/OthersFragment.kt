@@ -38,7 +38,6 @@ class OthersFragment : Fragment() {
         /**
          * binding layout initialization
          */
-
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
         initAdapter(binding, adapter)

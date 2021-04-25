@@ -3,7 +3,6 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database.dao
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 
 /**
@@ -30,4 +29,7 @@ interface RequestDao {
 
     @Query("SELECT * FROM Requests")
    fun getMyRequests(): PagingSource<Int, Request>
+
+    @Delete
+    suspend fun deleteRequest(request: Request)
 }

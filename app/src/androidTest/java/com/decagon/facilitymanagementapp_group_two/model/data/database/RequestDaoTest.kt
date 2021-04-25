@@ -44,10 +44,10 @@ class RequestDaoTest {
 
     @Test
     fun insertNewRequest() = runBlockingTest {
-        val request = Request(title = "Water Issues",question = "Water is not running in room 205",userId = "12345")
+
+        val request = Request("Water Issues","Water is not running in room 205",userId = "12345")
         requestDao.insert(request)
         val requests = requestDao.getAllRequest().getOrAwaitValue()
         assertThat(requests).contains(request)
     }
-
 }

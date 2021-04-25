@@ -47,6 +47,7 @@ class SuccessfulAuthFragment : Fragment() {
             // Gets all feed and adds it to the database
             fragmentSuccessfulAuthBtn.setOnClickListener {
                 val response = viewModel.getAllFeeds()
+
                 ApiResponseHandler(response,this@SuccessfulAuthFragment, view){
                     viewModel.saveFeedsIdToPref(it.value.data.items)
                     viewModel.saveFeedToDb(it.value.data.items)
@@ -61,8 +62,6 @@ class SuccessfulAuthFragment : Fragment() {
             }
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.R
@@ -21,6 +23,11 @@ import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListene
 import com.decagon.facilitymanagementapp_group_two.adapter.MyRequestAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
 import com.decagon.facilitymanagementapp_group_two.utils.*
+import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
+import com.decagon.facilitymanagementapp_group_two.utils.loadImage
+import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
+import com.decagon.facilitymanagementapp_group_two.utils.showSnackBar
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -49,11 +56,14 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-               activity?.finish()
+        activity?.onBackPressedDispatcher?.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
             }
-        })
+        )
     }
 
     override fun onCreateView(
@@ -72,6 +82,49 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
 
         initAdapter()
         getMyRequest()
+        /**
+         * Creates the layout manager and adapter for the recycler that shows the list of Complains
+         */
+
+        val complainRecyclerView = binding.dashboardComplaintRecyclerView
+        complainRecyclerView.adapter = adapter
+        complainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                AlertDialog.Builder(viewHolder.itemView.context, R.style.MyDialogTheme)
+                    .setTitle("Alert")
+                    .setMessage("Are you sure you want to delete this Request?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        val Id = viewHolder.adapterPosition
+                        val complaintId = adapter.getComplaintId(Id)
+                        val request = adapter.getComplain(Id)
+                        val serverResponse = feedsViewModel.deleteComplain(complaintId!!)
+                        ApiResponseHandler(serverResponse, this@DashboardFragment, view, failedAction = false) {
+                            if (it.value.success) {
+                                feedsViewModel.deleteComplainFromDataBase(request)
+                                view?.showSnackBar("Complaint has been successfully Deleted")
+                            } else {
+                                view?.showSnackBar("Swipe to delete Again or go")
+                            }
+                        }
+                    }.setNegativeButton("Cancel") { _, _ ->
+                        adapter.notifyDataSetChanged()
+                        view?.showSnackBar("Swipe to delete Again")
+                    }.setCancelable(false)
+                    .create()
+                    .show()
+            }
+        }
+        ).apply {
+            attachToRecyclerView(binding.dashboardComplaintRecyclerView)
+        }
 
         binding.addRequest.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_submitFragment)
@@ -103,7 +156,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
      * OnclickListener function to Navigate to the single Complaint Fragment
      */
     override fun onCompalinClicked(title: String?, body: String?, id: String?) {
-        val action = DashboardFragmentDirections.actionDashboardFragmentToSingleComplaintFragment(id,title,body)
+        val action = DashboardFragmentDirections.actionDashboardFragmentToSingleComplaintFragment(id, title, body)
         findNavController().navigate(action)
     }
 

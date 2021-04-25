@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,27 +22,25 @@ class SubmitRequestViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var _feedId = MutableLiveData<String>()
-    val feedId : LiveData<String>
-    get() = _feedId
+    val feedId: LiveData<String>
+        get() = _feedId
 
-
-
-    fun postNewRequest(feedId : String, request : Request) : LiveData<ResultStatus<RequestResponseBody>>{
+    fun postNewRequest(feedId: String, request: Request): LiveData<ResultStatus<RequestResponseBody>> {
         val response = MutableLiveData<ResultStatus<RequestResponseBody>>()
         viewModelScope.launch {
             response.value = facilityRepository.postRequest(feedId, request)
-           // facilityRepository.addNewRequestToDb(request)
+            // facilityRepository.addNewRequestToDb(request)
         }
         return response
     }
 
-    fun getFeedId(requestCategory: String){
+    fun getFeedId(requestCategory: String) {
         viewModelScope.launch {
-           _feedId.value = facilityRepository.getFeedId(requestCategory)
+            _feedId.value = facilityRepository.getFeedId(requestCategory)
         }
     }
 
-    fun saveRequestToDb(request: Request){
+    fun saveRequestToDb(request: Request) {
         viewModelScope.launch(Dispatchers.IO) {
             facilityRepository.addNewRequestToDb(request)
         }

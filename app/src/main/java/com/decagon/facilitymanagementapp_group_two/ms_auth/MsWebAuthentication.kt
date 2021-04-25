@@ -10,10 +10,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
-import com.decagon.facilitymanagementapp_group_two.model.data.ResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthResponse
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
@@ -24,7 +22,6 @@ import com.microsoft.graph.models.extensions.User
 import com.microsoft.graph.requests.extensions.GraphServiceClient
 import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalException
-import javax.inject.Inject
 
 object MsWebAuthentication {
 
@@ -33,11 +30,9 @@ object MsWebAuthentication {
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
 
-
     // Holds the result from Microsoft SSO authentication
     lateinit var ssoResultBody: SsoResultBody
     private lateinit var updateProfileBody: UpdateProfileBody
-
 
     /**
      * Call method used in signing-in users through microsoft identity platform
@@ -61,7 +56,7 @@ object MsWebAuthentication {
                     ApiResponseHandler(response, fragment, failedAction = true) {
                         logIt(it.value.data.toString())
                         fragment.viewModel.saveUserToDatabase(it.value.data)
-                        sharedPreferences.edit().putString(PROFILE_IMG_URI,it.value.data.profileImageUrl).apply()
+                        sharedPreferences.edit().putString(PROFILE_IMG_URI, it.value.data.profileImageUrl).apply()
                         val action = AuthorizingUserFragmentDirections
                             .actionAuthorizingUserFragmentToSuccessfulAuthFragment(
                                 "${it.value.data.firstName}  ${it.value.data.lastName}",
@@ -70,9 +65,7 @@ object MsWebAuthentication {
                         fragment.findNavController().navigate(action)
                     }
                 }
-
             }
-
 
             override fun onError(exception: MsalException?) {
                 logIt(exception.toString())
@@ -195,7 +188,7 @@ object MsWebAuthentication {
         )
     }
 
-    fun signOutUser(fragment: Fragment?= null) {
+    fun signOutUser(fragment: Fragment? = null) {
         mSingleAccountApp.signOut(object : ISingleAccountPublicClientApplication.SignOutCallback {
             override fun onSignOut() {
                 fragment?.findNavController()?.navigate(R.id.onboardingFragment)

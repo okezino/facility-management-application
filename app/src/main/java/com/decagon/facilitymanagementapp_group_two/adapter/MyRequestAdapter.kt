@@ -46,4 +46,12 @@ class MyRequestAdapter(private val clickListener: ComplaintClickListener) :
         return MyRequestViewHolder(binding)
     }
 
+    fun getComplaintId(id: Int): String? {
+        return getItem(id)!!.id
+    }
+
+    fun getComplain(id: Int): Request {
+        return getItem(id)!!
+    }
+
 }

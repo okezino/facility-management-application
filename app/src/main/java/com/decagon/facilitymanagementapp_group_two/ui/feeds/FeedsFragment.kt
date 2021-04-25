@@ -26,7 +26,6 @@ class FeedsFragment : Fragment() {
         get() = _binding!!
     lateinit var feedAdapter: FeedAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

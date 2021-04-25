@@ -14,7 +14,7 @@ interface FeedDao {
     suspend fun insertAllFeeds(feedItems: List<Feeds>)
 
     @Query("SELECT id FROM `All feeds` WHERE name = :name")
-    suspend fun getFeedId(name : String): String
+    suspend fun getFeedId(name: String): String
 
     @Query("SELECT id FROM `All feeds` WHERE name = :name")
     fun getFeedIdByName(name : String): LiveData<String>

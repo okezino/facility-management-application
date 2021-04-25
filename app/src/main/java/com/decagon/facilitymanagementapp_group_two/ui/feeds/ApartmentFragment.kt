@@ -15,6 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class ApartmentFragment : Fragment() {
 
@@ -29,6 +30,7 @@ class ApartmentFragment : Fragment() {
     private val feedsViewModel by viewModels<FeedsViewModel>()
     private var apartComplains: Job? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +44,7 @@ class ApartmentFragment : Fragment() {
 
         initAdapter(binding, adapter)
         getMyRequest()
+
 
         return binding.root
     }

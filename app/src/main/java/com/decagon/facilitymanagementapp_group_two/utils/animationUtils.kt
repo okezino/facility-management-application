@@ -27,7 +27,6 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
     root.findViewById<TextView>(R.id.fragment_profile_main_name).visibility = View.GONE
     root.findViewById<TextView>(R.id.fragment_profile_stack_squad_text).visibility = View.GONE
     root.findViewById<LinearLayout>(R.id.fragment_profile_linear_layout).visibility = View.GONE
-
     val bigImage: ImageView = root.findViewById(R.id.fragment_profile_big_iv)
     imageResId?.let { bigImage.loadImage(it) }
     val startBoundsInt = Rect()

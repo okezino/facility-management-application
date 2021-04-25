@@ -1,14 +1,11 @@
 package com.decagon.facilitymanagementapp_group_two.model.data.coverter
 
 import androidx.room.TypeConverter
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Rating
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-
-
-class RatingConverter{
+class RatingConverter {
     private val gson = Gson()
     @TypeConverter
     fun stringToRatingList(data: String?): List<Rating>? {
@@ -24,4 +21,3 @@ class RatingConverter{
         return gson.toJson(ratings)
     }
 }
-

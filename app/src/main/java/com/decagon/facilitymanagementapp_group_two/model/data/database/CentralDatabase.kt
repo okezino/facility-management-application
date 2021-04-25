@@ -51,6 +51,4 @@ abstract class CentralDatabase : RoomDatabase() {
     abstract val apartRemoteKeysDao: ApartRemoteKeysDao
     abstract val applianceRemoteKeyDao: ApplianceRemoteKeyDao
     abstract val othersRemoteKeysDao: OthersRemoteKeysDao
-
-
 }

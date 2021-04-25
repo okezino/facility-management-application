@@ -21,8 +21,8 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideAuthRepository(apiService: ApiService, sharedPreferences: SharedPreferences,centralDatabase: CentralDatabase): AuthRepository {
-        return AuthRepositoryImpl(apiService, sharedPreferences,centralDatabase)
+    fun provideAuthRepository(apiService: ApiService, sharedPreferences: SharedPreferences, centralDatabase: CentralDatabase): AuthRepository {
+        return AuthRepositoryImpl(apiService, sharedPreferences, centralDatabase)
     }
 
     /**
@@ -31,8 +31,6 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideFacilityRepository(apiService: ApiService, centralDatabase: CentralDatabase, sharedPref: SharedPreferences): FacilityRepository {
-        return FacilityRepositoryImpl(apiService,centralDatabase, sharedPref)
+        return FacilityRepositoryImpl(apiService, centralDatabase, sharedPref)
     }
-
-
 }

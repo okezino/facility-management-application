@@ -22,12 +22,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentEditProfileBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.SsoResultBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileBody
 import com.decagon.facilitymanagementapp_group_two.model.data.UpdateProfileDetails
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
-import com.decagon.facilitymanagementapp_group_two.network.NetworkManager
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -50,7 +48,6 @@ class EditProfileFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
@@ -59,7 +56,6 @@ class EditProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
         /**
          * Update Status Bar Colour
@@ -115,16 +111,18 @@ class EditProfileFragment : Fragment() {
          * Gets Profile details from DataBase and update the View
          */
 
-        viewModel.userData.observe(viewLifecycleOwner, Observer {user ->
-            binding.editFragmentProfileMainName.text = "${user.firstName}  ${user.lastName}"
-            binding.editFragmentProfileStackSquadText.text =  "${user.stack} - ${user.squad}"
-            binding.editFragmentProfileMail.text = user.email
-            binding.editFragmentProfileName.text = "${user.firstName} ${user.lastName}"
-            binding.editFragmentProfilePhoneNumber.setText(user.phoneNumber)
-            binding.editFragmentProfileStackInput.setText(user.stack)
-            binding.editFragmentProfileSquadInput.setText(user.squad)
-        })
-
+        viewModel.userData.observe(
+            viewLifecycleOwner,
+            Observer { user ->
+                binding.editFragmentProfileMainName.text = "${user.firstName}  ${user.lastName}"
+                binding.editFragmentProfileStackSquadText.text = "${user.stack} - ${user.squad}"
+                binding.editFragmentProfileMail.text = user.email
+                binding.editFragmentProfileName.text = "${user.firstName} ${user.lastName}"
+                binding.editFragmentProfilePhoneNumber.setText(user.phoneNumber)
+                binding.editFragmentProfileStackInput.setText(user.stack)
+                binding.editFragmentProfileSquadInput.setText(user.squad)
+            }
+        )
 
         /**
          * Upload profile image from shared preference
@@ -133,9 +131,6 @@ class EditProfileFragment : Fragment() {
         imgUrl?.let {
             binding.editFragmentProfilePic.loadImage(imgUrl)
         }
-
-
-
     }
 
     private fun updateProfileDetails() {
@@ -147,9 +142,8 @@ class EditProfileFragment : Fragment() {
         val updateSquad = binding.editFragmentProfileSquadInput.text.toString().toUpperCase().trim()
         val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
         val username = binding.editFragmentProfileName.text.toString()
-        val (firstName,lastName)= username.split(" ")
+        val (firstName, lastName) = username.split(" ")
         val profileEmail = binding.editFragmentProfileMail.text.toString()
-
 
         /**
          * Validate Input data, update input profile and show error respectively
@@ -166,7 +160,7 @@ class EditProfileFragment : Fragment() {
                 updatePhoneNumber
             )
             val result = viewModel.updateProfileDetails(updateProfileDetails)
-            val user = UserData(firstName,lastName,"null",profileEmail,updateStack,updatePhoneNumber,updateSquad)
+            val user = UserData(firstName, lastName, "null", profileEmail, updateStack, updatePhoneNumber, updateSquad)
 
             ApiResponseHandler(result, this, view) {
                 when (it.value.code()) {
@@ -244,11 +238,12 @@ class EditProfileFragment : Fragment() {
             requireActivity().cacheDir,
             requireActivity().contentResolver.getFileName(imageUrl!!)
         )
+
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream)
-        val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val image = MultipartBody.Part.createFormData("Image", file.name, body)
+        val body = file!!.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val image = MultipartBody.Part.createFormData("Image", file!!.name, body)
 
         val serverResponse = viewModel.uploadProfileImage(image)
 

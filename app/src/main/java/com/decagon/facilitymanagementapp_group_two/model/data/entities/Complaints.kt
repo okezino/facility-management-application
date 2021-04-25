@@ -3,7 +3,6 @@ package com.decagon.facilitymanagementapp_group_two.model.data.entities
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
 import com.google.gson.annotations.SerializedName
 
 data class ComplaintItems(val data: ComplaintsData?)
@@ -33,7 +32,7 @@ data class Complaints(
     @SerializedName("avatarUrl")
     val userImgUrl: String?,
     @SerializedName("squad")
-    val userSquad: String?,
+    val userSquad: String?
 )
 
 @Entity(tableName = "apartment_complains")
@@ -101,3 +100,4 @@ data class OthersComplaints(
     @SerializedName("squad")
     val userSquad: String?,
 )
+
