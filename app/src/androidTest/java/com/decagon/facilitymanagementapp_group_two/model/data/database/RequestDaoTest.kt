@@ -14,8 +14,9 @@ import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
 
-@Ignore
+
 @ExperimentalCoroutinesApi
+@Ignore
 @HiltAndroidTest
 @SmallTest
 class RequestDaoTest {
@@ -46,7 +47,7 @@ class RequestDaoTest {
     @Test
     fun insertNewRequest() = runBlockingTest {
 
-        val request = Request("Water Issues","Water is not running in room 205",userId = "12345")
+        val request = Request("Water Issues",null, userId = "12345")
         requestDao.insert(request)
         val requests = requestDao.getAllRequest().getOrAwaitValue()
         assertThat(requests).contains(request)
