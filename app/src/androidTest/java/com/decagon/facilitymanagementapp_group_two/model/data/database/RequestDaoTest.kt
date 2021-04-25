@@ -14,6 +14,7 @@ import org.junit.*
 import javax.inject.Inject
 import javax.inject.Named
 
+@Ignore
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 @SmallTest
