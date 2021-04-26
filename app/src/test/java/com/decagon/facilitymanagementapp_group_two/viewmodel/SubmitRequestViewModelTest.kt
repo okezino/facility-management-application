@@ -14,7 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class SubmitRequestViewModelTest{
+class SubmitRequestViewModelTest {
     @get: Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -24,7 +24,7 @@ class SubmitRequestViewModelTest{
     private lateinit var submitRequestViewModel: SubmitRequestViewModel
 
     @Before
-    fun setup(){
+    fun setup() {
         submitRequestViewModel = SubmitRequestViewModel(FakeFacilityRepository())
     }
 
@@ -33,6 +33,4 @@ class SubmitRequestViewModelTest{
         val value = submitRequestViewModel.postNewRequest("12345", RequestBody("Bad food","Get food",type="Food")).getOrAwaitValueTest()
         assertThat(value).isEqualTo(ResultStatus.NetworkError)
     }
-
-
 }

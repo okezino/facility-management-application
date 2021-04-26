@@ -15,29 +15,29 @@ import retrofit2.Response
  * class
  */
 interface AuthRepository {
-    suspend fun postAuthDetails(token : String): ResultStatus<ResponseBody>
+    suspend fun postAuthDetails(token: String): ResultStatus<ResponseBody>
 
     suspend fun updateProfileImage(image: MultipartBody.Part): ResultStatus<UpdateProfileImageResponse>
 
     suspend fun updateProfileDetails(updateProfileDetails: UpdateProfileDetails): ResultStatus<Response<Unit>>
 
-    fun saveDataInPref(key: String, value: String)
+    suspend fun saveDataInPref(key: String, value: String)
 
     suspend fun saveAccessToken(authResponse: AuthResponse)
 
     suspend fun getAccessToken(): AuthResponse
 
-    suspend fun getUsers(userId: String):ResultStatus<User>
+    suspend fun getUsers(userId: String): ResultStatus<User>
 
     suspend fun saveUser(userData: UserData)
 
     suspend fun updateUser(userData: UserData)
 
-     fun getUserFromDb():LiveData<UserData>
+    fun getUserFromDb(): LiveData<UserData>
 
-     suspend fun getAllFeeds() : ResultStatus<FeedResponseBody>
+    suspend fun getAllFeedsId(): List<Feeds>
 
-    suspend fun saveFeedsToDb(feeds : List<Feeds>)
+    suspend fun getAllFeeds(): ResultStatus<FeedResponseBody>
 
-
+    suspend fun saveFeedsToDb(feeds: List<Feeds>)
 }

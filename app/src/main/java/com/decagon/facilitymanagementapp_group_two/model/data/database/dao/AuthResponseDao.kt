@@ -1,4 +1,4 @@
-package com.decagon.facilitymanagementapp_group_two.model.data.database
+package com.decagon.facilitymanagementapp_group_two.model.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -9,8 +9,8 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.AuthRespo
 @Dao
 interface AuthResponseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(authResponse : AuthResponse)
+    fun insert(authResponse: AuthResponse)
 
     @Query("SELECT * FROM AuthResponse")
-    fun getAuthResponse() : AuthResponse
+    fun getAuthResponse(): AuthResponse
 }

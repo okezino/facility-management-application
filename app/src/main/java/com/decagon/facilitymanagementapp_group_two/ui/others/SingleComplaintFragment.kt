@@ -20,13 +20,14 @@ import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import com.decagon.facilitymanagementapp_group_two.viewmodel.SingleComplaintViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SingleComplaintFragment : Fragment(), ComplaintClickListener {
     private lateinit var singleComplaintAdapter: SingleComplaintAdapter
-    private val viewModel : SingleComplaintViewModel by viewModels()
+    private val viewModel: SingleComplaintViewModel by viewModels()
     private var _binding: FragmentSingleComplaintBinding? = null
     private val binding
         get() = _binding!!
@@ -60,18 +61,24 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         val response = viewModel.getRequestById(complaintId)
+
         ApiResponseHandler(response,this,networkError = true,view = binding.progressBar, view2 = binding.fragmentSingleComplaintCommentCountProgress, view3 = binding.fragmentSingleComplaintCommentCountTv){
             request = it.value.data
-            Log.d("Testing1", "onViewCreated: ${it.value.data}")
+
             val comments = it.value.data.comments
             val ratings = it.value.data.ratings
             isLiked = it.value.data.isLiked
             likesCount = ratings?.size ?: 0
+            binding.fragmentSingleComplaintLikesCountTv.text = "$likesCount"
+
             if (comments != null) {
                 /**
                  * Creates the layout manager and adapter for the recycler that shows the list of comments
                  * to display placeholder data and test scrolling
                  */
+                if (comments.isEmpty()){
+                    binding.fragmentSingleComplaintNoCommentTv.visibility = View.VISIBLE
+                }
 
                 singleComplaintAdapter = SingleComplaintAdapter(comments, this)
                 binding.fragmentSingleComplaintComplaintsRecylcerView.apply {
@@ -84,8 +91,6 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
                 binding.progressBar.visibility = View.GONE
                 binding.fragmentSingleComplaintCommentCountProgress.visibility = View.GONE
 
-            }else{
-                binding.fragmentSingleComplaintNoCommentTv.visibility = View.VISIBLE
             }
 
             if(ratings != null){
@@ -93,7 +98,6 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
                     likesCount = likeCount
                     binding.fragmentSingleComplaintLikesCountTv.text = "$likeCount" })
             }
-
         }
 
         binding.fragmentSingleComplaintComplaintTitleTv.text = complaintTitle
@@ -101,10 +105,13 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
 
         binding.fragmentSingleComplaintPostIv.setOnClickListener {
             val comment = binding.fragmentSingleComplaintWriteACommentEt.text.toString()
+            binding.fragmentSingleComplaintWriteACommentEt.setText("")
             val serverResponse = viewModel.postNewComment(complaintId,comment)
-            ApiResponseHandler(serverResponse,this,failedAction = false){
-                Toast.makeText(requireContext(),it.value.message, Toast.LENGTH_SHORT).show()
+            ApiResponseHandler(serverResponse,this, view){
+                Snackbar.make(view, it.value.message, Snackbar.LENGTH_SHORT).show()
+
             }
+
         }
 
         binding.fragmentSingleComplaintLikesIconIv.setOnClickListener {
@@ -112,12 +119,11 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
                 val deleteResponse = viewModel.deleteRating(complaintId)
                 ApiResponseHandler(deleteResponse,this,failedAction = false){
                     request.ratingId = null
-                    request.id = complaintId
+                    //request.id = complaintId
                     isLiked = false
                     request.isLiked = isLiked
                     viewModel.reduceRatingCount(request, likesCount)
                     binding.fragmentSingleComplaintLikesIconIv.setImageResource(R.drawable.likes)
-                    Log.d("UnLikkess", "onViewCreated: $likesCount")
                 }
             }
             else{

@@ -60,6 +60,9 @@
     <string name="android">Android</string>
     <string name="empty_feeds_msg">No items to display</string>
     <string name="fragment_single_complaint_noComments">No Comments Found!</string>
+    <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
+    <string name="edit_profile">Edit Profile</string>
+
     <!-- dropdown adapter field-->
     <string-array name="selection_field">
         <item>Food</item>

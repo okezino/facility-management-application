@@ -24,4 +24,5 @@
     <string name="fragment_singleComplaint_back">Back</string>
     <string name="fragment_singleComplaint_back_contentDescription">Click to go back</string>
     <string name="fragment_single_complaint_noComments">No Comments Found!</string>
+    <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
 </resources>

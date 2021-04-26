@@ -1,43 +1,59 @@
 package com.decagon.facilitymanagementapp_group_two.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.databinding.FeedsRecyclerViewLayoutBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 
-class GeneralCompliantAdapter : RecyclerView.Adapter<GeneralCompliantAdapter.ViewHolder>() {
-    private var data = mutableListOf<Complaints>()
+class GeneralCompliantAdapter(private val clickListener: ComplaintClickListener) : PagingDataAdapter<Complaints, GeneralCompliantAdapter.ViewHolder>(
+    COMPLAINS_COMPARATOR){
 
-    class ViewHolder(private val binding: FeedsRecyclerViewLayoutBinding) :
+    inner class ViewHolder(private val binding: FeedsRecyclerViewLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: Complaints) {
-                val user = "${item.userFirstName} ${item.userLastName}"
-                binding.complaintName.text = user
-                binding.complainDetails.text = item.description
-                binding.complainDate.text = "Today"
-                item.userImgUrl?.let {
-                    binding.profileImage.loadImage(it)
-                }
+        fun bind(item: Complaints) {
+            val user = "${item.userFirstName} ${item.userLastName}"
+            binding.complaintName.text = user
+            binding.complainDetails.text = item.description
+            binding.complainDate.text = "Today"
+            item.userImgUrl?.let {
+                binding.profileImage.loadImage(it)
+            }
+            binding.feedRecyclerLayout.setOnClickListener{
+                clickListener.onCompalinClicked(item.subject,item.description,item.id)
             }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val adapterLayout = FeedsRecyclerViewLayoutBinding.inflate(LayoutInflater
-            .from(parent.context), parent, false)
+        val adapterLayout = FeedsRecyclerViewLayoutBinding.inflate(
+            LayoutInflater
+                .from(parent.context),
+            parent, false
+        )
         return ViewHolder(adapterLayout)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        val complains = getItem(position)
+        if (complains != null) {
+            holder.bind(complains)
+        }
     }
 
-    override fun getItemCount(): Int = data.size
+    companion object {
+        val COMPLAINS_COMPARATOR = object : DiffUtil.ItemCallback<Complaints>() {
+            override fun areItemsTheSame(oldItem: Complaints, newItem: Complaints): Boolean =
+                oldItem.id == newItem.id
 
-    fun loadData(complaints: List<Complaints>) {
-        this.data = complaints as MutableList<Complaints>
-        this.notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: Complaints, newItem: Complaints): Boolean =
+                oldItem == newItem
+
+        }
     }
 }
+

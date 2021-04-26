@@ -3,6 +3,10 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.decagon.facilitymanagementapp_group_two.model.data.coverter.Converters
+import com.decagon.facilitymanagementapp_group_two.model.data.coverter.RatingConverter
+import com.decagon.facilitymanagementapp_group_two.model.data.database.dao.*
+import com.decagon.facilitymanagementapp_group_two.model.data.database.remotekeys.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
 
 /**
@@ -17,7 +21,15 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
         UserData::class,
         AuthResponse::class,
         Feeds::class,
-        Complaints::class
+        Complaints::class,
+        ApartComplaints::class,
+        ApplianceComplaints::class,
+        OthersComplaints::class,
+        RemoteKeys::class,
+        ComplainRemoteKeys::class,
+        ApartmentRemoteKeys::class,
+        ApplianceRemoteKeys::class,
+        OthersRemoteKeys::class
                ],
     version = 1,
     exportSchema = false
@@ -30,6 +42,13 @@ abstract class CentralDatabase : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val authResponseDao: AuthResponseDao
     abstract val complaintsDao: ComplaintsDao
+    abstract val apartComplainsDao: ApartComplainsDao
+    abstract val applianceCompDao: ApplianceCompDao
+    abstract val othersComplainsDao: OthersComplainsDao
     abstract val feedDao : FeedDao
-
+    abstract val remoteKeysDao: RemoteKeysDao
+    abstract val complainRemoteKeysDao: ComplainRemoteKeysDao
+    abstract val apartRemoteKeysDao: ApartRemoteKeysDao
+    abstract val applianceRemoteKeyDao: ApplianceRemoteKeyDao
+    abstract val othersRemoteKeysDao: OthersRemoteKeysDao
 }

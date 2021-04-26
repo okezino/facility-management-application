@@ -1,22 +1,25 @@
 package com.decagon.facilitymanagementapp_group_two.ui.feeds
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
-import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.ui.others.DashboardFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ApplianceFragment : Fragment() {
+class ApplianceFragment : Fragment(), ComplaintClickListener {
 
     /**
      * Declaration of FragmentAppliance and initialization of Apartment Adapter
@@ -25,9 +28,9 @@ class ApplianceFragment : Fragment() {
     private var _binding: FragmentGeneralBinding? = null
     private val binding
         get() = _binding!!
-    private val feedsViewModel by activityViewModels<FeedsViewModel>()
-    val adapter = GeneralCompliantAdapter()
-
+    private val feedsViewModel by viewModels<FeedsViewModel>()
+    val adapter = GeneralCompliantAdapter(this)
+    private var appComplains: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,38 +42,35 @@ class ApplianceFragment : Fragment() {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        feedsViewModel.appFeedId.observe(viewLifecycleOwner, Observer {
-            val response = feedsViewModel.getComplaints(it, 1)
-            ApiResponseHandler(response, this, view) {
-                feedsViewModel.saveComplaints(it.value.data.items)
-            }
-        })
+        initAdapter(binding, adapter)
+        getMyRequest()
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /**
-         * Creates the layout manager and adapter for the recycler that shows the list of Complains
-         */
-        val applianceRecyclerView = binding.generalRecyclerView
-        applianceRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        feedsViewModel.appliancesComplaints.observe(viewLifecycleOwner, Observer {
-            Log.d("FeedsCateApp", it.toString())
-            if (it!!.isNotEmpty()) {
-                applianceRecyclerView.adapter = adapter
-                adapter.loadData(it)
-                Log.d("FeedsCateApp", it.size.toString())
-                binding.noItemsTv.visibility = View.GONE
-            }
-        })
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun getMyRequest() {
+        appComplains?.cancel()
+        appComplains = viewLifecycleOwner.lifecycleScope.launch {
+            feedsViewModel.getAppComplains().collectLatest {
+                adapter.submitData(it)
+                if (adapter.itemCount == 0) {
+                    binding.generalRecyclerView.visibility = View.GONE
+                    binding.noItemsTv.visibility = View.VISIBLE
+                } else {
+                    binding.noItemsTv.visibility = View.GONE
+                    binding.generalRecyclerView.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
+        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body)
+        findNavController().navigate(action)
     }
 }

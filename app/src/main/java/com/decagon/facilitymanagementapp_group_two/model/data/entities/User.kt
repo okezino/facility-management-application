@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
 data class User(
     val data: UserData
 )
@@ -20,7 +19,8 @@ data class UserData(
     @SerializedName("gender")
     val stack: String?,
     val phoneNumber: String?,
-    val squad: String?
+    val squad: String?,
+    var isProfileCompleted: Boolean? = null
 ) {
     @PrimaryKey(autoGenerate = false)
     var userId: Long = 0

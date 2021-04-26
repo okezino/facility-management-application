@@ -31,19 +31,18 @@ class SingleComplaintViewModel @Inject constructor(
     fun postNewComment(complaintId : String, comment : String) : LiveData<ResultStatus<CommentResponseBody>>{
         val response = MutableLiveData<ResultStatus<CommentResponseBody>>()
         viewModelScope.launch {
-          response.value =   facilityRepository.postNewComment(complaintId, comment)
+            response.value = facilityRepository.postNewComment(complaintId, comment)
         }
         return response
     }
 
-    fun getRequestById(id : String) : LiveData<ResultStatus<RequestResponseBody>>{
+    fun getRequestById(id: String): LiveData<ResultStatus<RequestResponseBody>> {
         val response = MutableLiveData<ResultStatus<RequestResponseBody>>()
         viewModelScope.launch {
-          response.value = facilityRepository.getRequestById(id)
+            response.value = facilityRepository.getRequestById(id)
         }
         return response
     }
-
     fun postRating(complaintId: String, rating: RatingBody) : LiveData<ResultStatus<RatingResponseBody>>{
         val response = MutableLiveData<ResultStatus<RatingResponseBody>>()
         viewModelScope.launch {
@@ -89,7 +88,5 @@ class SingleComplaintViewModel @Inject constructor(
     }
 
 
-
-
-
 }
+

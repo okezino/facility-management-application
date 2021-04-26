@@ -40,6 +40,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
     // Microsoft MSAL
     packagingOptions{
@@ -121,6 +122,9 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
 
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0-beta03"
+
     // Okhttp dependencies
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
@@ -141,5 +145,8 @@ dependencies {
     // Truth library
     testImplementation 'com.google.truth:truth:1.0.1'
     androidTestImplementation 'com.google.truth:truth:1.0.1'
+    
+    // Compressor Library
+    implementation 'id.zelory:compressor:3.0.1'
 }
 

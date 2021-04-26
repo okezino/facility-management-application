@@ -5,3 +5,4 @@ data class Rating(
     val replies: List<Any>,
     val user: UserX
 )
+

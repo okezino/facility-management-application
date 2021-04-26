@@ -1,10 +1,14 @@
 package com.decagon.facilitymanagementapp_group_two.ui.feeds
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavAction
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.FeedAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentFeedsBinding
@@ -24,7 +28,6 @@ class FeedsFragment : Fragment() {
     private val binding
         get() = _binding!!
     lateinit var feedAdapter: FeedAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +66,7 @@ class FeedsFragment : Fragment() {
 
         return binding.root
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

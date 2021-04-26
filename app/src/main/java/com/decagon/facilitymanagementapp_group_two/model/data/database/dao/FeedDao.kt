@@ -1,4 +1,4 @@
-package com.decagon.facilitymanagementapp_group_two.model.data.database
+package com.decagon.facilitymanagementapp_group_two.model.data.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -14,8 +14,11 @@ interface FeedDao {
     suspend fun insertAllFeeds(feedItems: List<Feeds>)
 
     @Query("SELECT id FROM `All feeds` WHERE name = :name")
-    suspend fun getFeedId(name : String): String
+    suspend fun getFeedId(name: String): String
 
     @Query("SELECT id FROM `All feeds` WHERE name = :name")
     fun getFeedIdByName(name : String): LiveData<String>
+
+    @Query("SELECT * FROM `All feeds`")
+    suspend fun getAllFeedsId(): List<Feeds>
 }

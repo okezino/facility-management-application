@@ -39,7 +39,7 @@ class AuthRepositoryImpl(
             return safeApiCall { apiService.updateProfileDetails(updateProfileDetails) }
         }
 
-    override fun saveDataInPref(key: String, value: String) {
+    override suspend fun saveDataInPref(key: String, value: String) {
         sharedPreferences.edit().putString(key, value).apply()
     }
 
@@ -48,20 +48,19 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun getAccessToken(): AuthResponse {
-       return  centralDatabase.authResponseDao.getAuthResponse()
+        return centralDatabase.authResponseDao.getAuthResponse()
     }
 
-    override suspend fun getUsers(userId : String): ResultStatus<User> {
-       return safeApiCall { apiService.getUser(userId) }
+    override suspend fun getUsers(userId: String): ResultStatus<User> {
+        return safeApiCall { apiService.getUser(userId) }
     }
 
-    override suspend fun saveUser(userData: UserData){
-       centralDatabase.userDao.insert(userData)
-    }
-
-    override suspend fun updateUser(userData: UserData){
+    override suspend fun saveUser(userData: UserData) {
         centralDatabase.userDao.insert(userData)
+    }
 
+    override suspend fun updateUser(userData: UserData) {
+        centralDatabase.userDao.insert(userData)
     }
 
     override fun getUserFromDb(): LiveData<UserData> {
@@ -72,10 +71,11 @@ class AuthRepositoryImpl(
         return safeApiCall { apiService.getAllFeeds() }
     }
 
-    override suspend fun saveFeedsToDb(feeds : List<Feeds>){
+    override suspend fun saveFeedsToDb(feeds: List<Feeds>) {
         centralDatabase.feedDao.insertAllFeeds(feeds)
     }
 
-
-
+    override suspend fun getAllFeedsId(): List<Feeds> {
+       return centralDatabase.feedDao.getAllFeedsId()
+    }
 }

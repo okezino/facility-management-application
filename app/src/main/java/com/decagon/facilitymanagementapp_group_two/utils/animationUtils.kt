@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
+import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -26,14 +27,13 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
     root.findViewById<TextView>(R.id.fragment_profile_main_name).visibility = View.GONE
     root.findViewById<TextView>(R.id.fragment_profile_stack_squad_text).visibility = View.GONE
     root.findViewById<LinearLayout>(R.id.fragment_profile_linear_layout).visibility = View.GONE
-
     val bigImage: ImageView = root.findViewById(R.id.fragment_profile_big_iv)
     imageResId?.let { bigImage.loadImage(it) }
     val startBoundsInt = Rect()
     val finalBoundsInt = Rect()
     val globalOffset = Point()
     view.getGlobalVisibleRect(startBoundsInt)
-    root.findViewById<View>(R.id.frameLayout4)
+    root.findViewById<View>(R.id.constLay)
         .getGlobalVisibleRect(finalBoundsInt, globalOffset)
     startBoundsInt.offset(-globalOffset.x, -globalOffset.y)
     finalBoundsInt.offset(-globalOffset.x, -globalOffset.y)
@@ -83,12 +83,8 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
             start()
         }
         bigImage.setOnClickListener {
+            Log.d("ZoomImage", "Big image clicked!")
             currentAnimator?.cancel()
-            root.findViewById<TextView>(R.id.fragment_profile_btn_logout).visibility = View.VISIBLE
-            root.findViewById<LinearLayout>(R.id.fragment_profile_linear_layout).visibility = View.VISIBLE
-            root.findViewById<TextView>(R.id.fragment_profile_main_name).visibility = View.VISIBLE
-            root.findViewById<TextView>(R.id.fragment_profile_stack_squad_text).visibility = View.VISIBLE
-
             currentAnimator = AnimatorSet().apply {
                 play(ObjectAnimator.ofFloat(bigImage, View.X, startBounds.left)).apply {
                     with(ObjectAnimator.ofFloat(bigImage, View.Y, startBounds.top))
@@ -100,8 +96,12 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
                 addListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
                         view.alpha = 1f
-                        view.visibility = View.VISIBLE
                         bigImage.visibility = View.GONE
+                        view.visibility = View.VISIBLE
+                        root.findViewById<TextView>(R.id.fragment_profile_btn_logout).visibility = View.VISIBLE
+                        root.findViewById<LinearLayout>(R.id.fragment_profile_linear_layout).visibility = View.VISIBLE
+                        root.findViewById<TextView>(R.id.fragment_profile_main_name).visibility = View.VISIBLE
+                        root.findViewById<TextView>(R.id.fragment_profile_stack_squad_text).visibility = View.VISIBLE
                         currentAnimator = null
                     }
                     override fun onAnimationCancel(animation: Animator) {

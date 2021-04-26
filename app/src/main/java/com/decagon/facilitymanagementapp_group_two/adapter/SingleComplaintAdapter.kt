@@ -9,14 +9,16 @@ import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 
 class SingleComplaintAdapter(private val items : List<Comment>, private val clickListner: ComplaintClickListener) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
 
+
     inner class ViewHolder(private val binding: SingleComplaintItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Comment) {
             val fullName = "${item.user.firstName} ${item.user.lastName}"
             binding.fragmentSingleComplaintCommenterNameTv.text = fullName
             binding.fragmentSingleComplaintCommentBodyTv.text = item.comment
-            item.user.avatarUrl?.let { binding.cardView2.loadImage(it)}
+            item.user.avatarUrl?.let { binding.cardView2.loadImage(it) }
             binding.fragmentSingleComplaintTimeElapsedTv.text = "2 hours ago"
+
             binding.fragmentSingleComplaintReplyTv.setOnClickListener {
                 clickListner.onCompalinClicked()
             }
@@ -36,5 +38,4 @@ class SingleComplaintAdapter(private val items : List<Comment>, private val clic
     override fun getItemCount(): Int {
         return items.size
     }
-
 }

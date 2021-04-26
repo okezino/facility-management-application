@@ -1,8 +1,7 @@
-package com.decagon.facilitymanagementapp_group_two.model.data.database
+package com.decagon.facilitymanagementapp_group_two.model.data.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.User
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.UserData
 
 /**
@@ -19,6 +18,4 @@ interface UserDao {
 
     @Query("SELECT * FROM Users")
     fun get(): LiveData<UserData>
-
-
 }

@@ -1,11 +1,11 @@
 package com.decagon.facilitymanagementapp_group_two.model.data.entities
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
 import com.google.gson.annotations.SerializedName
 
-data class ComplaintItems(val data: ComplaintsData)
+data class ComplaintItems(val data: ComplaintsData?)
 
 data class ComplaintsData(
     val totalNumberOfPages: Long,
@@ -34,3 +34,70 @@ data class Complaints(
     @SerializedName("squad")
     val userSquad: String?
 )
+
+@Entity(tableName = "apartment_complains")
+data class ApartComplaints(
+    @SerializedName("title")
+    val subject: String?,
+    @PrimaryKey(autoGenerate = false)
+    val id: String,
+    @SerializedName("question")
+    val description: String,
+    @SerializedName("type")
+    val category: String?,
+    @SerializedName("image")
+    val complaintImgUrl: String?,
+    @SerializedName("firstName")
+    val userFirstName: String,
+    @SerializedName("lastName")
+    val userLastName: String,
+    @SerializedName("avatarUrl")
+    val userImgUrl: String?,
+    @SerializedName("squad")
+    val userSquad: String?,
+)
+
+@Entity(tableName = "appliance_complains")
+data class ApplianceComplaints(
+    @SerializedName("title")
+    val subject: String?,
+    @PrimaryKey(autoGenerate = false)
+    val id: String,
+    @SerializedName("question")
+    val description: String,
+    @SerializedName("type")
+    val category: String?,
+    @SerializedName("image")
+    val complaintImgUrl: String?,
+    @SerializedName("firstName")
+    val userFirstName: String,
+    @SerializedName("lastName")
+    val userLastName: String,
+    @SerializedName("avatarUrl")
+    val userImgUrl: String?,
+    @SerializedName("squad")
+    val userSquad: String?,
+)
+
+@Entity(tableName = "others_complains")
+data class OthersComplaints(
+    @SerializedName("title")
+    val subject: String?,
+    @PrimaryKey(autoGenerate = false)
+    val id: String,
+    @SerializedName("question")
+    val description: String,
+    @SerializedName("type")
+    val category: String?,
+    @SerializedName("image")
+    val complaintImgUrl: String?,
+    @SerializedName("firstName")
+    val userFirstName: String,
+    @SerializedName("lastName")
+    val userLastName: String,
+    @SerializedName("avatarUrl")
+    val userImgUrl: String?,
+    @SerializedName("squad")
+    val userSquad: String?,
+)
+

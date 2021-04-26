@@ -9,12 +9,11 @@ import retrofit2.http.*
 
 interface ApiService {
 
-
     /**
      * Get all comments from Api
      */
     @GET("/api/v1/Feed/get-complaint/{id}")
-    suspend fun getRequestById(@Path( "id") id: String) : RequestResponseBody
+    suspend fun getRequestById(@Path("id") id: String): RequestResponseBody
 
     /**
      * @param id
@@ -37,7 +36,7 @@ interface ApiService {
      * Post SSO result to the endpoint
      */
     @POST("api/v1/Auth/external-login")
-    suspend fun postAuthDetails(@Header("bearer") token : String): ResponseBody
+    suspend fun postAuthDetails(@Header("bearer") token: String): ResponseBody
 
     /**
      * Update profile picture API service
@@ -52,10 +51,6 @@ interface ApiService {
     @PATCH("api/v1/User/update-profile")
     suspend fun updateProfileDetails(@Body updateProfileDetails: UpdateProfileDetails): Response<Unit>
 
-//<<<<<<< HEAD
-//    @GET("api/v1/Feed/get-feeds/1")
-//    suspend fun getFeedsCategories(): FeedItems
-
     @GET("/api/v1/Feed/{feedId}/get-complaints/{pageNumber}")
     suspend fun getComplaints(
         @Path("feedId") feedId: String,
@@ -67,6 +62,7 @@ interface ApiService {
         @Path("userId") userId: String,
         @Path("pageNumber") page: Int
     ): ComplaintItems
+
     /**
      * Posts new request to endpoint and retrieves the response body containing the request
      */
@@ -77,17 +73,21 @@ interface ApiService {
      * Gets all the feeds category from the endpoint
      */
     @GET("api/v1/Feed/get-feeds/1")
-    suspend fun getAllFeeds()  : FeedResponseBody
+    suspend fun getAllFeeds(): FeedResponseBody
 
     /**
      * Post a comment to an existing complaint and associates it to a User
      */
     @POST("api/v1/Feed/complaint/{complaintId}/add-comment")
-    suspend fun postNewComment(@Path("complaintId") complaintId : String, @Body comment: String) : CommentResponseBody
+    suspend fun postNewComment(@Path("complaintId") complaintId: String, @Body comment: String): CommentResponseBody
 
     @POST("api/v1/Feed/complaint/{complaintId}/add-rate")
     suspend fun addRating(@Path ("complaintId") complaintId: String, @Body rating : RatingBody) : RatingResponseBody
 
     @DELETE("/api/v1/Feed/complaint/delete-rate/{ratingId}")
     suspend fun deleteRating(@Path ("ratingId") ratingId : String) : RatingResponseBody
+
+    @DELETE("/api/v1/Feed/delete-complaint/{complaintId}")
+    suspend fun deleteRequest(@Path("complaintId") complaintId: String): DeleteResponse
+
 }

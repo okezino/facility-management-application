@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fragment_single_complaint_noComments">No Comments Found!</string>
+    <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
 </resources>

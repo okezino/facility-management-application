@@ -13,6 +13,7 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSuccessfu
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SuccessfulAuthFragment : Fragment() {
@@ -21,6 +22,7 @@ class SuccessfulAuthFragment : Fragment() {
         get() = _binding!!
     private val args by navArgs<SuccessfulAuthFragmentArgs>()
     private lateinit var userName: String
+    private var isProfileCompleted = false
     private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,6 +31,7 @@ class SuccessfulAuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         userName = args.userName
+        isProfileCompleted = args.flag
         _binding = FragmentSuccessfulAuthBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -44,17 +47,21 @@ class SuccessfulAuthFragment : Fragment() {
             // Gets all feed and adds it to the database
             fragmentSuccessfulAuthBtn.setOnClickListener {
                 val response = viewModel.getAllFeeds()
-                ApiResponseHandler(response,this@SuccessfulAuthFragment,failedAction = true){
-                    viewModel.saveFeedToDb(it.value.data.items)
-                    findNavController().popBackStack()
-                    findNavController().navigate(R.id.profileFragment)
-                }
 
+                ApiResponseHandler(response,this@SuccessfulAuthFragment, view){
+                    viewModel.saveFeedsIdToPref(it.value.data.items)
+                    viewModel.saveFeedToDb(it.value.data.items)
+                    if (isProfileCompleted) {
+                        findNavController().popBackStack()
+                        findNavController().navigate(R.id.dashboardFragment)
+                    } else {
+                        findNavController().popBackStack()
+                        findNavController().navigate(R.id.profileFragment)
+                    }
+                }
             }
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
