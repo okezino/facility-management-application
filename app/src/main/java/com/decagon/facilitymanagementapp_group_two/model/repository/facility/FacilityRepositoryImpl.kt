@@ -2,6 +2,9 @@ package com.decagon.facilitymanagementapp_group_two.model.repository.facility
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
+import com.decagon.facilitymanagementapp_group_two.model.data.*
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
+
 import androidx.paging.*
 import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.DeleteResponse
@@ -25,8 +28,8 @@ class FacilityRepositoryImpl(
     private val sharedPref: SharedPreferences
 ) : FacilityRepository {
 
-    override suspend fun postRequest(feedId: String, request: Request): ResultStatus<RequestResponseBody> {
-        return safeApiCall { apiService.postNewRequest(feedId, request) }
+    override suspend fun postRequest(feedId : String, request: RequestBody) : ResultStatus<RequestResponseBody> {
+       return safeApiCall { apiService.postNewRequest(feedId, request) }
     }
 
     override suspend fun addNewRequestToDb(request: Request) {
@@ -140,6 +143,22 @@ class FacilityRepositoryImpl(
             ),
             pagingSourceFactory = pagingSourceFactory
         ).flow
+    }
+
+    override suspend fun postRating(complaintId: String, rating: RatingBody): ResultStatus<RatingResponseBody> {
+        return safeApiCall { apiService.addRating(complaintId, rating) }
+    }
+
+    override suspend fun deleteRating(ratingId: String): ResultStatus<RatingResponseBody> {
+        return safeApiCall { apiService.deleteRating(ratingId) }
+    }
+
+    override suspend fun getRequestRatingIdFromDb(complaintId: String): String {
+        return centralDatabase.requestDao.getRequestRatingId(complaintId)
+    }
+
+    override fun getIsLikedFromDb(complaintId: String): LiveData<Boolean> {
+        return centralDatabase.requestDao.getIsLikedFromDb(complaintId)
     }
 
     override fun getApplianceComplains(): Flow<PagingData<ApplianceComplaints>> {

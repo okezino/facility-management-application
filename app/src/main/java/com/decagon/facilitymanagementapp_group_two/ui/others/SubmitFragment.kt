@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSubmitBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.RequestBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.utils.*
@@ -110,7 +111,7 @@ class SubmitFragment : Fragment() {
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
-            val user = Request(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
+            val user = RequestBody(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
             // Obseves feed id result and adds it to the post new request
             submitViewModel.feedId.observe(

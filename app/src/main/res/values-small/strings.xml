@@ -58,7 +58,9 @@
     <string name="submit_profile">Update Profile</string>
     <string name="sq006">SQ006</string>
     <string name="android">Android</string>
+    <string name="fragment_single_complaint_noComments">No Comments Found!</string>
     <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
+
     <!-- dropdown adapter field-->
     <string-array name="selection_field">
         <item>Food</item>

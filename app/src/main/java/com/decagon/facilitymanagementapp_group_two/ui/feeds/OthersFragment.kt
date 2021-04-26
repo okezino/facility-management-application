@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
+import com.decagon.facilitymanagementapp_group_two.model.data.Complain
+import com.decagon.facilitymanagementapp_group_two.ui.others.DashboardFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -16,7 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class OthersFragment : Fragment() {
+class OthersFragment : Fragment(), ComplaintClickListener {
 
     /**
      * Declaration of FragmentOtherstBinding and initialization of Apartment Adapter
@@ -27,7 +31,7 @@ class OthersFragment : Fragment() {
         get() = _binding!!
 
     private val feedsViewModel by viewModels<FeedsViewModel>()
-    private val adapter = GeneralCompliantAdapter()
+    private val adapter = GeneralCompliantAdapter(this)
     private var otherComplains: Job? = null
 
     override fun onCreateView(
@@ -65,5 +69,10 @@ class OthersFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
+        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body)
+        findNavController().navigate(action)
     }
 }

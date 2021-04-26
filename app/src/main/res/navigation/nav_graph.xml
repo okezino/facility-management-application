@@ -78,7 +78,11 @@
         android:id="@+id/feedsFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.FeedsFragment"
         android:label="fragment_feeds"
-        tools:layout="@layout/fragment_feeds" />
+        tools:layout="@layout/fragment_feeds" >
+        <action
+            android:id="@+id/action_feedsFragment_to_singleComplaintFragment"
+            app:destination="@id/singleComplaintFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.profile.ProfileFragment"
@@ -92,11 +96,6 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
     </fragment>
-    <fragment
-        android:id="@+id/foodFragment"
-        android:name="com.decagon.facilitymanagementapp_group_two.ui.feeds.FoodFragment"
-        android:label="FoodFragment"
-        tools:layout="@layout/fragment_general"/>
     <fragment
         android:id="@+id/failedAuthenticationFragment"
         android:name="com.decagon.facilitymanagementapp_group_two.ui.authentication.FailedAuthenticationFragment"

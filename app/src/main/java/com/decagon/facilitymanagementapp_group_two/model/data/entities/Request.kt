@@ -12,7 +12,7 @@ data class Request(
     @TypeConverters(Converters::class)
     val comments: List<Comment>? = null,
     @PrimaryKey(autoGenerate = false)
-    val id: String = "",
+    var id: String = "",
     val image: String? = null,
     val isTask: Boolean? = null,
     val question: String? = null,
@@ -20,5 +20,10 @@ data class Request(
     val ratings: List<Rating>? = null,
     val title: String? = null,
     val type: String? = null,
-    val userId: String? = null
+    val userId: String? = null,
+
+    var isLiked : Boolean = false,
+    val likeCount : Int? = null,
+    var ratingId : String? = null
+
 )

@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
+import com.decagon.facilitymanagementapp_group_two.ui.others.DashboardFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -16,7 +19,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FoodFragment : Fragment() {
+class FoodFragment : Fragment(), ComplaintClickListener {
 
     /**
      * Declaration of FoodDashboardBinding and initialization of Dashboard Adapter
@@ -26,7 +29,7 @@ class FoodFragment : Fragment() {
     val binding
         get() = _binding!!
 
-    private val adapter = GeneralCompliantAdapter()
+    private val adapter = GeneralCompliantAdapter(this)
     private val feedsViewModel by viewModels<FeedsViewModel>()
     private var getComplains: Job? = null
 
@@ -65,5 +68,10 @@ class FoodFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
+        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body)
+        findNavController().navigate(action)
     }
 }

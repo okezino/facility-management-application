@@ -1,6 +1,9 @@
 package com.decagon.facilitymanagementapp_group_two.model.repository.facility
 
 import androidx.lifecycle.LiveData
+import com.decagon.facilitymanagementapp_group_two.model.data.*
+import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
+
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
@@ -20,7 +23,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface FacilityRepository {
 
-    suspend fun postRequest(feedId: String, request: Request): ResultStatus<RequestResponseBody>
+    suspend fun postRequest(feedId : String, request : RequestBody) : ResultStatus<RequestResponseBody>
 
     suspend fun addNewRequestToDb(request: Request)
 
@@ -56,5 +59,16 @@ interface FacilityRepository {
 
     suspend fun getRequestById(id: String): ResultStatus<RequestResponseBody>
 
-    fun getCommentsFromDb(id: String): LiveData<Request>
+    fun getCommentsFromDb(id : String) : LiveData<Request>
+
+    suspend fun postRating(complaintId: String, rating : RatingBody) : ResultStatus<RatingResponseBody>
+
+    suspend fun deleteRating(ratingId: String) : ResultStatus<RatingResponseBody>
+
+    suspend fun getRequestRatingIdFromDb(complaintId: String) : String
+
+    fun getIsLikedFromDb(complaintId: String): LiveData<Boolean>
+
 }
+
+

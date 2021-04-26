@@ -10,10 +10,10 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaint
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 
-class GeneralCompliantAdapter : PagingDataAdapter<Complaints, GeneralCompliantAdapter.ViewHolder>(
+class GeneralCompliantAdapter(private val clickListener: ComplaintClickListener) : PagingDataAdapter<Complaints, GeneralCompliantAdapter.ViewHolder>(
     COMPLAINS_COMPARATOR){
 
-    class ViewHolder(private val binding: FeedsRecyclerViewLayoutBinding) :
+    inner class ViewHolder(private val binding: FeedsRecyclerViewLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Complaints) {
             val user = "${item.userFirstName} ${item.userLastName}"
@@ -22,6 +22,9 @@ class GeneralCompliantAdapter : PagingDataAdapter<Complaints, GeneralCompliantAd
             binding.complainDate.text = "Today"
             item.userImgUrl?.let {
                 binding.profileImage.loadImage(it)
+            }
+            binding.feedRecyclerLayout.setOnClickListener{
+                clickListener.onCompalinClicked(item.subject,item.description,item.id)
             }
         }
     }
