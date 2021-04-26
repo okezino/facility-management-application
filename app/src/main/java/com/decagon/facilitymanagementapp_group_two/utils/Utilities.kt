@@ -1,18 +1,21 @@
 package com.decagon.facilitymanagementapp_group_two.utils
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.SharedPreferences
 import android.net.Uri
 import android.provider.OpenableColumns
+import android.text.format.DateUtils
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.decagon.facilitymanagementapp_group_two.R
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.ApartComplaints
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.google.android.material.snackbar.Snackbar
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun writeSsoDetailsToSharedPref(
     firstName: String,
@@ -60,3 +63,22 @@ fun ImageView.loadImage(imageUrl: String?) {
 fun View.showSnackBar(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
 }
+
+/**
+ * Function to convert time to time ago. To be monitored...
+ */
+@SuppressLint("SimpleDateFormat")
+ fun timeConvert(string: String?): String {
+     val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+     sdf.timeZone = TimeZone.getTimeZone("GMT")
+     return try {
+         val time = sdf.parse(string).time
+         val now = System.currentTimeMillis()
+         val ago =
+         DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+         ago.toString()
+     } catch (e: ParseException) {
+         e.printStackTrace()
+         System.currentTimeMillis().toString()
+     }
+ }

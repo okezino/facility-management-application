@@ -70,7 +70,8 @@ class FacilityRepositoryImpl(
                 question = complain.description,
                 image = complain.complaintImgUrl,
                 userId = sharedPref.getString(USER_ID, null),
-                id = complain.id
+                id = complain.id,
+                time = timeConvert(complain.time)
             )
         }
         centralDatabase.requestDao.insertAll(request)

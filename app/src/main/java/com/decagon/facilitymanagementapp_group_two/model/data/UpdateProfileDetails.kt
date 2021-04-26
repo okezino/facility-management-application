@@ -6,5 +6,6 @@ data class UpdateProfileDetails(
     val userName: String,
     val gender: String,
     val squad: String,
+    val stack: String,
     val phoneNumber: String
 )

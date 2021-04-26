@@ -1,6 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.ui.feeds
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListene
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.Complain
+import com.decagon.facilitymanagementapp_group_two.ui.MainActivity
 import com.decagon.facilitymanagementapp_group_two.ui.others.DashboardFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,15 +49,14 @@ class ApartmentFragment : Fragment(), ComplaintClickListener {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        initAdapter(binding, adapter)
+        initAdapter(binding, adapter, viewLifecycleOwner)
         getMyRequest()
-
 
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
@@ -64,13 +65,6 @@ class ApartmentFragment : Fragment(), ComplaintClickListener {
         apartComplains = viewLifecycleOwner.lifecycleScope.launch {
             feedsViewModel.getApartComplains().collectLatest {
                 adapter.submitData(it)
-                if (adapter.itemCount == 0) {
-                    binding.generalRecyclerView.visibility = View.GONE
-                    binding.noItemsTv.visibility = View.VISIBLE
-                } else {
-                    binding.noItemsTv.visibility = View.GONE
-                    binding.generalRecyclerView.visibility = View.VISIBLE
-                }
             }
         }
     }

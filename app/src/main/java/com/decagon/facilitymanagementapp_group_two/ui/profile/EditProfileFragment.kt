@@ -152,12 +152,13 @@ class EditProfileFragment : Fragment() {
         val updateFormData = UpdateProfileBody(updateSquad, updateStack, updatePhoneNumber)
         if (updateFormData.inputValidation() == "Success") {
             val updateProfileDetails = UpdateProfileDetails(
-                firstName,
-                lastName,
-                profileEmail,
-                updateStack,
-                updateSquad,
-                updatePhoneNumber
+                firstName =  firstName,
+                lastName =   lastName,
+                userName = profileEmail,
+                stack = updateStack,
+                squad = updateSquad,
+                phoneNumber = updatePhoneNumber,
+                gender = "m"
             )
             val result = viewModel.updateProfileDetails(updateProfileDetails)
             val user = UserData(firstName, lastName, "null", profileEmail, updateStack, updatePhoneNumber, updateSquad)
