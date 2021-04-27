@@ -23,7 +23,7 @@ class FakeFacilityRepository : FacilityRepository {
         return if (shouldReturnNetworkError) {
             ResultStatus.NetworkError
         } else {
-            ResultStatus.Success(RequestResponseBody(Request(), "Post Request Successful", true))
+            ResultStatus.Success(RequestResponseBody(Request(time = ""), "Post Request Successful", true))
         }
     }
 

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.databinding.FeedsRecyclerViewLayoutBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
+import com.decagon.facilitymanagementapp_group_two.utils.timeConvert
 
 class GeneralCompliantAdapter(private val clickListener: ComplaintClickListener) : PagingDataAdapter<Complaints, GeneralCompliantAdapter.ViewHolder>(
     COMPLAINS_COMPARATOR){
@@ -19,7 +19,7 @@ class GeneralCompliantAdapter(private val clickListener: ComplaintClickListener)
             val user = "${item.userFirstName} ${item.userLastName}"
             binding.complaintName.text = user
             binding.complainDetails.text = item.description
-            binding.complainDate.text = "Today"
+            binding.complainDate.text = timeConvert(item.time)
             item.userImgUrl?.let {
                 binding.profileImage.loadImage(it)
             }

@@ -16,7 +16,6 @@ data class UserData(
     val profileImageUrl: String?,
     @SerializedName("userName")
     val email: String,
-    @SerializedName("gender")
     val stack: String?,
     val phoneNumber: String?,
     val squad: String?,

@@ -121,7 +121,7 @@ class EditProfileFragment : Fragment() {
                 binding.editFragmentProfilePhoneNumber.setText(user.phoneNumber)
                 binding.editFragmentProfileStackInput.setText(user.stack)
                 binding.editFragmentProfileSquadInput.setText(user.squad)
-                binding.editFragmentProfileName.error = "error"
+               // binding.editFragmentProfileName.error = "error"
             }
         )
 
@@ -153,12 +153,13 @@ class EditProfileFragment : Fragment() {
         val updateFormData = UpdateProfileBody(updateSquad, updateStack, updatePhoneNumber)
         if (updateFormData.inputValidation() == "Success") {
             val updateProfileDetails = UpdateProfileDetails(
-                firstName,
-                lastName,
-                profileEmail,
-                updateStack,
-                updateSquad,
-                updatePhoneNumber
+                firstName =  firstName,
+                lastName =   lastName,
+                userName = profileEmail,
+                stack = updateStack,
+                squad = updateSquad,
+                phoneNumber = updatePhoneNumber,
+                gender = "m"
             )
             val result = viewModel.updateProfileDetails(updateProfileDetails)
             val user = UserData(firstName, lastName, "null", profileEmail, updateStack, updatePhoneNumber, updateSquad)

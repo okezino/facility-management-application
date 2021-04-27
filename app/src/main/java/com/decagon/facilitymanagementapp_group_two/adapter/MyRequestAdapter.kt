@@ -6,7 +6,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.databinding.DashboardRecyclerViewLayoutBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 
 class MyRequestAdapter(private val clickListener: ComplaintClickListener) :
@@ -16,7 +15,7 @@ class MyRequestAdapter(private val clickListener: ComplaintClickListener) :
        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Request) {
             binding.complainTitle.text = item.title
-            binding.complainDate.text = "Today"
+            binding.complainDate.text = item.time
             binding.complainDetails.text = item.question
             binding.complainLayout.setOnClickListener {
                 clickListener.onCompalinClicked(item.title, item.question,item.id)

@@ -119,7 +119,7 @@
                         android:adjustViewBounds="false"
                         android:contentDescription="@string/fragment_singleComplaint_complaintImage_contentDescription"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/whitehouse" />
+                        android:src="@drawable/fragment_single_complaint_complaint_image" />
 
                 </LinearLayout>
 

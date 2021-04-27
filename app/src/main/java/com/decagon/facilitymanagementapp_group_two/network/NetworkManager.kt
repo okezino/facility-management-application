@@ -10,6 +10,7 @@ import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.decagon.facilitymanagementapp_group_two.ui.MainActivity
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -41,7 +42,13 @@ class NetworkManager(val activity: FragmentActivity, val view: View) : LiveData<
         this.observe(
             activity,
             Observer {
-                if (it == false) snack.show() else snack.dismiss()
+                if (it == false){
+                    snack.show()
+                    MainActivity.isConnected.value = false
+                } else {
+                    snack.dismiss()
+                    MainActivity.isConnected.value = true
+                }
             }
         )
     }

@@ -8,13 +8,12 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplaintItems
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.RemoteKeys
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.network.ApiService
 import com.decagon.facilitymanagementapp_group_two.utils.NETWORK_STARTING_PAGE
 import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
+import com.decagon.facilitymanagementapp_group_two.utils.timeConvert
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -62,10 +61,11 @@ class RequestRemoteMediator(
                     question = complain.description,
                     image = complain.complaintImgUrl,
                     userId = userId,
-                    id = complain.id
+                    id = complain.id,
+                    time = timeConvert(complain.time)
                 )
             }
-            val endOfPaginationReached = apiResponse.data == null
+            val endOfPaginationReached = apiResponse.data?.currentPage == apiResponse.data?.totalNumberOfPages
             centralDatabase.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
@@ -93,7 +93,6 @@ class RequestRemoteMediator(
         // From that last page, get the last item
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let {
-                //    Log.d("PAGE", "${centralDatabase.remoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the last item retrieved
                 centralDatabase.remoteKeysDao.remoteKeysId(key)
             }
@@ -104,7 +103,6 @@ class RequestRemoteMediator(
         // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let {
-                //  Log.d("PAGE", "${centralDatabase.remoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the first items retrieved
                 centralDatabase.remoteKeysDao.remoteKeysId(key)
             }

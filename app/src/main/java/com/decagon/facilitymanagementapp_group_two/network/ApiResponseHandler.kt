@@ -23,6 +23,7 @@ data class ApiResponseHandler<T>(
     var view: View? = null,
     var view2 : View? = null,
     var view3 : View? = null,
+    var view4 : View? = null,
     var failedAction: Boolean = false,
     var networkError : Boolean = false,
     var action: ((result: ResultStatus.Success<T>) -> Unit)? = null
@@ -44,6 +45,7 @@ data class ApiResponseHandler<T>(
                         if(networkError) {
                             view?.visibility = View.GONE
                             view2?.visibility = View.GONE
+                            view4?.visibility = View.GONE
                             view3?.visibility = View.VISIBLE
                         }
                         view?.showSnackBar("No internet connection, please check your network settings and try again")

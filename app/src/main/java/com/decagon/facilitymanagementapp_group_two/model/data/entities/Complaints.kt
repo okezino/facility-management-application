@@ -32,7 +32,9 @@ data class Complaints(
     @SerializedName("avatarUrl")
     val userImgUrl: String?,
     @SerializedName("squad")
-    val userSquad: String?
+    val userSquad: String?,
+    @SerializedName("time_created")
+    val time: String?
 )
 
 @Entity(tableName = "apartment_complains")
@@ -55,6 +57,8 @@ data class ApartComplaints(
     val userImgUrl: String?,
     @SerializedName("squad")
     val userSquad: String?,
+    @SerializedName("time_created")
+    val time: String?
 )
 
 @Entity(tableName = "appliance_complains")
@@ -77,6 +81,8 @@ data class ApplianceComplaints(
     val userImgUrl: String?,
     @SerializedName("squad")
     val userSquad: String?,
+    @SerializedName("time_created")
+    val time: String?
 )
 
 @Entity(tableName = "others_complains")
@@ -99,5 +105,7 @@ data class OthersComplaints(
     val userImgUrl: String?,
     @SerializedName("squad")
     val userSquad: String?,
+    @SerializedName("time_created")
+    val time: String?
 )
 

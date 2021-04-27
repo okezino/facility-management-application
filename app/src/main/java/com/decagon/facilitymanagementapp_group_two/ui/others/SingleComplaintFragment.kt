@@ -41,8 +41,8 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
     private lateinit var complaintId : String
     private lateinit var complaintTitle : String
     private lateinit var complaintBody : String
-    private var likesCount by Delegates.notNull<Int>()
-    private var isLiked by Delegates.notNull<Boolean>()
+    private var likesCount = 0
+    private var isLiked = false
     private lateinit var request : Request
 
     @Inject
@@ -71,7 +71,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
 
         val response = viewModel.getRequestById(complaintId)
 
-        ApiResponseHandler(response,this,networkError = true,view = binding.progressBar, view2 = binding.fragmentSingleComplaintCommentCountProgress, view3 = binding.fragmentSingleComplaintCommentCountTv){
+        ApiResponseHandler(response,this,networkError = true,view = binding.progressBar, view2 = binding.fragmentSingleComplaintCommentCountProgress, view3 = binding.fragmentSingleComplaintCommentCountTv, view4 = binding.fragmentSingleComplaintLikeCountProgress){
             request = it.value.data
 
             val comments = it.value.data.comments
@@ -136,7 +136,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
             if (isLiked){
                 val ratingId = sharedPreferences.getString(RATING_ID,null)
                 val deleteResponse = viewModel.deleteRating(ratingId)
-                ApiResponseHandler(deleteResponse,this,failedAction = false){
+                ApiResponseHandler(deleteResponse,this,view){
                     request.ratingId = null
                     request.id = complaintId
                     isLiked = false
@@ -148,7 +148,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
             else{
                 val rating = RatingBody(5)
                 val serverResponse = viewModel.postRating(complaintId,rating)
-                ApiResponseHandler(serverResponse,this,failedAction = false){
+                ApiResponseHandler(serverResponse,this,view ){
                     sharedPreferences.edit().putString(RATING_ID, it.value.data?.ratingId).apply()
                     isLiked = true
                     request.isLiked = isLiked

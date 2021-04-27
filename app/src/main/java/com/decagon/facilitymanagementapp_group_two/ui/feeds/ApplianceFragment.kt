@@ -42,14 +42,14 @@ class ApplianceFragment : Fragment(), ComplaintClickListener {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        initAdapter(binding, adapter)
+        initAdapter(binding, adapter, viewLifecycleOwner)
         getMyRequest()
 
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
@@ -58,13 +58,6 @@ class ApplianceFragment : Fragment(), ComplaintClickListener {
         appComplains = viewLifecycleOwner.lifecycleScope.launch {
             feedsViewModel.getAppComplains().collectLatest {
                 adapter.submitData(it)
-                if (adapter.itemCount == 0) {
-                    binding.generalRecyclerView.visibility = View.GONE
-                    binding.noItemsTv.visibility = View.VISIBLE
-                } else {
-                    binding.noItemsTv.visibility = View.GONE
-                    binding.generalRecyclerView.visibility = View.VISIBLE
-                }
             }
         }
     }
