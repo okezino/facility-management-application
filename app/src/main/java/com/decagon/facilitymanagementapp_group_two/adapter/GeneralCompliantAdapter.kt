@@ -24,7 +24,7 @@ class GeneralCompliantAdapter(private val clickListener: ComplaintClickListener)
                 binding.profileImage.loadImage(it)
             }
             binding.feedRecyclerLayout.setOnClickListener{
-                clickListener.onCompalinClicked(item.subject,item.description,item.id)
+                clickListener.onCompalinClicked(item.subject,item.description,item.id,item.time)
             }
         }
     }

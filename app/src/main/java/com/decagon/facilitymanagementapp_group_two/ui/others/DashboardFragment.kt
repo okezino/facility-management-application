@@ -158,8 +158,8 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
     /**
      * OnclickListener function to Navigate to the single Complaint Fragment
      */
-    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
-        val action = DashboardFragmentDirections.actionDashboardFragmentToSingleComplaintFragment(id, title, body)
+    override fun onCompalinClicked(title: String?, body: String?, id: String?, time : String?) {
+        val action = DashboardFragmentDirections.actionDashboardFragmentToSingleComplaintFragment(id, title, body,time)
         findNavController().navigate(action)
     }
 

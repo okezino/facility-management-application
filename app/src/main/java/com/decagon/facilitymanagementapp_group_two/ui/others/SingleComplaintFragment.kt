@@ -41,6 +41,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
     private lateinit var complaintId : String
     private lateinit var complaintTitle : String
     private lateinit var complaintBody : String
+    private lateinit var complaintTime : String
     private var likesCount = 0
     private var isLiked = false
     private lateinit var request : Request
@@ -63,6 +64,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
         complaintId = args.complaintId.toString()
         complaintTitle = args.complaintTitle.toString()
         complaintBody = args.complaintBody.toString()
+        complaintTime = args.complaintTime.toString()
         return binding.root
     }
 
@@ -153,6 +155,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
                     isLiked = true
                     request.isLiked = isLiked
                     request.id = complaintId
+                    request.time = complaintTime
                     viewModel.saveRequestToDb(request,likesCount)
                     binding.fragmentSingleComplaintLikesIconIv.setImageResource(R.drawable.liked)
                 }
@@ -169,7 +172,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
         _binding = null
     }
 
-    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
+    override fun onCompalinClicked(title: String?, body: String?, id: String?,time: String?) {
       //  binding.fragmentSingleComplaintWriteACommentEt.requestFocus()
     }
 }

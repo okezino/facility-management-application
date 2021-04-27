@@ -59,6 +59,10 @@
             android:name="complaintBody"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="complaintTime"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
 

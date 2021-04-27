@@ -62,8 +62,8 @@ class ApplianceFragment : Fragment(), ComplaintClickListener {
         }
     }
 
-    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
-        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body)
+    override fun onCompalinClicked(title: String?, body: String?, id: String?, time : String?) {
+        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body,time)
         findNavController().navigate(action)
     }
 }
