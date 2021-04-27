@@ -39,13 +39,12 @@ class SingleComplaintFragmentTest {
 
         onView(withId(R.id.fragment_singleComplaint_complaintBody_tv)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_singleComplaint_complaintImage_iv)).check(matches(isDisplayed()))
-        onView(withId(R.id.fragment_singleComplaint_commentCount_tv)).check(matches(withEffectiveVisibility(Visibility.INVISIBLE)))
         onView(withId(R.id.fragment_singleComplaint_commentIcon_iv)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.fragment_singleComplaint_likesCount_tv)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_singleComplaint_likesCount_tv)).check(matches(withEffectiveVisibility(Visibility.GONE)))
         onView(withId(R.id.fragment_singleComplaint_likesIcon_iv)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
         onView(withId(R.id.fragment_singleComplaint_divider)).check(matches(isDisplayed()))
         onView(withId(R.id.fragment_singleComplaint_comment_tv)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.fragment_singleComplaint_complaintsRecylcerView)).check(matches(withEffectiveVisibility(Visibility.GONE)))
+        onView(withId(R.id.fragment_singleComplaint_complaintsRecylcerView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 }

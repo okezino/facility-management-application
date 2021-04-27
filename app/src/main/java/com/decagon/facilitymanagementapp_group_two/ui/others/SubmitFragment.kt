@@ -14,6 +14,7 @@ import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSubmitBin
 import com.decagon.facilitymanagementapp_group_two.model.data.RequestBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.ui.MainActivity
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.viewmodel.SubmitRequestViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,27 +101,33 @@ class SubmitFragment : Fragment() {
          * create a new request object and toast it out for now
          *
          */
-        val requestCategory = binding.selectFeedCategory.text.toString().toLowerCase(Locale.ROOT)
+        var requestCategory = binding.selectFeedCategory.text.toString().toLowerCase(Locale.ROOT)
 
         // Gets feedId
+        if (requestCategory == "apartment"){
+            requestCategory = "facility"
+        }
         submitViewModel.getFeedId(requestCategory)
 
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()
         val userId = sharedPreferences.getString(USER_ID, null)
 
+
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
 
             val user = RequestBody(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
             // Obseves feed id result and adds it to the post new request
+
             submitViewModel.feedId.observe(
                 viewLifecycleOwner,
                 {
                     Log.d("FeedID", "addNewRequest: $it")
                     val response = submitViewModel.postNewRequest(it, user)
-                    ApiResponseHandler(response, this, failedAction = true) { request ->
+                    ApiResponseHandler(response, this, view) { request ->
                         submitViewModel.saveRequestToDb(request.value.data)
+                        view?.showSnackBar("Request posted successfully")
                         Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
                         findNavController().popBackStack()
                         findNavController().navigate(R.id.dashboardFragment)
@@ -139,6 +146,8 @@ class SubmitFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        var sen = "The good bad boy"
+        sen.split(" "," ")
 
         /**
          * Call the Dropdown array

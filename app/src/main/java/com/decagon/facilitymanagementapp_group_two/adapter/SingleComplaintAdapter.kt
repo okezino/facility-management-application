@@ -19,9 +19,9 @@ class SingleComplaintAdapter(private val items : List<Comment>, private val clic
             item.user.avatarUrl?.let { binding.cardView2.loadImage(it) }
             binding.fragmentSingleComplaintTimeElapsedTv.text = "2 hours ago"
 
-            binding.fragmentSingleComplaintReplyTv.setOnClickListener {
-                clickListner.onCompalinClicked()
-            }
+//            binding.fragmentSingleComplaintReplyTv.setOnClickListener {
+//                clickListner.onCompalinClicked()
+//            }
 
         }
     }

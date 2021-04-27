@@ -121,6 +121,7 @@ class EditProfileFragment : Fragment() {
                 binding.editFragmentProfilePhoneNumber.setText(user.phoneNumber)
                 binding.editFragmentProfileStackInput.setText(user.stack)
                 binding.editFragmentProfileSquadInput.setText(user.squad)
+               // binding.editFragmentProfileName.error = "error"
             }
         )
 

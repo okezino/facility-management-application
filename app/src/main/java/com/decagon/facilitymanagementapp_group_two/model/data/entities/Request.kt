@@ -22,11 +22,10 @@ data class Request(
     val title: String? = null,
     val type: String? = null,
     val userId: String? = null,
-
     var isLiked : Boolean = false,
     val likeCount : Int? = null,
     var ratingId : String? = null,
-
+    val totalRatingCount : Int? = null,
     var time: String?
 
 )

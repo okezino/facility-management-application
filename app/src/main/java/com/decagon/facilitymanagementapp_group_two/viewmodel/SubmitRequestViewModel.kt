@@ -29,6 +29,7 @@ class SubmitRequestViewModel @Inject constructor(
 
     fun postNewRequest(feedId : String, request : RequestBody) : LiveData<ResultStatus<RequestResponseBody>>{
         val response = MutableLiveData<ResultStatus<RequestResponseBody>>()
+        response.value = ResultStatus.Loading("Processing request..., please wait")
         viewModelScope.launch {
             response.value = facilityRepository.postRequest(feedId, request)
             // facilityRepository.addNewRequestToDb(request)
