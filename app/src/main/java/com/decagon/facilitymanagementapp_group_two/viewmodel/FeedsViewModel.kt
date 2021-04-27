@@ -66,7 +66,8 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
                     id = complain.id,
                     userLastName = complain.userLastName,
                     userImgUrl = complain.userImgUrl,
-                    userSquad = complain.userSquad
+                    userSquad = complain.userSquad,
+                    time = complain.time
                 )
             }
         }
@@ -89,7 +90,8 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
                     id = complain.id,
                     userLastName = complain.userLastName,
                     userImgUrl = complain.userImgUrl,
-                    userSquad = complain.userSquad
+                    userSquad = complain.userSquad,
+                    time = complain.time
                 )
             }
         }
@@ -112,7 +114,8 @@ class FeedsViewModel @Inject constructor(private val fRepository: FacilityReposi
                     id = complain.id,
                     userLastName = complain.userLastName,
                     userImgUrl = complain.userImgUrl,
-                    userSquad = complain.userSquad
+                    userSquad = complain.userSquad,
+                    time = complain.time
                 )
             }
         }

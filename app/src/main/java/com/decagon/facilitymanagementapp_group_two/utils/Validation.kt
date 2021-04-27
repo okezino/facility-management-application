@@ -37,23 +37,13 @@ fun stackValidation(s: String): Boolean {
 
 fun phoneNumberValidator(phone: String): Boolean {
     var value = false
-
-    if ((
-        phone.take(3) == "070" ||
-            phone.take(3) == "080" ||
-            phone.take(3) == "090" ||
-            phone.take(3) == "081"
+     if ((
+        phone.take(6) == "+23470" ||
+            phone.take(6) == "+23480" ||
+            phone.take(6) == "+23490" ||
+            phone.take(6) == "+23481"
         ) &&
-        phone.length == 11
-    ) value = true
-
-    else if ((
-        phone.take(5) == "23470" ||
-            phone.take(5) == "23480" ||
-            phone.take(5) == "23490" ||
-            phone.take(5) == "23481"
-        ) &&
-        phone.length == 13
+        phone.length == 14
     ) value = true
     return value
 }

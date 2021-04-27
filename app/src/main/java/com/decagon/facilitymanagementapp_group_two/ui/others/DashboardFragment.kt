@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -24,6 +26,7 @@ import com.decagon.facilitymanagementapp_group_two.adapter.MyRequestAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentDashboardBinding
 import com.decagon.facilitymanagementapp_group_two.utils.*
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
+import com.decagon.facilitymanagementapp_group_two.ui.MainActivity
 import com.decagon.facilitymanagementapp_group_two.utils.PROFILE_IMG_URI
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
@@ -41,7 +44,6 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
      * Declaration of FragmentDashboardBinding and initialization of Dashboard Adapter
      */
 
-    private lateinit var recyclerView: RecyclerView
     private var _binding: FragmentDashboardBinding? = null
     private val binding
         get() = _binding!!
@@ -137,6 +139,7 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
             override fun afterTextChanged(s: Editable?) { searchAction(s) }
         })
 
+
         return binding.root
     }
 
@@ -173,13 +176,6 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
         getRequest = viewLifecycleOwner.lifecycleScope.launch {
             feedsViewModel.getMyRequests().collectLatest {
                 adapter.submitData(it)
-                if (adapter.itemCount == 0) {
-                    binding.noComplainText.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                } else {
-                    recyclerView.visibility = View.VISIBLE
-                    binding.noComplainText.visibility = View.GONE
-                }
             }
         }
     }
@@ -188,15 +184,26 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
      * Set up recyclerView Adapter and notify user's of data state
      */
     private fun initAdapter() {
-        recyclerView = binding.dashboardComplaintRecyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        adapter.addLoadStateListener { loadState ->
-            binding.dashboardComplaintRecyclerView.isVisible =
-                loadState.refresh is LoadState.NotLoading
-            binding.progBar.isVisible = loadState.refresh is LoadState.Loading
-        }
+        MainActivity.isConnected.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                adapter.addLoadStateListener { loadState ->
+                    binding.dashboardComplaintRecyclerView.isVisible =
+                        loadState.mediator?.refresh is LoadState.NotLoading
+                    binding.progBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
+                    binding.noComplainText.isVisible =
+                        (loadState.mediator?.refresh is LoadState.NotLoading && adapter.itemCount == 0)
+                            || loadState.mediator?.refresh is LoadState.Error
+                }
+            } else {
+                adapter.addLoadStateListener { loadState ->
+                    binding.dashboardComplaintRecyclerView.isVisible =
+                        loadState.source.refresh is LoadState.NotLoading
+                    binding.progBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.noComplainText.isVisible =
+                        loadState.source.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                }
+            }
+        })
     }
 
     /**
@@ -207,11 +214,11 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
             feedsViewModel.searchMyRequest(s.toString())?.collectLatest {
                 adapter.submitData(it)
                 if (adapter.itemCount == 0) {
-                    recyclerView.visibility = View.GONE
+                    binding.dashboardComplaintRecyclerView.visibility = View.GONE
                     binding.fragmentDashboardNoMatch.visibility = View.VISIBLE
                 } else {
                     binding.fragmentDashboardNoMatch.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
+                    binding.dashboardComplaintRecyclerView.visibility = View.VISIBLE
                 }
             }
         }

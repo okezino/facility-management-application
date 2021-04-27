@@ -62,7 +62,8 @@ class ApartmentRemoteMediator(
                     id = complain.id,
                     userLastName = complain.userLastName,
                     userImgUrl = complain.userImgUrl,
-                    userSquad = complain.userSquad
+                    userSquad = complain.userSquad,
+                    time = complain.time
                 )
             }
             val endOfPaginationReached = apiResponse.data?.currentPage == apiResponse.data?.totalNumberOfPages

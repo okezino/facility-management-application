@@ -60,6 +60,6 @@ class ValidationKtTest {
     fun phone_input_validation() {
         assertFalse(phoneNumberValidator(phoneNumber1))
         assertFalse(phoneNumberValidator(phoneNumber2))
-        assertTrue(phoneNumberValidator(phoneNumber3))
+        assertFalse(phoneNumberValidator(phoneNumber3))
     }
 }

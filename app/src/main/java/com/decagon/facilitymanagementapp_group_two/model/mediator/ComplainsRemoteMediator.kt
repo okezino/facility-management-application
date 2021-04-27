@@ -19,11 +19,9 @@ import java.io.IOException
 class ComplainsRemoteMediator(
     private var feedId: String,
     private val apiService: ApiService,
-    private val centralDatabase: CentralDatabase,
-//    private val sharedPref: SharedPreferences
+    private val centralDatabase: CentralDatabase
 ) : RemoteMediator<Int, Complaints>() {
 
-  //  private val userId = sharedPref.getString(USER_ID, null)!!
     private var key: Long? = null
 
     override suspend fun load(
@@ -54,7 +52,7 @@ class ComplainsRemoteMediator(
             val complains = apiResponse.data?.items
             key = apiResponse.data?.currentPage
 
-            val endOfPaginationReached = apiResponse.data == null
+            val endOfPaginationReached = apiResponse.data?.currentPage == apiResponse.data?.totalNumberOfPages
             centralDatabase.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
