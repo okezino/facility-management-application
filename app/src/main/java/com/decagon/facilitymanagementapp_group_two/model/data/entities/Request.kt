@@ -24,6 +24,7 @@ data class Request(
 
     var isLiked : Boolean = false,
     val likeCount : Int? = null,
-    var ratingId : String? = null
+    var ratingId : String? = null,
+    val totalRatingCount : Int? = null
 
 )

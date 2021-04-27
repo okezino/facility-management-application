@@ -51,11 +51,10 @@ class SingleComplaintViewModel @Inject constructor(
         return response
     }
 
-    fun deleteRating(complaintId: String) : LiveData<ResultStatus<RatingResponseBody>>{
+    fun deleteRating(ratingId: String?) : LiveData<ResultStatus<RatingResponseBody>>{
         val response = MutableLiveData<ResultStatus<RatingResponseBody>>()
         viewModelScope.launch {
-            val ratingId = facilityRepository.getRequestRatingIdFromDb(complaintId)
-            response.value = facilityRepository.deleteRating(ratingId)
+            response.value = ratingId?.let { facilityRepository.deleteRating(it) }
         }
         return response
     }

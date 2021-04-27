@@ -100,9 +100,12 @@ class SubmitFragment : Fragment() {
          * create a new request object and toast it out for now
          *
          */
-        val requestCategory = binding.selectFeedCategory.text.toString().toLowerCase(Locale.ROOT)
+        var requestCategory = binding.selectFeedCategory.text.toString().toLowerCase(Locale.ROOT)
 
         // Gets feedId
+        if (requestCategory == "apartment"){
+            requestCategory = "facility"
+        }
         submitViewModel.getFeedId(requestCategory)
 
         val requestTitle = binding.requestSubject.text.toString().trim()
@@ -119,7 +122,7 @@ class SubmitFragment : Fragment() {
                 {
                     Log.d("FeedID", "addNewRequest: $it")
                     val response = submitViewModel.postNewRequest(it, user)
-                    ApiResponseHandler(response, this, failedAction = true) { request ->
+                    ApiResponseHandler(response, this, view) { request ->
                         submitViewModel.saveRequestToDb(request.value.data)
                         Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
                         findNavController().popBackStack()
@@ -139,6 +142,8 @@ class SubmitFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        var sen = "The good bad boy"
+        sen.split(" "," ")
 
         /**
          * Call the Dropdown array
