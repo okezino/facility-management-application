@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_single_main_layout"
@@ -7,83 +7,61 @@
     android:layout_height="match_parent"
     tools:context=".ui.others.SingleComplaintFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/fragment_profile_appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/grey_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="noScroll">
 
-        <androidx.appcompat.widget.Toolbar
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/grey_100"
-            app:layout_scrollFlags="scroll">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/fragment_singleComplaint_back_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:text="@string/fragment_singleComplaint_back"
+                android:textColor="@color/green_400"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+
+            <TextView
+                android:id="@+id/fragment_singleComplaint_complaintTitle_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="22dp"
+                android:text="@string/fragment_singleComplaint_acNotWorking"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/fragment_singleComplaint_back_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/fragment_singleComplaint_back"
-                    android:textColor="@color/green_400"
-                    android:textSize="20sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_arrow_back_ios_24" />
-
-                <TextView
-                    android:id="@+id/fragment_singleComplaint_complaintTitle_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="22dp"
-                    android:text="@string/fragment_singleComplaint_acNotWorking"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+        </LinearLayout>
 
 
-        </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar2"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.7517564" />
-
-            <TextView
-                android:id="@+id/fragment_singleComplaint_comment_tv"
-                style="@style/fragment_singleComplaint_tv_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/fragment_singleComplaint_complaint_marginBottom"
-                android:layout_marginStart="@dimen/fragment_singleComplaint_commentCount_marginBottom"
-                android:text="@string/fragment_singleComplaint_comments"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <View
-                android:id="@+id/fragment_singleComplaint_divider"
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/black_divider"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_singleComplaint_comment_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -94,7 +72,7 @@
                 android:layout_marginEnd="@dimen/fragment_singleComplaint_cardView_margin"
                 android:layout_marginBottom="@dimen/fragment_singleComplaint_cardView_marginBottom"
                 app:cardCornerRadius="@dimen/fragment_singleComplaint_cardView_cornerRadius"
-                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintBottom_toTopOf="@+id/guideline12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -125,6 +103,13 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.47" />
+
             <TextView
                 android:id="@+id/fragment_singleComplaint_commentCount_tv"
                 android:layout_width="wrap_content"
@@ -135,7 +120,18 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_singleComplaint_divider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline2" />
+                app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+            <View
+                android:id="@+id/fragment_singleComplaint_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/black_divider"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_singleComplaint_comment_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ProgressBar
                 android:id="@+id/fragment_single_complaint_comment_count_progress"
@@ -145,18 +141,7 @@
                 android:layout_marginBottom="@dimen/fragment_singleComplaint_commentCount_marginBottom"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_singleComplaint_divider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline2"
-                />
-
-            <ProgressBar
-                android:id="@+id/fragment_single_complaint_like_count_progress"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_singleComplaint_likesIcon_iv"
-                app:layout_constraintEnd_toStartOf="@+id/fragment_singleComplaint_likesIcon_iv"
-                app:layout_constraintTop_toTopOf="@+id/fragment_singleComplaint_likesIcon_iv"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
             <ImageView
                 android:id="@+id/fragment_singleComplaint_commentIcon_iv"
@@ -169,17 +154,6 @@
                 app:layout_constraintTop_toTopOf="@+id/fragment_singleComplaint_commentCount_tv"
                 app:srcCompat="@drawable/fragment_single_complaint_comment_icon" />
 
-            <TextView
-                android:id="@+id/fragment_singleComplaint_likesCount_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/fragment_singleComplaint_likesCount"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_singleComplaint_likesIcon_iv"
-                app:layout_constraintEnd_toStartOf="@+id/fragment_singleComplaint_likesIcon_iv"
-                app:layout_constraintTop_toTopOf="@+id/fragment_singleComplaint_likesIcon_iv"
-                android:visibility="gone"/>
-
             <ImageView
                 android:id="@+id/fragment_singleComplaint_likesIcon_iv"
                 android:layout_width="wrap_content"
@@ -189,84 +163,88 @@
                 android:contentDescription="@string/fragment_singleComplaint_contentDesc_clickToLike"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_singleComplaint_divider"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideline2"
-                app:srcCompat="@drawable/likes"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/guideline12"
+                app:srcCompat="@drawable/likes" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline6"
+            <ProgressBar
+                android:id="@+id/fragment_single_complaint_like_count_progress"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_singleComplaint_likesIcon_iv"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_singleComplaint_likesIcon_iv"
+                app:layout_constraintTop_toTopOf="@+id/fragment_singleComplaint_likesIcon_iv" />
+
+            <TextView
+                android:id="@+id/fragment_singleComplaint_likesCount_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="401dp" />
+                android:layout_marginEnd="16dp"
+                android:text="@string/fragment_singleComplaint_likesCount"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_singleComplaint_likesIcon_iv"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_singleComplaint_likesIcon_iv"
+                app:layout_constraintTop_toTopOf="@+id/fragment_singleComplaint_likesIcon_iv" />
+
+            <TextView
+                android:id="@+id/fragment_singleComplaint_comment_tv"
+                style="@style/fragment_singleComplaint_tv_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fragment_singleComplaint_commentCount_marginBottom"
+                android:layout_marginBottom="24dp"
+                android:text="@string/fragment_singleComplaint_comments"
+                app:layout_constraintBottom_toTopOf="@+id/guideline13"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_single_complaint_noComment_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.65" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_singleComplaint_complaintsRecylcerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentStart="true"
+                android:background="@color/white"
+                android:isScrollContainer="false"
+                android:scrollbars="vertical"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline13"
+                tools:listitem="@layout/single_complaint_item" />
+
+            <TextView
+                android:id="@+id/fragment_single_complaint_noComment_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_single_complaint_noComments"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/guideline13"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/fragment_single_complaint_noComment_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/fragment_single_complaint_noComments"
-            android:textSize="18sp"
-            android:visibility="gone"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_singleComplaint_complaintsRecylcerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:background="@color/white"
-        android:scrollbars="vertical"
-        android:visibility="visible"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/single_complaint_item" />
-
-    <!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="83dp"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:background="@color/grey_100"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="8dp"-->
-<!--        android:visibility="gone">-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/fragment_singleComplaint_writeAComment_et"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_weight="1.5"-->
-<!--            android:background="@drawable/rounded_corner_edt"-->
-<!--            android:ems="10"-->
-<!--            android:hint="@string/fragment_singleComplaint_writeAComment"-->
-<!--            android:importantForAutofill="no"-->
-<!--            android:inputType="textPersonName"-->
-<!--            android:padding="8dp" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/fragment_singleComplaint_post_iv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_weight="0.5"-->
-<!--            android:contentDescription="@string/fragment_singleComplaint_contentDesc_clickToPost"-->
-<!--            android:src="@drawable/send" />-->
+    </ScrollView>
 
 
-<!--    </LinearLayout>-->
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

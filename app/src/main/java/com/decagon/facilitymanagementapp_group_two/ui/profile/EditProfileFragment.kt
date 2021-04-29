@@ -36,6 +36,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -139,8 +140,9 @@ class EditProfileFragment : Fragment() {
         /**
          * Collect Input Data from the UI
          */
-        val updateStack = binding.editFragmentProfileStackInput.text.toString().toUpperCase().trim()
-        val updateSquad = binding.editFragmentProfileSquadInput.text.toString().toUpperCase().trim()
+        val updateStack = binding.editFragmentProfileStackInput.text.toString().toUpperCase(Locale.ROOT).trim()
+        val updateSquad = binding.editFragmentProfileSquadInput.text.toString().toUpperCase(Locale.ROOT)
+            .trim()
         val updatePhoneNumber = binding.editFragmentProfilePhoneNumber.text.toString().trim()
         val username = binding.editFragmentProfileName.text.toString()
         val (firstName, lastName) = username.split(" ")
@@ -162,7 +164,9 @@ class EditProfileFragment : Fragment() {
                 gender = "m"
             )
             val result = viewModel.updateProfileDetails(updateProfileDetails)
-            val user = UserData(firstName, lastName, "null", profileEmail, updateStack, updatePhoneNumber, updateSquad)
+            val user = UserData(firstName, lastName, "null", profileEmail,
+                updateStack, updatePhoneNumber, updateSquad,
+                userId = sharedPreferences.getString(USER_ID, null)!!)
 
             ApiResponseHandler(result, this, view) {
                 when (it.value.code()) {

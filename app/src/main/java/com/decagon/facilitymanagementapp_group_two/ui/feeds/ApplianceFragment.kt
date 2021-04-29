@@ -42,7 +42,7 @@ class ApplianceFragment : Fragment(), ComplaintClickListener {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        initAdapter(binding, adapter, viewLifecycleOwner)
+        initAdapter(binding, adapter)
         getMyRequest()
 
         return binding.root

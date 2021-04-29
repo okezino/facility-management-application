@@ -107,7 +107,6 @@ class SubmitFragment : Fragment() {
         if (requestCategory == "apartment"){
             requestCategory = "facility"
         }
-        submitViewModel.getFeedId(requestCategory)
 
         val requestTitle = binding.requestSubject.text.toString().trim()
         val requestDes = binding.requestDescription.text.toString().trim()
@@ -115,6 +114,8 @@ class SubmitFragment : Fragment() {
 
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
+            submitViewModel.getFeedId(requestCategory)
+            Log.d("Crash", "addNewRequest: $requestCategory")
 
             val user = RequestBody(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 

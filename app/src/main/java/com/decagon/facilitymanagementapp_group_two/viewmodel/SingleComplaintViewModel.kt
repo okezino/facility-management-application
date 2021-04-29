@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.decagon.facilitymanagementapp_group_two.model.data.CommentResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.data.RatingBody
-import com.decagon.facilitymanagementapp_group_two.model.data.RatingResponseBody
-import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
+import com.decagon.facilitymanagementapp_group_two.model.data.*
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
 import com.decagon.facilitymanagementapp_group_two.model.repository.facility.FacilityRepository
 import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
@@ -83,6 +80,20 @@ class SingleComplaintViewModel @Inject constructor(
     fun getIsLikedFromDb(complaintId: String){
         viewModelScope.launch {
             _isLiked = facilityRepository.getIsLikedFromDb(complaintId) as MutableLiveData<Boolean>
+        }
+    }
+
+    fun getRatingId(complaintId: String) : LiveData<String>{
+        val response = MutableLiveData<String>()
+        viewModelScope.launch {
+           response.value =  facilityRepository.getRatingIdFromDb(complaintId)
+        }
+        return response
+    }
+
+    fun addRatingData(rating : RatingData?){
+        viewModelScope.launch {
+            facilityRepository.addRatingData(rating)
         }
     }
 

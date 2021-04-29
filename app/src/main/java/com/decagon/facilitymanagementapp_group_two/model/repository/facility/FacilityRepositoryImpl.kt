@@ -162,6 +162,14 @@ class FacilityRepositoryImpl(
         return centralDatabase.requestDao.getIsLikedFromDb(complaintId)
     }
 
+    override suspend fun getRatingIdFromDb(complaintId: String): String {
+        return centralDatabase.ratingDao.getRatingIdByComplaintId(complaintId)
+    }
+
+    override suspend fun addRatingData(rating: RatingData?) {
+        return centralDatabase.ratingDao.insert(rating)
+    }
+
     override fun getApplianceComplains(): Flow<PagingData<ApplianceComplaints>> {
         val pagingSourceFactory = { centralDatabase.applianceCompDao.getComplaintsByCat(APPLIANCE) }
         @OptIn(ExperimentalPagingApi::class)

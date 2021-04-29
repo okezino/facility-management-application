@@ -117,4 +117,12 @@ class FakeFacilityRepository : FacilityRepository {
     override fun getIsLikedFromDb(complaintId: String): LiveData<Boolean> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getRatingIdFromDb(complaintId: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addRatingData(rating: RatingData?) {
+        TODO("Not yet implemented")
+    }
 }

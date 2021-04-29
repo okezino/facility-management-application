@@ -2,9 +2,7 @@ package com.decagon.facilitymanagementapp_group_two.ui.others
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,20 +13,13 @@ import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListene
 import com.decagon.facilitymanagementapp_group_two.adapter.SingleComplaintAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentSingleComplaintBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.RatingBody
-import com.decagon.facilitymanagementapp_group_two.model.data.RequestResponseBody
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Request
-import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
 import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
-import com.decagon.facilitymanagementapp_group_two.network.ResultStatus
-import com.decagon.facilitymanagementapp_group_two.utils.RATING_ID
 import com.decagon.facilitymanagementapp_group_two.utils.USER_ID
 import com.decagon.facilitymanagementapp_group_two.utils.setStatusBarBaseColor
 import com.decagon.facilitymanagementapp_group_two.viewmodel.SingleComplaintViewModel
-import com.google.android.material.snackbar.Snackbar
-import dagger.Provides
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SingleComplaintFragment : Fragment(), ComplaintClickListener {
@@ -44,7 +35,7 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
     private lateinit var complaintTime : String
     private var likesCount = 0
     private var isLiked = false
-    private lateinit var request : Request
+    private var request : Request? = null
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -136,27 +127,29 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
 
         binding.fragmentSingleComplaintLikesIconIv.setOnClickListener {
             if (isLiked){
-                val ratingId = sharedPreferences.getString(RATING_ID,null)
-                val deleteResponse = viewModel.deleteRating(ratingId)
-                ApiResponseHandler(deleteResponse,this,view){
-                    request.ratingId = null
-                    request.id = complaintId
-                    isLiked = false
-                    request.isLiked = isLiked
-                    viewModel.reduceRatingCount(request, likesCount)
-                    binding.fragmentSingleComplaintLikesIconIv.setImageResource(R.drawable.likes)
-                }
+                   viewModel.getRatingId(complaintId).observe(viewLifecycleOwner,{
+                       val deleteResponse = viewModel.deleteRating(it)
+                       ApiResponseHandler(deleteResponse,this,view){
+                           request?.ratingId = null
+                           request?.id = complaintId
+                           isLiked = false
+                           request?.isLiked = isLiked
+                           request?.time = complaintTime
+                           request?.let { it1 -> viewModel.reduceRatingCount(it1, likesCount) }
+                           binding.fragmentSingleComplaintLikesIconIv.setImageResource(R.drawable.likes)
+                       }
+                   })
             }
             else{
                 val rating = RatingBody(5)
                 val serverResponse = viewModel.postRating(complaintId,rating)
                 ApiResponseHandler(serverResponse,this,view ){
-                    sharedPreferences.edit().putString(RATING_ID, it.value.data?.ratingId).apply()
+                    viewModel.addRatingData(it.value.data)
                     isLiked = true
-                    request.isLiked = isLiked
-                    request.id = complaintId
-                    request.time = complaintTime
-                    viewModel.saveRequestToDb(request,likesCount)
+                    request?.isLiked = isLiked
+                    request?.id = complaintId
+                    request?.time = complaintTime
+                    request?.let { it1 -> viewModel.saveRequestToDb(it1,likesCount) }
                     binding.fragmentSingleComplaintLikesIconIv.setImageResource(R.drawable.liked)
                 }
 

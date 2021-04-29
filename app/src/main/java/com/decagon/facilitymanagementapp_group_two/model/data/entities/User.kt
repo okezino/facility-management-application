@@ -10,8 +10,8 @@ data class User(
 
 @Entity(tableName = "Users")
 data class UserData(
-    val firstName: String,
-    val lastName: String,
+    val firstName: String?,
+    val lastName: String?,
     @SerializedName("avatarUrl")
     val profileImageUrl: String?,
     @SerializedName("userName")
@@ -19,8 +19,7 @@ data class UserData(
     val stack: String?,
     val phoneNumber: String?,
     val squad: String?,
-    var isProfileCompleted: Boolean? = null
-) {
+    var isProfileCompleted: Boolean? = null,
     @PrimaryKey(autoGenerate = false)
-    var userId: Long = 0
-}
+    var userId: String = ""
+)

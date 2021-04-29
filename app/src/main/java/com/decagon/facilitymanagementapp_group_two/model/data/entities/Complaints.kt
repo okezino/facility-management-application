@@ -26,9 +26,9 @@ data class Complaints(
     @SerializedName("image")
     val complaintImgUrl: String?,
     @SerializedName("firstName")
-    val userFirstName: String,
+    val userFirstName: String?,
     @SerializedName("lastName")
-    val userLastName: String,
+    val userLastName: String?,
     @SerializedName("avatarUrl")
     val userImgUrl: String?,
     @SerializedName("squad")
@@ -50,9 +50,9 @@ data class ApartComplaints(
     @SerializedName("image")
     val complaintImgUrl: String?,
     @SerializedName("firstName")
-    val userFirstName: String,
+    val userFirstName: String?,
     @SerializedName("lastName")
-    val userLastName: String,
+    val userLastName: String?,
     @SerializedName("avatarUrl")
     val userImgUrl: String?,
     @SerializedName("squad")
@@ -74,9 +74,9 @@ data class ApplianceComplaints(
     @SerializedName("image")
     val complaintImgUrl: String?,
     @SerializedName("firstName")
-    val userFirstName: String,
+    val userFirstName: String?,
     @SerializedName("lastName")
-    val userLastName: String,
+    val userLastName: String?,
     @SerializedName("avatarUrl")
     val userImgUrl: String?,
     @SerializedName("squad")
@@ -98,9 +98,9 @@ data class OthersComplaints(
     @SerializedName("image")
     val complaintImgUrl: String?,
     @SerializedName("firstName")
-    val userFirstName: String,
+    val userFirstName: String?,
     @SerializedName("lastName")
-    val userLastName: String,
+    val userLastName: String?,
     @SerializedName("avatarUrl")
     val userImgUrl: String?,
     @SerializedName("squad")

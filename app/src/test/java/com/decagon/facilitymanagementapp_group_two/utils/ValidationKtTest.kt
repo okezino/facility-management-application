@@ -11,7 +11,7 @@ class ValidationKtTest {
         "abcdefghijklimopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
     private val testPara4 = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkmlnopqrstuvwxyz" +
         "abcdefghijklimopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkmlnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkmlnopqrstuvwxyz"
-    private val textPara5 = "Select a Category..."
+    private val textPara5 = "select a category..."
     private val textPara6 = "Appliance"
     private val stack = "NODE"
     private val stack1 = "GOLAND"

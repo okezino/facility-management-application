@@ -69,6 +69,10 @@ interface FacilityRepository {
 
     fun getIsLikedFromDb(complaintId: String): LiveData<Boolean>
 
+    suspend fun getRatingIdFromDb(complaintId: String) : String
+
+    suspend fun addRatingData(rating : RatingData?)
+
 }
 
 

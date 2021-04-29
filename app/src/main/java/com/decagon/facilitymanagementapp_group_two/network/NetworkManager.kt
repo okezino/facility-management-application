@@ -44,10 +44,8 @@ class NetworkManager(val activity: FragmentActivity, val view: View) : LiveData<
             Observer {
                 if (it == false){
                     snack.show()
-                    MainActivity.isConnected.value = false
                 } else {
                     snack.dismiss()
-                    MainActivity.isConnected.value = true
                 }
             }
         )

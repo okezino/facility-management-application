@@ -184,32 +184,51 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
      * Set up recyclerView Adapter and notify user's of data state
      */
     private fun initAdapter() {
-        MainActivity.isConnected.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                adapter.addLoadStateListener { loadState ->
-                    binding.dashboardComplaintRecyclerView.isVisible =
-                        loadState.mediator?.refresh is LoadState.NotLoading
-                    binding.progBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
-                    binding.noComplainText.isVisible =
-                        (loadState.mediator?.refresh is LoadState.NotLoading && adapter.itemCount == 0)
-                            || loadState.mediator?.refresh is LoadState.Error
+        adapter.addLoadStateListener { loadState ->
+            val progressBar = binding.progBar
+            val emptyText = binding.noComplainText
+            val complainRecyclerView = binding.dashboardComplaintRecyclerView
+            when (loadState.refresh) {
+                is LoadState.NotLoading -> {
+                    progressBar.visibility = View.GONE
+                    if (loadState.refresh is LoadState.NotLoading) {
+                        if (loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                            emptyText.visibility = View.VISIBLE
+                        } else {
+                            emptyText.visibility = View.GONE
+                            complainRecyclerView.visibility = View.VISIBLE
+                        }
+                    }
                 }
-            } else {
-                adapter.addLoadStateListener { loadState ->
-                    binding.dashboardComplaintRecyclerView.isVisible =
-                        loadState.source.refresh is LoadState.NotLoading
-                    binding.progBar.isVisible = loadState.source.refresh is LoadState.Loading
-                    binding.noComplainText.isVisible =
-                        loadState.source.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                is LoadState.Loading -> {
+                    if (adapter.itemCount == 0) {
+                        progressBar.visibility = View.VISIBLE
+                        emptyText.visibility = View.GONE
+                        complainRecyclerView.visibility = View.GONE
+                    } else {
+                        progressBar.visibility = View.GONE
+                        complainRecyclerView.visibility = View.VISIBLE
+                    }
+                }
+                is LoadState.Error -> {
+                    progressBar.visibility = View.GONE
+                    if (adapter.itemCount < 1) {
+                        emptyText.visibility = View.VISIBLE
+                    } else {
+                        emptyText.visibility = View.GONE
+                        complainRecyclerView.visibility = View.VISIBLE
+                    }
                 }
             }
-        })
+        }
     }
 
     /**
      * method that handles the search logic and functionality
      */
     private fun searchAction(s: Any?) {
+        if (binding.noComplainText.isVisible) return
+
         viewLifecycleOwner.lifecycleScope.launch {
             feedsViewModel.searchMyRequest(s.toString())?.collectLatest {
                 adapter.submitData(it)

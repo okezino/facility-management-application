@@ -3,6 +3,7 @@ package com.decagon.facilitymanagementapp_group_two.model.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.decagon.facilitymanagementapp_group_two.model.data.RatingData
 import com.decagon.facilitymanagementapp_group_two.model.data.coverter.Converters
 import com.decagon.facilitymanagementapp_group_two.model.data.coverter.RatingConverter
 import com.decagon.facilitymanagementapp_group_two.model.data.database.dao.*
@@ -29,7 +30,8 @@ import com.decagon.facilitymanagementapp_group_two.model.data.entities.*
         ComplainRemoteKeys::class,
         ApartmentRemoteKeys::class,
         ApplianceRemoteKeys::class,
-        OthersRemoteKeys::class
+        OthersRemoteKeys::class,
+        RatingData::class
                ],
     version = 1,
     exportSchema = false
@@ -51,4 +53,5 @@ abstract class CentralDatabase : RoomDatabase() {
     abstract val apartRemoteKeysDao: ApartRemoteKeysDao
     abstract val applianceRemoteKeyDao: ApplianceRemoteKeyDao
     abstract val othersRemoteKeysDao: OthersRemoteKeysDao
+    abstract val ratingDao : RatingDao
 }
