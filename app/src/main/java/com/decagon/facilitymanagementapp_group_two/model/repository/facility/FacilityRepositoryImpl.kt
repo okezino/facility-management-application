@@ -28,7 +28,7 @@ class FacilityRepositoryImpl(
     private val sharedPref: SharedPreferences
 ) : FacilityRepository {
 
-    override suspend fun postRequest(feedId : String, request: RequestBody) : ResultStatus<RequestResponseBody> {
+    override suspend fun postRequest(feedId : String?, request: RequestBody) : ResultStatus<RequestResponseBody> {
        return safeApiCall { apiService.postNewRequest(feedId, request) }
     }
 
@@ -160,6 +160,14 @@ class FacilityRepositoryImpl(
 
     override fun getIsLikedFromDb(complaintId: String): LiveData<Boolean> {
         return centralDatabase.requestDao.getIsLikedFromDb(complaintId)
+    }
+
+    override suspend fun getRatingIdFromDb(complaintId: String): String {
+        return centralDatabase.ratingDao.getRatingIdByComplaintId(complaintId)
+    }
+
+    override suspend fun addRatingData(rating: RatingData?) {
+        return centralDatabase.ratingDao.insert(rating)
     }
 
     override fun getApplianceComplains(): Flow<PagingData<ApplianceComplaints>> {

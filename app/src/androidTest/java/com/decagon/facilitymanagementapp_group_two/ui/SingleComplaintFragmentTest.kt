@@ -25,7 +25,7 @@ class SingleComplaintFragmentTest {
      */
     @Before
     fun testLaunchFragmentInHiltContainer() {
-        val bundle = SingleComplaintFragmentArgs("1234", "Food", "Food tastes bad").toBundle()
+        val bundle = SingleComplaintFragmentArgs("1234", "Food", "Food tastes bad","2 hours ago").toBundle()
         launchFragmentInHiltContainer<SingleComplaintFragment>(bundle)
     }
 

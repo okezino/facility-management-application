@@ -52,7 +52,7 @@
     <string name="_006">SQ006</string>
     <string name="mobile">Mobile</string>
     <string name="name">Name</string>
-    <string name="mobile_number">2348020000000</string>
+    <string name="mobile_number">+2348020000000</string>
     <string name="profile_name">Joseph Okezi</string>
     <string name="log_out">Log Out</string>
     <string name="submit_profile">Update Profile</string>
@@ -60,6 +60,7 @@
     <string name="android">Android</string>
     <string name="fragment_single_complaint_noComments">No Comments Found!</string>
     <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
+    <string name="stack_squad">Stack-Squad</string>
 
     <!-- dropdown adapter field-->
     <string-array name="selection_field">

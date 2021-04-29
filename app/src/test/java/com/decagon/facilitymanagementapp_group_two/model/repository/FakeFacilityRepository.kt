@@ -17,7 +17,7 @@ class FakeFacilityRepository : FacilityRepository {
     }
 
     override suspend fun postRequest(
-        feedId: String,
+        feedId: String?,
         request: RequestBody,
     ): ResultStatus<RequestResponseBody> {
         return if (shouldReturnNetworkError) {
@@ -115,6 +115,14 @@ class FakeFacilityRepository : FacilityRepository {
     }
 
     override fun getIsLikedFromDb(complaintId: String): LiveData<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getRatingIdFromDb(complaintId: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addRatingData(rating: RatingData?) {
         TODO("Not yet implemented")
     }
 }

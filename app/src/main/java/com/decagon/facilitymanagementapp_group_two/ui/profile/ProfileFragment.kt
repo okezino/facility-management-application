@@ -55,8 +55,10 @@ class ProfileFragment : Fragment() {
         viewModel.userData.observe(
             viewLifecycleOwner,
             Observer { user ->
-
-                binding.fragmentProfileStackSquadText.text = "${user.stack} - ${user.squad}"
+                val squad = user.squad
+                squad?.let {
+                    binding.fragmentProfileStackSquadText.text = "${user.stack} - $it"
+                }
                 val userFullName = "${user.firstName} ${user.lastName}"
                 binding.fragmentProfileMainName.text = userFullName
                 binding.fragmentProfileName.text = userFullName

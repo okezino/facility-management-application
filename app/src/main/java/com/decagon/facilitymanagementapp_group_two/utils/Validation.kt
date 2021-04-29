@@ -19,7 +19,7 @@ fun descriptionValidation(s: String): Boolean {
 }
 
 fun feedSelectionValidation(s: String): Boolean {
-    return s != "Select a Category..."
+    return s != "select a category..."
 }
 
 fun squadInputValidation(s: String): Boolean {

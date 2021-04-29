@@ -42,7 +42,7 @@ class ApplianceFragment : Fragment(), ComplaintClickListener {
          */
         _binding = FragmentGeneralBinding.inflate(inflater, container, false)
 
-        initAdapter(binding, adapter, viewLifecycleOwner)
+        initAdapter(binding, adapter)
         getMyRequest()
 
         return binding.root
@@ -62,8 +62,8 @@ class ApplianceFragment : Fragment(), ComplaintClickListener {
         }
     }
 
-    override fun onCompalinClicked(title: String?, body: String?, id: String?) {
-        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body)
+    override fun onCompalinClicked(title: String?, body: String?, id: String?, time : String?) {
+        val action = FeedsFragmentDirections.actionFeedsFragmentToSingleComplaintFragment(id, title, body,time)
         findNavController().navigate(action)
     }
 }

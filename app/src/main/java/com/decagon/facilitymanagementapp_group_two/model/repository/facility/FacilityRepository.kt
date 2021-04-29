@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface FacilityRepository {
 
-    suspend fun postRequest(feedId : String, request : RequestBody) : ResultStatus<RequestResponseBody>
+    suspend fun postRequest(feedId : String?, request : RequestBody) : ResultStatus<RequestResponseBody>
 
     suspend fun addNewRequestToDb(request: Request)
 
@@ -68,6 +68,10 @@ interface FacilityRepository {
     suspend fun getRequestRatingIdFromDb(complaintId: String) : String
 
     fun getIsLikedFromDb(complaintId: String): LiveData<Boolean>
+
+    suspend fun getRatingIdFromDb(complaintId: String) : String
+
+    suspend fun addRatingData(rating : RatingData?)
 
 }
 

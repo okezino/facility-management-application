@@ -67,7 +67,7 @@ interface ApiService {
      * Posts new request to endpoint and retrieves the response body containing the request
      */
     @POST("/api/v1/Feed/{feedId}/add-complaint")
-    suspend fun postNewRequest(@Path("feedId") feedId : String, @Body request: RequestBody) : RequestResponseBody
+    suspend fun postNewRequest(@Path("feedId") feedId : String?, @Body request: RequestBody) : RequestResponseBody
 
     /**
      * Gets all the feeds category from the endpoint

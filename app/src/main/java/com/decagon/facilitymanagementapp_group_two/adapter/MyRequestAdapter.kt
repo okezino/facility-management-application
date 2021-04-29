@@ -1,5 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -18,7 +19,8 @@ class MyRequestAdapter(private val clickListener: ComplaintClickListener) :
             binding.complainDate.text = item.time
             binding.complainDetails.text = item.question
             binding.complainLayout.setOnClickListener {
-                clickListener.onCompalinClicked(item.title, item.question,item.id)
+                Log.d("Adapter", "bind: ${item.time}")
+                clickListener.onCompalinClicked(item.title, item.question,item.id,item.time)
             }
         }
     }
