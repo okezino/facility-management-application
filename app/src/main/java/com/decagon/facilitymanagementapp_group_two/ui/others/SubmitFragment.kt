@@ -114,18 +114,10 @@ class SubmitFragment : Fragment() {
 
 
         if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
-            submitViewModel.getFeedId(requestCategory)
-            Log.d("Crash", "addNewRequest: $requestCategory")
-
             val user = RequestBody(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
-            // Obseves feed id result and adds it to the post new request
-
-            submitViewModel.feedId.observe(
-                viewLifecycleOwner,
-                {
-                    Log.d("FeedID", "addNewRequest: $it")
-                    val response = submitViewModel.postNewRequest(it, user)
+                    val feedId = sharedPreferences.getString(requestCategory,null)
+                    val response = submitViewModel.postNewRequest(feedId, user)
                     ApiResponseHandler(response, this, view) { request ->
                         submitViewModel.saveRequestToDb(request.value.data)
                         view?.showSnackBar("Request posted successfully")
@@ -133,8 +125,6 @@ class SubmitFragment : Fragment() {
                         findNavController().popBackStack()
                         findNavController().navigate(R.id.dashboardFragment)
                     }
-                }
-            )
         } else {
             if (requestDes.isEmpty()) binding.requestDescriptionLayout.error = "Request description needed"
 

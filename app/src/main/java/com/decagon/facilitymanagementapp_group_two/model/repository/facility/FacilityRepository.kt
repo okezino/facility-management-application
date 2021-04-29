@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface FacilityRepository {
 
-    suspend fun postRequest(feedId : String, request : RequestBody) : ResultStatus<RequestResponseBody>
+    suspend fun postRequest(feedId : String?, request : RequestBody) : ResultStatus<RequestResponseBody>
 
     suspend fun addNewRequestToDb(request: Request)
 

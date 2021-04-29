@@ -28,7 +28,7 @@ class FacilityRepositoryImpl(
     private val sharedPref: SharedPreferences
 ) : FacilityRepository {
 
-    override suspend fun postRequest(feedId : String, request: RequestBody) : ResultStatus<RequestResponseBody> {
+    override suspend fun postRequest(feedId : String?, request: RequestBody) : ResultStatus<RequestResponseBody> {
        return safeApiCall { apiService.postNewRequest(feedId, request) }
     }
 

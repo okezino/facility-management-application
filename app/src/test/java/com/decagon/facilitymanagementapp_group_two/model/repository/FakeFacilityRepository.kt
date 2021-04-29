@@ -17,7 +17,7 @@ class FakeFacilityRepository : FacilityRepository {
     }
 
     override suspend fun postRequest(
-        feedId: String,
+        feedId: String?,
         request: RequestBody,
     ): ResultStatus<RequestResponseBody> {
         return if (shouldReturnNetworkError) {
