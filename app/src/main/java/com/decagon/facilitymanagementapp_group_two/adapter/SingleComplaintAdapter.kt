@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.decagon.facilitymanagementapp_group_two.databinding.SingleComplaintItemBinding
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.Comment
 import com.decagon.facilitymanagementapp_group_two.utils.loadImage
+import com.decagon.facilitymanagementapp_group_two.utils.timeConvert
 
 class SingleComplaintAdapter(private val items : List<Comment>, private val clickListner: ComplaintClickListener) : RecyclerView.Adapter<SingleComplaintAdapter.ViewHolder>() {
 
@@ -17,7 +18,7 @@ class SingleComplaintAdapter(private val items : List<Comment>, private val clic
             binding.fragmentSingleComplaintCommenterNameTv.text = fullName
             binding.fragmentSingleComplaintCommentBodyTv.text = item.comment
             item.user.avatarUrl?.let { binding.cardView2.loadImage(it) }
-            binding.fragmentSingleComplaintTimeElapsedTv.text = "2 hours ago"
+            binding.fragmentSingleComplaintTimeElapsedTv.text = timeConvert(item.commentTime)
 
 //            binding.fragmentSingleComplaintReplyTv.setOnClickListener {
 //                clickListner.onCompalinClicked()
