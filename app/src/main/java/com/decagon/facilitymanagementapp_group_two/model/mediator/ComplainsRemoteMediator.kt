@@ -72,6 +72,10 @@ class ComplainsRemoteMediator(
         } catch (exception: IOException) {
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {
+            if (exception.code() == 400) {
+                centralDatabase.complaintsDao.clearComplains()
+                centralDatabase.complainRemoteKeysDao.clearRemoteKeys()
+            }
             return MediatorResult.Error(exception)
         }
     }

@@ -86,6 +86,10 @@ class ApartmentRemoteMediator(
         } catch (exception: IOException) {
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {
+            if (exception.code() == 400) {
+                centralDatabase.apartComplainsDao.clearApartComplains()
+                centralDatabase.apartRemoteKeysDao.clearRemoteKeys()
+            }
             return MediatorResult.Error(exception)
         }
     }
