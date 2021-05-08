@@ -7,51 +7,40 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.profile.ProfileFragment">
-
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_profile_appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/smokeWhite"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/fragment_profile_text_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/sfprotext"
-                android:text="@string/profile"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-            <TextView
-                android:id="@+id/fragment_profile_edit_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="16dp"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/sfprotext"
-                android:text="Edit"
-                android:textColor="@color/light_green"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/fragment_profile_text_profile" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <TextView
+            android:id="@+id/fragment_profile_text_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/sfprotext"
+            android:text="@string/profile"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/fragment_profile_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/sfprotext"
+            android:text="@string/edit"
+            android:textColor="@color/light_green"
+            android:textSize="20sp"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_forward" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -137,6 +126,7 @@
                         style="@style/profile_format"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="@string/name" />
                     <TextView
                         android:id="@+id/fragment_profile_name"
@@ -158,6 +148,7 @@
                         style="@style/profile_format"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="@string/email" />
                     <TextView
                         android:id="@+id/fragment_profile_email"
@@ -180,6 +171,7 @@
                         style="@style/profile_format"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="@string/squad" />
                     <TextView
                         android:id="@+id/fragment_profile_squad"
@@ -201,6 +193,7 @@
                         style="@style/profile_format"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="Stack" />
                     <TextView
                         android:id="@+id/fragment_profile_stack_text"
@@ -222,6 +215,7 @@
                         style="@style/profile_format"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:text="@string/mobile" />
                     <TextView
                         android:id="@+id/fragment_profile_number"
