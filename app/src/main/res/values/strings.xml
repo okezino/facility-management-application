@@ -64,7 +64,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="stack_squad">Stack-Squad</string>
     <string name="my_requests">My Requests</string>
-    <string name="submit_a_new_request">Submit a new Request</string>
+    <string name="submit_a_new_request">New Request</string>
     <string name="edit">Edit</string>
 
     <!-- dropdown adapter field-->

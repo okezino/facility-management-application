@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fragment_onboard_facilityManagementApp_marginStartEnd">16dp</dimen>
-    <dimen name="fragment_onboard_facilityManagementApp_marginTop">32dp</dimen>
+    <dimen name="fragment_onboard_facilityManagementApp_marginTop">15dp</dimen>
     <dimen name="fragment_onboard_facilityManagementApp_textSize">40sp</dimen>
     <dimen name="fragment_onboard_manageComplaint_marginBottom">32dp</dimen>
     <dimen name="fragment_onboard_getStarted_btn_cornerRadius">8dp</dimen>

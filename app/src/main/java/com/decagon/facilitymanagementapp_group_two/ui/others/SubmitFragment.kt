@@ -113,7 +113,7 @@ class SubmitFragment : Fragment() {
         val userId = sharedPreferences.getString(USER_ID, null)
 
 
-        if (feedSelectionValidation(requestCategory) && subjectValidation(requestDes) && descriptionValidation(requestDes)) {
+        if (feedSelectionValidation(requestCategory) && subjectValidation(requestTitle) && descriptionValidation(requestDes)) {
             val user = RequestBody(title = requestTitle, question = requestDes, userId = userId, type = requestCategory)
 
                     val feedId = sharedPreferences.getString(requestCategory,null)
