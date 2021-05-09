@@ -36,10 +36,6 @@ class SubmitFragment : Fragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -119,7 +115,7 @@ class SubmitFragment : Fragment() {
                     val feedId = sharedPreferences.getString(requestCategory,null)
                     val response = submitViewModel.postNewRequest(feedId, user)
                     ApiResponseHandler(response, this, view) { request ->
-                        submitViewModel.saveRequestToDb(request.value.data)
+                       // submitViewModel.saveRequestToDb(request.value.data)
                         view?.showSnackBar("Request posted successfully")
                         Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
                         findNavController().popBackStack()
@@ -137,8 +133,6 @@ class SubmitFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        var sen = "The good bad boy"
-        sen.split(" "," ")
 
         /**
          * Call the Dropdown array

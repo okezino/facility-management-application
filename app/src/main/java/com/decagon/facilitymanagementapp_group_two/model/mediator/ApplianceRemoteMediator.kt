@@ -87,6 +87,10 @@ class ApplianceRemoteMediator(
         } catch (exception: IOException) {
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {
+            if (exception.code() == 400) {
+                centralDatabase.applianceCompDao.clearComplains()
+                centralDatabase.applianceRemoteKeyDao.clearRemoteKeys()
+            }
             return MediatorResult.Error(exception)
         }
     }
