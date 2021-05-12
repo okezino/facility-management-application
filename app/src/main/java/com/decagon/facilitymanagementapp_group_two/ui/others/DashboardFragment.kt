@@ -125,7 +125,13 @@ class DashboardFragment : Fragment(), ComplaintClickListener {
             }
         }
         ).apply {
-            attachToRecyclerView(binding.dashboardComplaintRecyclerView)
+            MainActivity.isConnected.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    attachToRecyclerView(binding.dashboardComplaintRecyclerView)
+                } else {
+                    attachToRecyclerView(null)
+                }
+            })
         }
 
         binding.addRequest.setOnClickListener {

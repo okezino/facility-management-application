@@ -85,7 +85,6 @@ class ComplainsRemoteMediator(
         // From that last page, get the last item
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let {
-                Log.d("PAGE", "${centralDatabase.complainRemoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the last item retrieved
                 centralDatabase.complainRemoteKeysDao.remoteKeysId(key)
             }
@@ -96,7 +95,6 @@ class ComplainsRemoteMediator(
         // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let {
-                Log.d("PAGE", "${centralDatabase.complainRemoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the first items retrieved
                 centralDatabase.complainRemoteKeysDao.remoteKeysId(key)
             }
@@ -109,7 +107,6 @@ class ComplainsRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let {
-                Log.d("PAGE", "${centralDatabase.complainRemoteKeysDao.remoteKeysId(key)}")
                 centralDatabase.complainRemoteKeysDao.remoteKeysId(key)
             }
         }

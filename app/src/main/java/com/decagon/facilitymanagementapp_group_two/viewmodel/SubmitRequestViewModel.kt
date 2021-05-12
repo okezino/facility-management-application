@@ -32,7 +32,6 @@ class SubmitRequestViewModel @Inject constructor(
         response.value = ResultStatus.Loading("Processing request..., please wait")
         viewModelScope.launch {
             response.value = facilityRepository.postRequest(feedId, request)
-            // facilityRepository.addNewRequestToDb(request)
         }
         return response
     }

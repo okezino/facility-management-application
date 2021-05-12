@@ -115,7 +115,6 @@ class RequestRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let {
-                Log.d("PAGE", "${centralDatabase.remoteKeysDao.remoteKeysId(key)}")
                 centralDatabase.remoteKeysDao.remoteKeysId(key)
             }
         }

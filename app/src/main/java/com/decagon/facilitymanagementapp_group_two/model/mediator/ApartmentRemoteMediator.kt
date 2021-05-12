@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.model.mediator
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -9,8 +8,6 @@ import androidx.room.withTransaction
 import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ApartComplaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.ApartmentRemoteKeys
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.ComplainRemoteKeys
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.Complaints
 import com.decagon.facilitymanagementapp_group_two.network.ApiService
 import com.decagon.facilitymanagementapp_group_two.utils.NETWORK_STARTING_PAGE
 import retrofit2.HttpException
@@ -98,8 +95,7 @@ class ApartmentRemoteMediator(
         // Get the last page that was retrieved, that contained items.
         // From that last page, get the last item
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
-            ?.let { request ->
-                Log.d("PAGE", "${centralDatabase.apartRemoteKeysDao.remoteKeysId(key)}")
+            ?.let {
                 // Get the remote keys of the last item retrieved
                 centralDatabase.apartRemoteKeysDao.remoteKeysId(key)
             }
@@ -110,7 +106,6 @@ class ApartmentRemoteMediator(
         // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let {
-                Log.d("PAGE", "${centralDatabase.apartRemoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the first items retrieved
                 centralDatabase.apartRemoteKeysDao.remoteKeysId(key)
             }
@@ -123,7 +118,6 @@ class ApartmentRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let {
-                Log.d("PAGE", "${centralDatabase.apartRemoteKeysDao.remoteKeysId(key)}")
                 centralDatabase.apartRemoteKeysDao.remoteKeysId(key)
             }
         }

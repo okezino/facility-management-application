@@ -114,10 +114,9 @@ class SubmitFragment : Fragment() {
 
                     val feedId = sharedPreferences.getString(requestCategory,null)
                     val response = submitViewModel.postNewRequest(feedId, user)
-                    ApiResponseHandler(response, this, view) { request ->
-                       // submitViewModel.saveRequestToDb(request.value.data)
+                    ApiResponseHandler(response, this, view, subBtn = binding.btnSubmit) {
+                        binding.btnSubmit.isClickable = true
                         view?.showSnackBar("Request posted successfully")
-                        Log.d("RequestDatabase", "addNewRequest: ${request.value.data}")
                         findNavController().popBackStack()
                         findNavController().navigate(R.id.dashboardFragment)
                     }

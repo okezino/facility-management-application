@@ -30,6 +30,7 @@
         <entry key="app/src/main/res/layout/fragment_appliance.xml" value="0.19202898550724637" />
         <entry key="app/src/main/res/layout/fragment_authorizing_user.xml" value="0.1381340579710145" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_feeds.xml" value="0.20471014492753623" />
         <entry key="app/src/main/res/layout/fragment_food.xml" value="0.26321974148061106" />
         <entry key="app/src/main/res/layout/fragment_general.xml" value="0.19202898550724637" />

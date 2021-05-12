@@ -99,8 +99,7 @@ class ApplianceRemoteMediator(
         // Get the last page that was retrieved, that contained items.
         // From that last page, get the last item
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
-            ?.let { request ->
-                Log.d("PAGE", "${centralDatabase.applianceRemoteKeyDao.remoteKeysId(key)}")
+            ?.let {
                 // Get the remote keys of the last item retrieved
                 centralDatabase.applianceRemoteKeyDao.remoteKeysId(key)
             }
@@ -111,7 +110,6 @@ class ApplianceRemoteMediator(
         // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let {
-                Log.d("PAGE", "${centralDatabase.applianceRemoteKeyDao.remoteKeysId(key)}")
                 // Get the remote keys of the first items retrieved
                 centralDatabase.applianceRemoteKeyDao.remoteKeysId(key)
             }
@@ -124,7 +122,6 @@ class ApplianceRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let {
-                Log.d("PAGE", "${centralDatabase.applianceRemoteKeyDao.remoteKeysId(key)}")
                 centralDatabase.applianceRemoteKeyDao.remoteKeysId(key)
             }
         }

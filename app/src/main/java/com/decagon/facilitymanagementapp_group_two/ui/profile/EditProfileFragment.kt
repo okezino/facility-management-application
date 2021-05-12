@@ -73,7 +73,6 @@ class EditProfileFragment : Fragment() {
          */
         binding.editFragmentProfileBackBtn.setOnClickListener {
             findNavController().popBackStack()
-           // findNavController().navigate(R.id.profileFragment)
         }
         return binding.root
     }
@@ -122,7 +121,6 @@ class EditProfileFragment : Fragment() {
                 binding.editFragmentProfilePhoneNumber.setText(user.phoneNumber)
                 binding.editFragmentProfileStackInput.setText(user.stack)
                 binding.editFragmentProfileSquadInput.setText(user.squad)
-               // binding.editFragmentProfileName.error = "error"
             }
         )
 
@@ -185,7 +183,6 @@ class EditProfileFragment : Fragment() {
                     }
                     else -> view?.showSnackBar("Error: Unable to established connection with server")
                 }
-                Log.d("ApiCall", "${it.value}")
             }
         } else {
             Snackbar.make(rootLayout, updateFormData.inputValidation(), Snackbar.LENGTH_SHORT)
@@ -248,8 +245,8 @@ class EditProfileFragment : Fragment() {
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val outputStream = FileOutputStream(file)
         inputStream.copyTo(outputStream)
-        val body = file!!.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val image = MultipartBody.Part.createFormData("Image", file!!.name, body)
+        val body = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val image = MultipartBody.Part.createFormData("Image", file.name, body)
 
         val serverResponse = viewModel.uploadProfileImage(image)
 

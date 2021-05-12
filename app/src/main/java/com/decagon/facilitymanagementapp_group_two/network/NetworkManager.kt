@@ -19,7 +19,6 @@ import com.google.android.material.snackbar.Snackbar
  */
 class NetworkManager(val activity: FragmentActivity, val view: View) : LiveData<Boolean>() {
 
-    private val TAG = "C-Manager"
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
     private val cm = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val validNetworks: MutableSet<Network> = HashSet()
@@ -43,8 +42,10 @@ class NetworkManager(val activity: FragmentActivity, val view: View) : LiveData<
             activity,
             Observer {
                 if (it == false){
+                   MainActivity.isConnected.value = false
                     snack.show()
                 } else {
+                    MainActivity.isConnected.value = true
                     snack.dismiss()
                 }
             }
@@ -66,10 +67,8 @@ class NetworkManager(val activity: FragmentActivity, val view: View) : LiveData<
 
     private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            Log.d(TAG, "onAvailable: $network")
             val networkCapabilities = cm.getNetworkCapabilities(network)
             val hasInternetCapability = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            Log.d(TAG, "onAvailable: $network, $hasInternetCapability")
             if (hasInternetCapability == true) {
                 // check if this network actually has internet
                 validNetworks.add(network)
@@ -78,7 +77,6 @@ class NetworkManager(val activity: FragmentActivity, val view: View) : LiveData<
         }
 
         override fun onLost(network: Network) {
-            Log.d(TAG, "onLost: $network")
             validNetworks.remove(network)
             checkValidNetworks()
         }

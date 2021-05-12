@@ -1,7 +1,6 @@
 package com.decagon.facilitymanagementapp_group_two.ui.feeds
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.decagon.facilitymanagementapp_group_two.R
 import com.decagon.facilitymanagementapp_group_two.adapter.ComplaintClickListener
 import com.decagon.facilitymanagementapp_group_two.adapter.GeneralCompliantAdapter
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentGeneralBinding
-import com.decagon.facilitymanagementapp_group_two.model.data.Complain
-import com.decagon.facilitymanagementapp_group_two.ui.MainActivity
-import com.decagon.facilitymanagementapp_group_two.ui.others.DashboardFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.viewmodel.FeedsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job

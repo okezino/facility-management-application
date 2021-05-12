@@ -17,7 +17,6 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResultStatus<T> {
         try {
             ResultStatus.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
-            Log.d("ApiCall Error", "${throwable.message}")
             when (throwable) {
                 is IOException -> ResultStatus.NetworkError
                 is HttpException -> {

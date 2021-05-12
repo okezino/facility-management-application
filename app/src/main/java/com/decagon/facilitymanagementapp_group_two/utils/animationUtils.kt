@@ -83,7 +83,6 @@ fun zoomImage(view: View, imageResId: String?, root: View) {
             start()
         }
         bigImage.setOnClickListener {
-            Log.d("ZoomImage", "Big image clicked!")
             currentAnimator?.cancel()
             currentAnimator = AnimatorSet().apply {
                 play(ObjectAnimator.ofFloat(bigImage, View.X, startBounds.left)).apply {

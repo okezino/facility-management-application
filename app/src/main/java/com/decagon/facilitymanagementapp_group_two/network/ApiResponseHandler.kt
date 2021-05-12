@@ -1,7 +1,7 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
-import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -26,6 +26,7 @@ data class ApiResponseHandler<T>(
     var view4 : View? = null,
     var failedAction: Boolean = false,
     var networkError : Boolean = false,
+    var subBtn: TextView? = null,
     var action: ((result: ResultStatus.Success<T>) -> Unit)? = null
 ) {
 
@@ -39,8 +40,12 @@ data class ApiResponseHandler<T>(
             Observer {
                 val message: String
                 when (it) {
-                    is ResultStatus.Loading -> view?.showSnackBar(it.message)
+                    is ResultStatus.Loading -> {
+                        view?.showSnackBar(it.message)
+                        subBtn?.isClickable = false
+                    }
                     is ResultStatus.NetworkError -> {
+                        subBtn?.isClickable = true
                         if (failedAction) fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
                         if(networkError) {
                             view?.visibility = View.GONE
@@ -53,7 +58,7 @@ data class ApiResponseHandler<T>(
 
                     }
                     is ResultStatus.GenericError -> {
-                        Log.d("ApiCall Error", "${it.code}")
+                        subBtn?.isClickable = true
                         if (failedAction) fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
                         if (it.code == 401) {
                             view?.showSnackBar("Your session has expired. Please login to continue")

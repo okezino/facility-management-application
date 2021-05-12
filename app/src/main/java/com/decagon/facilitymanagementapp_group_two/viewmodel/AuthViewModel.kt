@@ -24,10 +24,6 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor (private val authRepository: AuthRepository) : ViewModel() {
 
-    private val _accessToken = MutableLiveData<AuthResponse>()
-    val accessToken: LiveData<AuthResponse>
-        get() = _accessToken
-
     /**
      * Sends SSO details to endpoint and perform appropriate actions
      * when the response from the network call is successful else
@@ -41,24 +37,6 @@ class AuthViewModel @Inject constructor (private val authRepository: AuthReposit
         return response
     }
 
-    fun saveData(key: String, value: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            authRepository.saveDataInPref(key, value)
-        }
-    }
-
-    fun getAccessToken() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = authRepository.getAccessToken()
-            _accessToken.value = response
-        }
-    }
-
-    fun saveAccessToken(authResponse: AuthResponse) {
-        viewModelScope.launch(Dispatchers.IO) {
-            authRepository.saveAccessToken(authResponse)
-        }
-    }
 
     fun getUserData(userId: String): LiveData<ResultStatus<User>> {
         val response = MutableLiveData<ResultStatus<User>>()

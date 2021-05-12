@@ -1,14 +1,11 @@
 package com.decagon.facilitymanagementapp_group_two.model.mediator
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.decagon.facilitymanagementapp_group_two.model.data.database.CentralDatabase
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.ApplianceComplaints
-import com.decagon.facilitymanagementapp_group_two.model.data.entities.ApplianceRemoteKeys
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.OthersComplaints
 import com.decagon.facilitymanagementapp_group_two.model.data.entities.OthersRemoteKeys
 import com.decagon.facilitymanagementapp_group_two.network.ApiService
@@ -99,7 +96,6 @@ class OthersRemoteMediator(
         // From that last page, get the last item
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let {
-                Log.d("PAGE", "${centralDatabase.othersRemoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the last item retrieved
                 centralDatabase.othersRemoteKeysDao.remoteKeysId(key)
             }
@@ -110,7 +106,6 @@ class OthersRemoteMediator(
         // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let {
-                Log.d("PAGE", "${centralDatabase.othersRemoteKeysDao.remoteKeysId(key)}")
                 // Get the remote keys of the first items retrieved
                 centralDatabase.othersRemoteKeysDao.remoteKeysId(key)
             }
@@ -123,7 +118,6 @@ class OthersRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let {
-                Log.d("PAGE", "${centralDatabase.othersRemoteKeysDao.remoteKeysId(key)}")
                 centralDatabase.othersRemoteKeysDao.remoteKeysId(key)
             }
         }

@@ -114,17 +114,6 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
         binding.fragmentSingleComplaintComplaintTitleTv.text = complaintTitle
         binding.fragmentSingleComplaintComplaintBodyTv.text = complaintBody
 
-//        binding.fragmentSingleComplaintPostIv.setOnClickListener {
-//            val comment = binding.fragmentSingleComplaintWriteACommentEt.text.toString()
-//            binding.fragmentSingleComplaintWriteACommentEt.setText("")
-//            val serverResponse = viewModel.postNewComment(complaintId,comment)
-//            ApiResponseHandler(serverResponse,this, view){
-//                Snackbar.make(view, it.value.message, Snackbar.LENGTH_SHORT).show()
-//
-//            }
-//
-//        }
-
         binding.fragmentSingleComplaintLikesIconIv.setOnClickListener {
             if (isLiked){
                    viewModel.getRatingId(complaintId).observe(viewLifecycleOwner,{
@@ -165,7 +154,5 @@ class SingleComplaintFragment : Fragment(), ComplaintClickListener {
         _binding = null
     }
 
-    override fun onCompalinClicked(title: String?, body: String?, id: String?,time: String?) {
-      //  binding.fragmentSingleComplaintWriteACommentEt.requestFocus()
-    }
+    override fun onCompalinClicked(title: String?, body: String?, id: String?,time: String?) {}
 }
