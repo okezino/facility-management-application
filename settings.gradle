@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "FacilityManagementApp-Group-Two"
+rootProject.name = "Facility Management App"

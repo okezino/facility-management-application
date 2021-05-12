@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FacilityManagementApp-Group-Two</string>
+    <string name="app_name">Facility Management App</string>
     <string name="fragment_onboard_facility">FACILITY \nMANAGEMENT \nAPP</string>
     <string name="fragment_onboard_manageComplaint">Manage all your complaints in one place</string>
     <string name="fragment_onboard_getStarted">Get started</string>
@@ -22,8 +22,6 @@
     <string name="fragment_singleComplaint_acNotWorking">AC is Not Working</string>
     <string name="fragment_singleComplaint_back">Back</string>
     <string name="fragment_singleComplaint_back_contentDescription">Click to go back</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="feeds">Feeds</string>
     <string name="ac_is_not_working">AC is not working</string>
