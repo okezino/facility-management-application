@@ -63,6 +63,9 @@
     <string name="empty_search_list_msg">Sorry, we couldn\'t find any request matching your input 😨</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="stack_squad">Stack-Squad</string>
+    <string name="my_requests">My Requests</string>
+    <string name="submit_a_new_request">New Request</string>
+    <string name="edit">Edit</string>
 
     <!-- dropdown adapter field-->
     <string-array name="selection_field">
