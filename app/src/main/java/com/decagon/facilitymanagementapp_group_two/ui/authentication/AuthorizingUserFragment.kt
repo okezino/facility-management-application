@@ -1,13 +1,16 @@
 package com.decagon.facilitymanagementapp_group_two.ui.authentication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.decagon.facilitymanagementapp_group_two.databinding.FragmentAuthorizingUserBinding
 import com.decagon.facilitymanagementapp_group_two.ms_auth.MsWebAuthentication
+import com.decagon.facilitymanagementapp_group_two.ui.MainActivity
 import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +34,7 @@ class AuthorizingUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        MsWebAuthentication.signInUser(requireActivity(), this)
+        MsWebAuthentication.signInUser(requireActivity(), this, viewModel)
     }
 
     override fun onDestroyView() {

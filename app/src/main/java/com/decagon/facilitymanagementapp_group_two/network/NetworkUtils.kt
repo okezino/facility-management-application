@@ -1,6 +1,5 @@
 package com.decagon.facilitymanagementapp_group_two.network
 
-import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers

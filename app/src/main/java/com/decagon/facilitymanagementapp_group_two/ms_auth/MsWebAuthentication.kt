@@ -13,6 +13,7 @@ import com.decagon.facilitymanagementapp_group_two.network.ApiResponseHandler
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragment
 import com.decagon.facilitymanagementapp_group_two.ui.authentication.AuthorizingUserFragmentDirections
 import com.decagon.facilitymanagementapp_group_two.utils.*
+import com.decagon.facilitymanagementapp_group_two.viewmodel.AuthViewModel
 import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalException
 
@@ -22,26 +23,22 @@ object MsWebAuthentication {
     private lateinit var mSingleAccountApp: ISingleAccountPublicClientApplication
     private val scopes = arrayOf("user.read")
 
-    // Holds the result from Microsoft SSO authentication
-    lateinit var ssoResultBody: SsoResultBody
-    private lateinit var updateProfileBody: UpdateProfileBody
-
     /**
      * Call method used in signing-in users through microsoft identity platform
      */
-    private fun getAuthenticationCallback(fragment: AuthorizingUserFragment): AuthenticationCallback {
+    private fun getAuthenticationCallback(fragment: AuthorizingUserFragment, viewModel: AuthViewModel): AuthenticationCallback {
         return object : AuthenticationCallback {
             override fun onSuccess(authenticationResult: IAuthenticationResult) {
                 val accessToken = authenticationResult.accessToken
-                val serverResponse = fragment.viewModel.getToken(accessToken)
+                val serverResponse = viewModel.getToken(accessToken)
 
                 ApiResponseHandler(serverResponse, fragment, failedAction = true) {
                     sharedPreferences.edit().putString(TOKEN_NAME, it.value.data.token).apply()
                     sharedPreferences.edit().putString(USER_ID, it.value.data.id).apply()
-                    val response = fragment.viewModel.getUserData(it.value.data.id)
+                    val response = viewModel.getUserData(it.value.data.id)
 
                     ApiResponseHandler(response, fragment, failedAction = true) {
-                        fragment.viewModel.saveUserToDatabase(it.value.data)
+                        viewModel.saveUserToDatabase(it.value.data)
                         sharedPreferences.edit().putString(PROFILE_IMG_URI, it.value.data.profileImageUrl).apply()
                         val action = AuthorizingUserFragmentDirections
                             .actionAuthorizingUserFragmentToSuccessfulAuthFragment(
@@ -54,9 +51,9 @@ object MsWebAuthentication {
             }
 
             override fun onError(exception: MsalException?) {
-                val action =
-                    AuthorizingUserFragmentDirections.actionAuthorizingUserFragmentToFailedAuthenticationFragment()
-                fragment.findNavController().navigate(action)
+            //    val action =
+                 //   AuthorizingUserFragmentDirections.actionAuthorizingUserFragmentToFailedAuthenticationFragment()
+//                fragment.findNavController().navigate(R.id.failedAuthenticationFragment)
             }
 
             override fun onCancel() {
@@ -108,10 +105,10 @@ object MsWebAuthentication {
         )
     }
 
-    fun signInUser(activity: FragmentActivity, fragment: AuthorizingUserFragment) {
+    fun signInUser(activity: FragmentActivity, fragment: AuthorizingUserFragment, viewModel: AuthViewModel) {
         mSingleAccountApp.signIn(
             activity, null, scopes,
-            getAuthenticationCallback(fragment)
+            getAuthenticationCallback(fragment, viewModel)
         )
     }
 
